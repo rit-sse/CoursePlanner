@@ -3,12 +3,11 @@ FROM node:boron
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
-COPY package.json /usr/src/app
-RUN npm install
+COPY node_modules/ /usr/src/app/node_modules
+COPY dist/ /usr/src/app
 
-COPY . /usr/src/app
 
 EXPOSE 8080
 
-CMD [ "npm", "start" ]
+CMD [ "node", "server.js" ]
 
