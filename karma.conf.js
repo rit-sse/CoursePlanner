@@ -71,7 +71,7 @@ module.exports = function(config) {
             nameFormatter: undefined, // function (browser, result) to customize the name attribute in xml testcase element
             classNameFormatter: undefined, // function (browser, result) to customize the classname attribute in xml testcase element
             properties: {} // key value pair of properties to add to the <properties> section of the report
-        }
+        },
 
         // Concurrency level
         // how many browser should be started simultaneous
