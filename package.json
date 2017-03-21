@@ -57,5 +57,8 @@
   "bugs": {
     "url": "https://github.com/khanny17/CoursePlanner/issues"
   },
-  "author": ""
+  "author": "",
+  "devDependencies": {
+    "karma-junit-reporter": "^1.2.0"
+  }
 }
