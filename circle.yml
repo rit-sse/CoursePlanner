@@ -4,4 +4,4 @@ dependencies:
 
 test:
     post:
-        - karma start
+        - karma start --reporters junit,dots
