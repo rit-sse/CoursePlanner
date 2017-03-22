@@ -5,3 +5,6 @@ dependencies:
 test:
     post:
         - karma start --reporters junit,dots
+            environment:
+                JUNIT_REPORT_PATH: $CIRCLE_TEST_REPORTS/junit/
+                JUNIT_REPORT_NAME: test-results.xml
