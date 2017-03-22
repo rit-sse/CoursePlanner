@@ -3,7 +3,7 @@
         data-is-disabled="::readonly">
         <li class="year-li" data-ng-repeat="year in plan.years" data-as-sortable-item>
         <div class="year-header" data-as-sortable-item-handle>
-            <h3 ng-if="::!readonly" editable-text="year.title"></h3>
+            <h3 ng-if="::!readonly" contenteditable ng-model="year.title"></h3>
             <h3 ng-if="::readonly">{{::year.title}}</h3>
         </div>
         <button class="btn btn-default btn-xs" ng-click="addSemester(year)" ng-if="::!readonly">
