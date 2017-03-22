@@ -5,6 +5,7 @@
 
 var passport = require('passport');
 var Plan = require('../models/plan');
+var User = require('../models/user');
 
 var endpoints = {
     /** 
@@ -55,8 +56,8 @@ var endpoints = {
         Plan.findOne({
             _id: req.query.planId
         }, function(err, plan) {
-            if(err) {
-                return res.status(500).send(err);
+            if(err || !plan) {
+                return res.status(500).send(err || 'Plan not found');
             }
 
             if(plan.user.toString() !== req.user._id.toString()) {
@@ -64,7 +65,30 @@ var endpoints = {
             }
             
             res.json(plan);
+
+            //Update that the user was editing this plan most recently
+            User.update({
+                _id: req.user._id
+            }, {
+                lastPlan: plan._id 
+            }, {}, function(err, orig){
+                if(err) {
+                    console.log(err);
+                }
+            });
         });
+    },
+
+    /** 
+     * Send the plan data for the plan that the user was most recently editing
+     * @function 
+     * @memberof api/plan
+     * @param req.query.planId The _id of the plan
+     * @instance
+     */
+    loadMostRecentPlan: function(req, res) {
+        req.query.planId = req.user.lastPlan;
+        endpoints.load(req, res);
     },
 
     /** 
@@ -165,6 +189,7 @@ var init = function(router) {
     router.get('/getMine', passport.authenticate('jwt', { session: false }), endpoints.getMine);
     router.get('/getPublic', passport.authenticate('jwt', { session: false }), endpoints.getPublic);
     router.get('/load', passport.authenticate('jwt', { session: false }), endpoints.load);
+    router.get('/loadMostRecentPlan', passport.authenticate('jwt', { session: false }), endpoints.loadMostRecentPlan);
     router.post('/save', passport.authenticate('jwt', { session: false }), endpoints.save);
     router.post('/makePrivate', passport.authenticate('jwt', { session: false }), endpoints.makePrivate);
     router.post('/makePublic', passport.authenticate('jwt', { session: false }), endpoints.makePublic);

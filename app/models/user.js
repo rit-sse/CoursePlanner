@@ -21,6 +21,10 @@ var UserSchema = new Schema({
         ref: 'School' ,
         required: true
     },
+    lastPlan: {
+        type: Schema.Types.ObjectId,
+        ref: 'Plan'
+    }
 });
 
 
