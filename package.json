@@ -47,7 +47,6 @@
     "watchify": "^3.9.0"
   },
   "scripts": {
-    "start": "node dist/server.js -p $PORT",
-    "postinstall": "gulp && bower install"
+    "start": "node dist/server.js -p $PORT"
   }
 }
