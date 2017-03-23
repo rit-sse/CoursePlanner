@@ -3,14 +3,10 @@
   "private": true,
   "version": "0.0.1",
   "description": "An app for planning college courses",
-  "engines": {
-    "node": "0.10.x"
-  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/khanny17/CoursePlanner"
+    "url": "https://github.com/rit-sse/CoursePlanner-"
   },
-  "license": "BSD-2-Clause",
   "main": "server.js",
   "dependencies": {
     "angular-mocks": "^1.6.3",
@@ -53,12 +49,5 @@
   "scripts": {
     "start": "node dist/server.js -p $PORT",
     "postinstall": "gulp && bower install"
-  },
-  "bugs": {
-    "url": "https://github.com/khanny17/CoursePlanner/issues"
-  },
-  "author": "",
-  "devDependencies": {
-    "karma-junit-reporter": "^1.2.0"
   }
 }
