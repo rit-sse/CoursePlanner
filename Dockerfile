@@ -1,11 +1,11 @@
-FROM node:boron
+FROM node:4
 
-RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
-COPY node_modules/ /usr/src/app/node_modules
-COPY dist/ /usr/src/app
+COPY ./package.json /usr/src/app/package.json
+RUN npm install
 
+COPY ./ /usr/src/app
 
 EXPOSE 8080
 
