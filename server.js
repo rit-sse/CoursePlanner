@@ -1,6 +1,7 @@
 (function(){
     'use strict';
 
+
     //Load environment variables
     require('dotenv').load();
 

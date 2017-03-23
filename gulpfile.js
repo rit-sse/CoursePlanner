@@ -23,7 +23,7 @@ var environment = process.env.ENVIRONMENT || envs.dev;
 
 var paths = {
 
-
+    config: 'config/*',
     jshintPaths: ['public/js/**/*.js'],
     jsdocPaths: ['README.md', 'app/**/*.js']
 
@@ -113,11 +113,6 @@ gulp.task('angularFiles', function(){
     .pipe(gulp.dest(dest.angularFiles));
 });
 
-gulp.task('files', function(){
-    return gulp.src(sources.files)
-    .pipe(gulp.dest(dest.files));
-});
-
 //Move env file
 gulp.task('env', function(){
     return gulp.src(sources.env)
@@ -145,7 +140,7 @@ gulp.task('config-passport', function(){
 });
 
 gulp.task('move', ['libs', 'views', 'server', 'angularFiles', 'node', 'env',
-    'files', 'config', 'config-passport']);
+    'config', 'config-passport']);
 
 // ------------------
 
@@ -185,16 +180,22 @@ gulp.task('clean', function(){
 gulp.task('default', ['jshint', 'build']);
 
 gulp.task('watch', function() {
-    gulp.watch(sources.sass, ['sass']);
-
-    gulp.watch(sources.server, ['server']); 
-
     gulp.watch(sources.angularFiles, ['angularFiles']);
+    gulp.watch(paths.config, ['config', 'configPassport']);
+    gulp.watch(sources.env, ['env']);
+    gulp.watch(sources.index, ['index']);
+    gulp.watch(sources.libs, ['libs']);
+    gulp.watch(sources.node, ['node']);
+    gulp.watch(sources.sass, ['sass']);
+    gulp.watch(sources.server, ['server']); 
+    gulp.watch(sources.views, ['views']); 
 });
 
-gulp.task('dev', ['watch'], function(){
+gulp.task('nodemon', function(){
     nodemon({
         script: 'dist/server.js'
     });
-
 });
+
+gulp.task('devrun', ['watch', 'nodemon']);
+
