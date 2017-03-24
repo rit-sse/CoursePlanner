@@ -28,7 +28,36 @@ angular.module('CourseDirective', ['ui.bootstrap', 'labeled-inputs', 'PlanServic
                     backdrop: false,
                     size: 'sm',
                     controller: ['$scope', function(modalScope) {
+                        //Dynamically disable tabbing to the color picker
+                        //NOTE: THIS IS A BAD THING TO DO
+                        //setTimeout is a HACK
+                        //However, I don't have a better/easier way to do this
+                        //If this causes problems in the future, I apologize
+                        setTimeout(function(){
+                            var colorPickerTags = document.getElementsByName('dept-color');
+                            colorPickerTags.forEach(function(tag){
+                                tag.tabIndex = -1;
+                            }); 
+                        }, 100);
+
                         modalScope.c = JSON.parse(JSON.stringify(scope.course)); //clone object so it doesnt bind
+
+                        //This variable helps us be a bit sneaky
+                        //So here is the scoop:
+                        //When the user creates a new course, if that course has a
+                        //new dept (i.e. we dont have a color picked out for it yet)
+                        //we want to pre-load that department code with a new neat color,
+                        //right?
+                        //Also, if the user types in an existing dept code, we want to load the 
+                        //existing color, right?
+                        //Well, what if the user has already picked out their sweet new color,
+                        //but then we change it on them? That would be rude, wouldn't it?
+                        //So here we save the color upon opening the modal - we know the user
+                        //hasn't changed it yet. Then, as the user types a new department code,
+                        //we update this color if WE change the color. If the user winds up
+                        //changing the color, it will be different and we keep their decision -
+                        //i.e. we do not override their color choice.
+                        var colorThatTheUserDidntChange = scope.colorscheme[scope.course.dept];
 
                         modalScope.deptColor = scope.colorscheme[scope.course.dept];
 
@@ -38,8 +67,11 @@ angular.module('CourseDirective', ['ui.bootstrap', 'labeled-inputs', 'PlanServic
                             }
 
                             //If the user hasn't changed the color, set the color to the new dept's color
-                            if(modalScope.deptColor === scope.colorscheme[oldVal]) {
+                            if(modalScope.deptColor === colorThatTheUserDidntChange) {
                                 modalScope.deptColor = scope.colorscheme[newVal] || randomColor();                                
+                                //Since WE just changed the color, update our variable
+                                //so we will still know when the USER picks the color and not us
+                                colorThatTheUserDidntChange = modalScope.deptColor;
                             }
                         });
 
