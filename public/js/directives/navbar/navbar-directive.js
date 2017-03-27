@@ -45,12 +45,12 @@ angular.module('NavbarDirective',[
 
                             modalScope.login = function(){
                                 authService.login(modalScope.user)
-                                    .then(function(){
-                                        modalInstance.close();  
-                                        Notification.success('Login Success');
-                                    }, function(error){
-                                        Notification.error(error.msg || 'Login Failure');
-                                    });
+                                .then(function(){
+                                    modalInstance.close();  
+                                    Notification.success('Login Success');
+                                }, function(error){
+                                    Notification.error(error.msg || 'Login Failure');
+                                });
                             };
 
                             modalScope.cancel = function(){
@@ -70,9 +70,9 @@ angular.module('NavbarDirective',[
                             modalScope.user = {};
 
                             schoolService.getSchools()
-                                .then(function(schools) {
-                                    modalScope.schools = schools;
-                                });
+                            .then(function(schools) {
+                                modalScope.schools = schools;
+                            });
 
                             modalScope.register = function(){
                                 authService.register(modalScope.user)
