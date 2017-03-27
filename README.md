@@ -16,9 +16,5 @@ Please refer to the <a href="https://github.com/rit-sse/CoursePlanner-/wiki" tar
 4. Next, I think you need to install gulp and bower globally via npm, so run `npm install -g gulp` and `npm install -g bower`
 5. Run bower install to install the frontend dependencies
 6. Next, run gulp to "build" the code
-7. Run npm start to start your server
-
-
-
-
-
+7. If you are starting from an empty database, you also need to run `npm run setupSchools`, which will run a script to populate the database with all the schools in the U.S.
+8. Run npm start to start your server
