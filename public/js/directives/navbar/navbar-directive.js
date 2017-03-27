@@ -1,5 +1,6 @@
 angular.module('NavbarDirective',[
     'ui.bootstrap', 
+    'ui-notification',
     'PlanService', 
     'AuthService', 
     'SchoolService', 
@@ -16,7 +17,8 @@ angular.module('NavbarDirective',[
     'openPlanModal', 
     'editColorschemeModal',
     'helpModal',
-    function($http, $uibModal, planService, authService, openPlanModal, editColorschemeModal, helpModal) {
+    'Notification',
+    function($http, $uibModal, planService, authService, openPlanModal, editColorschemeModal, helpModal, Notification) {
         return {
             replace: true,
             restrict: 'E',
@@ -45,6 +47,7 @@ angular.module('NavbarDirective',[
                                 authService.login(modalScope.user)
                                     .then(function(){
                                         modalInstance.close();  
+                                        Notification.success('Login Success');
                                     });
                             };
 

@@ -1,6 +1,7 @@
 angular.module('CoursePlanner', [
     'labeled-inputs',
     'cfp.hotkeys',
+    'ui-notification',
     'CoursePlannerRoutes',
     'HomeController',
     'AuthService',
