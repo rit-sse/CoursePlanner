@@ -13,12 +13,8 @@ Please refer to the <a href="https://github.com/rit-sse/CoursePlanner-/wiki" tar
     * The app is currently on version 4.x of node, but you are free to install other versions if you want to. Just be aware that the version on the live server right now is on 4, and compatibility issues are possible. 
 2. Open a terminal, go to the project directory
 3. Execute npm install
-4. Next, I think you need to install gulp and bower globally via npm, so run npm install -g gulp bower
+4. Next, I think you need to install gulp and bower globally via npm, so run `npm install -g gulp` and `npm install -g bower`
 5. Run bower install to install the frontend dependencies
 6. Next, run gulp to "build" the code
-7. Run npm start to start your server
-
-
-
-
-
+7. If you are starting from an empty database, you also need to run `npm run setupSchools`, which will run a script to populate the database with all the schools in the U.S.
+8. Run npm start to start your server

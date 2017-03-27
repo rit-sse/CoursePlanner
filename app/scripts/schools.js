@@ -5,6 +5,7 @@ require('dotenv').load();
 
 var config         = require(__dirname + '/../../config/config');
 var mongoose       = require('mongoose');
+var q = require('q');
 
 //DB
 mongoose.connect(config.db.url, function(err) {
@@ -27,17 +28,23 @@ fs.readFile(__dirname + '/schools.json', 'utf8', function (err, data) {
         }
         console.log('Deleted Schools');
     }).then(function(){
+        var promises = [];
         schools.forEach(function(school){
             //Create or update all the schools
-            School.create({
+            promises.push(School.create({
                 name: school.name,
                 entityName: school.entityName,
                 alias: school.alias
             }, function(err, school) {
                 if(err) {
                     console.log(err);
+                    process.exit(1);
                 }
-            });
+
+            }));
+        });
+        q.all(promises).then(function() { 
+            process.exit();
         });
     });
 });

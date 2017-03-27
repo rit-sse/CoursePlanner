@@ -47,6 +47,8 @@
     "watchify": "^3.9.0"
   },
   "scripts": {
-    "start": "node dist/server.js -p $PORT"
+    "start": "node dist/server.js -p $PORT",
+    "setupSchools": "node dist/app/scripts/schools.js",
+    "prodGulp": "ENVIRONMENT=prod gulp"
   }
 }
