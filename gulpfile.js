@@ -32,13 +32,14 @@ var paths = {
 var sources = {
 
     appjs: 'public/js/app.js',
-    angularFiles:  ['public/js/**/*'],
+    angularFiles:  ['public/js/**/*', '!public/js/config/*'],
+    frontEndConfigs: 'public/js/config/',
     configDev: 'config/config.dev.js',
     configProd: 'config/config.prod.js',
     env: '.env',
     files: 'public/files/*',
     index: 'public/index.html',
-    injectedJs:  ['public/js/**/*.js', '!public/js/app.js'],
+    injectedJs:  ['public/js/**/*.js', '!public/js/app.js', '!public/js/config/*'],
     libs: 'public/libs/**/*',
     node: ['app/**/*'],
     passportConfig: './config/passport.js',
@@ -52,6 +53,8 @@ var dest = {
 
     config: 'dist/config',
     configName: 'config.js',
+    frontEndConfig: 'dist/public/js/config',
+    frontEndConfigName: 'config.js',
     css: 'dist/public/css',
     dist: 'dist/',
     env: 'dist',
@@ -134,13 +137,15 @@ gulp.task('config', function(){
         .pipe(gulp.dest(dest.config));
 });
 
-gulp.task('config-passport', function(){
-    return gulp.src(sources.passportConfig)
-    .pipe(gulp.dest(dest.config));
+gulp.task('frontEndConfig', function(){
+    var src = sources.frontEndConfigs + 'config.' + environment + '.js';
+    return gulp.src(src)
+    .pipe(rename(dest.frontEndConfigName))
+    .pipe(gulp.dest(dest.frontEndConfig));
 });
 
 gulp.task('move', ['libs', 'views', 'server', 'angularFiles', 'node', 'env',
-    'config', 'config-passport']);
+    'config', 'frontEndConfig']);
 
 // ------------------
 
@@ -151,9 +156,11 @@ gulp.task('move', ['libs', 'views', 'server', 'angularFiles', 'node', 'env',
 //Set up index.html, injecting required js files
 gulp.task('index', function(){
     return gulp.src(sources.index)
-    .pipe(inject(series(
-        gulp.src(sources.injectedJs, {read:false}), 
-        gulp.src(sources.appjs, {read:false}) ), 
+    .pipe(inject(
+        series(
+            gulp.src(sources.injectedJs, {read:false}), 
+            gulp.src(sources.appjs, {read:false}) 
+        ),
         {relative:true}))
         .pipe(gulp.dest(dest.public));
 });
@@ -181,7 +188,8 @@ gulp.task('default', ['jshint', 'build']);
 
 gulp.task('watch', function() {
     gulp.watch(sources.angularFiles, ['angularFiles']);
-    gulp.watch(paths.config, ['config', 'configPassport']);
+    gulp.watch(paths.config, ['config']);
+    gulp.watch(sources.frontEndConfigs, ['frontEndConfig']);
     gulp.watch(sources.env, ['env']);
     gulp.watch(sources.index, ['index']);
     gulp.watch(sources.libs, ['libs']);

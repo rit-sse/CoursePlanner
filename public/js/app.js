@@ -13,10 +13,9 @@ angular.module('CoursePlanner', [
 ])
 
 //Satellizer config (for authentication)
-.config(['$authProvider', function($authProvider){
+.config(['$authProvider', 'GOOGLE_CONFIG', function($authProvider, GOOGLE_CONFIG){
     $authProvider.google({
-        //TODO config this
-        clientId: '856429961736-8tb972pu4f41koc3vku14anlghjgm16j.apps.googleusercontent.com',
+        clientId: GOOGLE_CONFIG.clientId,
         url: '/api/user/google'
     });
 }])
