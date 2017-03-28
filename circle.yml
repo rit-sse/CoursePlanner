@@ -1,3 +1,9 @@
+machine:
+    node:
+        version:
+            6.10.1
+
+
 dependencies:
     pre:
         - npm install
