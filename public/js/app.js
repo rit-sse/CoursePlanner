@@ -1,6 +1,7 @@
 angular.module('CoursePlanner', [
     'labeled-inputs',
     'cfp.hotkeys',
+    'satellizer',
     'CoursePlannerRoutes',
     'HomeController',
     'AuthService',
@@ -10,6 +11,15 @@ angular.module('CoursePlanner', [
     'YearsDirective',
     'CourseDirective'
 ])
+
+//Satellizer config (for authentication)
+.config(['$authProvider', function($authProvider){
+    $authProvider.google({
+        //TODO config this
+        clientId: '856429961736-8tb972pu4f41koc3vku14anlghjgm16j.apps.googleusercontent.com',
+        url: '/api/user/google'
+    });
+}])
 
 //filters by name, dept, dept-num, num, and description
     .filter('courseSearch',function() {

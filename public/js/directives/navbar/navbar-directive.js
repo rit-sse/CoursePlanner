@@ -38,8 +38,13 @@ angular.module('NavbarDirective',[
                         animation: false,
                         backdrop: false,
                         size: 'sm',
-                        controller: ['$scope', function(modalScope) {
+                        controller: ['$scope', '$auth', function(modalScope, $auth) {
                             modalScope.user = {};
+
+                            modalScope.authenticate = function(provider) {
+                                console.log($auth.authenticate(provider));
+                                console.log('poopies');
+                            };
 
                             modalScope.login = function(){
                                 authService.login(modalScope.user)

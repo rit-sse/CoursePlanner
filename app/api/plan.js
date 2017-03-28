@@ -3,9 +3,9 @@
  * @namespace api/plan
  */
 
-var passport = require('passport');
 var Plan = require('../models/plan');
 var User = require('../models/user');
+var ensureAuthenticated = require('./user').ensureAuthenticated;
 
 var endpoints = {
     /** 
@@ -186,13 +186,13 @@ var helpers = {
 
 var init = function(router) {
     //Mounted on '/api/plan'
-    router.get('/getMine', passport.authenticate('jwt', { session: false }), endpoints.getMine);
-    router.get('/getPublic', passport.authenticate('jwt', { session: false }), endpoints.getPublic);
-    router.get('/load', passport.authenticate('jwt', { session: false }), endpoints.load);
-    router.get('/loadMostRecentPlan', passport.authenticate('jwt', { session: false }), endpoints.loadMostRecentPlan);
-    router.post('/save', passport.authenticate('jwt', { session: false }), endpoints.save);
-    router.post('/makePrivate', passport.authenticate('jwt', { session: false }), endpoints.makePrivate);
-    router.post('/makePublic', passport.authenticate('jwt', { session: false }), endpoints.makePublic);
+    router.get('/getMine', ensureAuthenticated, endpoints.getMine);
+    router.get('/getPublic', ensureAuthenticated, endpoints.getPublic);
+    router.get('/load', ensureAuthenticated, endpoints.load);
+    router.get('/loadMostRecentPlan', ensureAuthenticated, endpoints.loadMostRecentPlan);
+    router.post('/save', ensureAuthenticated, endpoints.save);
+    router.post('/makePrivate', ensureAuthenticated, endpoints.makePrivate);
+    router.post('/makePublic', ensureAuthenticated, endpoints.makePublic);
 };
 
 module.exports = {
