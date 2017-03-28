@@ -42,7 +42,6 @@ var sources = {
     injectedJs:  ['public/js/**/*.js', '!public/js/app.js', '!public/js/config/*'],
     libs: 'public/libs/**/*',
     node: ['app/**/*'],
-    passportConfig: './config/passport.js',
     sass: 'public/sass/**/*.scss',
     server: 'server.js',
     views: 'public/views/**/*'
