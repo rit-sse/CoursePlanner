@@ -1,5 +1,6 @@
 angular.module('NavbarDirective',[
     'ui.bootstrap', 
+    'ui-notification',
     'PlanService', 
     'AuthService', 
     'SchoolService', 
@@ -16,7 +17,8 @@ angular.module('NavbarDirective',[
     'openPlanModal', 
     'editColorschemeModal',
     'helpModal',
-    function($http, $uibModal, planService, authService, openPlanModal, editColorschemeModal, helpModal) {
+    'Notification',
+    function($http, $uibModal, planService, authService, openPlanModal, editColorschemeModal, helpModal, Notification) {
         return {
             replace: true,
             restrict: 'E',
@@ -43,9 +45,12 @@ angular.module('NavbarDirective',[
 
                             modalScope.login = function(){
                                 authService.login(modalScope.user)
-                                    .then(function(){
-                                        modalInstance.close();  
-                                    });
+                                .then(function(){
+                                    modalInstance.close();  
+                                    Notification.success('Login Success');
+                                }, function(error){
+                                    Notification.error(error.msg || 'Login Failure');
+                                });
                             };
 
                             modalScope.cancel = function(){
@@ -65,17 +70,21 @@ angular.module('NavbarDirective',[
                             modalScope.user = {};
 
                             schoolService.getSchools()
-                                .then(function(schools) {
-                                    modalScope.schools = schools;
-                                });
+                            .then(function(schools) {
+                                modalScope.schools = schools;
+                            });
 
                             modalScope.register = function(){
                                 authService.register(modalScope.user)
                                     .then(function(){
+                                        Notification.success('Register Success');
                                         return authService.login(modalScope.user);
                                     })
                                     .then(function(){
+                                        Notification.success('Login Success');
                                         modalInstance.close();  
+                                    }, function(error){
+                                        Notification.error(error.msg || 'Error Registering');
                                     });
                             };
 
@@ -87,7 +96,12 @@ angular.module('NavbarDirective',[
                 };
 
                 scope.togglePublic = function() {
-                    planService.setPublic(!planService.plan.public);
+                    planService.setPublic(!planService.plan.public)
+                    .then(function(){
+                        Notification.primary('Plan marked as public');
+                    }, function(error){
+                        Notification.error(error || 'Error changing plan visibility');
+                    });
                 };
 
                 scope.isPublic = function() {
@@ -96,7 +110,14 @@ angular.module('NavbarDirective',[
 
                 scope.newPlan = planService.makeNew;
 
-                scope.savePlan = planService.save;
+                scope.savePlan = function() {
+                    planService.save()
+                    .then(function(){
+                        Notification.primary('Plan Saved');
+                    }, function(error){
+                        Notification.error(error || 'Error Saving Plan');
+                    });
+                };
 
                 //Let user open one of their own plans
                 scope.openPlan = function() {
@@ -104,7 +125,7 @@ angular.module('NavbarDirective',[
                     .then(function(plans) {
                         openPlanModal.open('Open Plan', plans, function(plan) {
                             if(!plan) {
-                                return console.log('No plan given to load');
+                                Notification.error('You need to select a plan to load first');
                             }
                             return planService.load(plan);
                         });
