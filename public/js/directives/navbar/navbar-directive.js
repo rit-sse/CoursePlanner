@@ -10,13 +10,12 @@ angular.module('NavbarDirective',[
 
 .directive('navbar', [
     '$http', 
-    '$uibModal', 
     'planService', 
     'openPlanModal', 
     'editColorschemeModal',
     'helpModal',
     '$auth',
-    function($http, $uibModal, planService, openPlanModal, editColorschemeModal, helpModal, $auth) {
+    function($http, planService, openPlanModal, editColorschemeModal, helpModal, $auth) {
         return {
             replace: true,
             restrict: 'E',
@@ -34,44 +33,14 @@ angular.module('NavbarDirective',[
                     $auth.logout();
                 };
 
-                scope.login = function() {
-                    var modalInstance = $uibModal.open({
-                        templateUrl: 'js/directives/navbar/navbar-login-modal.html',
-                        animation: false,
-                        backdrop: false,
-                        size: 'sm',
-                        controller: ['$scope', '$auth', function(modalScope, $auth) {
-                            modalScope.authenticate = $auth.authenticate;
-
-                            modalScope.cancel = function(){
-                                modalInstance.close();
-                            };
-                        }]
-                    });
-                };
-
-                scope.register = function() {
-                    var modalInstance = $uibModal.open({
-                        templateUrl: 'js/directives/navbar/navbar-register-modal.html',
-                        animation: false,
-                        backdrop: false,
-                        size: 'sm',
-                        controller: ['$scope', 'schoolService', function(modalScope, schoolService) {
-                            modalScope.user = {};
-
-                            schoolService.getSchools()
-                                .then(function(schools) {
-                                    modalScope.schools = schools;
-                                });
-
-                            modalScope.register = function(){
-                                //TODO
-                            };
-
-                            modalScope.cancel = function(){
-                                modalInstance.close();
-                            };
-                        }]
+                scope.login = function(provider) {
+                    $auth.authenticate(provider)
+                    .then(function(response){
+                        //Success! Logged in with provider
+                        console.log(response);
+                    }, function(response){
+                        //Failure. Something went wrong
+                        console.log(response);
                     });
                 };
 
