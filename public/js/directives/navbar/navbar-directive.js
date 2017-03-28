@@ -12,24 +12,26 @@ angular.module('NavbarDirective',[
     '$http', 
     '$uibModal', 
     'planService', 
-    'authService', 
     'openPlanModal', 
     'editColorschemeModal',
     'helpModal',
-    function($http, $uibModal, planService, authService, openPlanModal, editColorschemeModal, helpModal) {
+    '$auth',
+    function($http, $uibModal, planService, openPlanModal, editColorschemeModal, helpModal, $auth) {
         return {
             replace: true,
             restrict: 'E',
             templateUrl: 'js/directives/navbar/navbar-directive.html',
             link: function(scope) {
-                scope.isAuthenticated = authService.isAuthenticated;
+                scope.isAuthenticated = $auth.isAuthenticated;
 
-                scope.getAuthedUser = authService.authenticatedUser;
+                scope.getAuthedUser = function(){
+                    return {};
+                };
 
                 scope.logout = function() {
                     //Clear current plan, log em out, and boot em!
                     planService.makeNew();
-                    authService.logout();
+                    $auth.logout();
                 };
 
                 scope.login = function() {
@@ -39,19 +41,7 @@ angular.module('NavbarDirective',[
                         backdrop: false,
                         size: 'sm',
                         controller: ['$scope', '$auth', function(modalScope, $auth) {
-                            modalScope.user = {};
-
-                            modalScope.authenticate = function(provider) {
-                                console.log($auth.authenticate(provider));
-                                console.log('poopies');
-                            };
-
-                            modalScope.login = function(){
-                                authService.login(modalScope.user)
-                                    .then(function(){
-                                        modalInstance.close();  
-                                    });
-                            };
+                            modalScope.authenticate = $auth.authenticate;
 
                             modalScope.cancel = function(){
                                 modalInstance.close();
@@ -75,13 +65,7 @@ angular.module('NavbarDirective',[
                                 });
 
                             modalScope.register = function(){
-                                authService.register(modalScope.user)
-                                    .then(function(){
-                                        return authService.login(modalScope.user);
-                                    })
-                                    .then(function(){
-                                        modalInstance.close();  
-                                    });
+                                //TODO
                             };
 
                             modalScope.cancel = function(){

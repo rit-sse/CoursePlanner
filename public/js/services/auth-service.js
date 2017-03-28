@@ -42,27 +42,17 @@
                 window.localStorage.removeItem(AUTH_USER);
             }
 
-            var register = function(user) {
+            var authenticate = function(provider) {
                 return $q(function(resolve, reject) {
-                    $http.post('api/user/register', user).then(function(result) {
-                        if (result.data.success) {
-                            resolve(result.data.msg);
-                        } else {
-                            reject({ msg: result.data.msg, fields: result.data.fields });
-                        }
-                    });
-                });
-            };
-
-            var login = function(user) {
-                return $q(function(resolve, reject) {
-                    $http.post('api/user/authenticate', user).then(function(result) {
-                        if (result.data.success) {
-                            storeUserCredentials(result.data.token, result.data.user);
-                            resolve(result.data.msg);
-                        } else {
-                            reject({ msg: result.data.msg, fields: result.data.fields });
-                        }
+                    $auth.authenticate(provider)
+                    .then(function(response){
+                        //Success! signed in with provider
+                        storeUserCredentials(response.data.token, response.data.user);
+                        resolve(response.data.msg);
+                    })
+                    .catch(function(response){
+                        //Something went wrong
+                        reject({ msg: result.data.msg, fields: result.data.fields });
                     });
                 });
             };
@@ -74,8 +64,7 @@
             loadUserCredentials();
 
             return {
-                login: login,
-                register: register,
+                authenticate: authenticate,
                 logout: logout,
                 authenticatedUser: function () {return authUser;},
                 isAuthenticated: function() {return isAuthenticated;},

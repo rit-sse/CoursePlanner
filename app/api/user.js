@@ -78,7 +78,6 @@
                             }
                             var token = req.header('Authorization').split(' ')[1];
                             var payload = jwt.decode(token, config.jwt.secret);
-                            console.log(payload);
                             User.findById(payload.sub, function(err, user) {
                                 if (!user) {
                                     return res.status(400).send({ message: 'User not found' });
