@@ -10,5 +10,5 @@ test:
             background: true
         - sleep 5
     override:
-        - npm run karma:
+        - npm run karma
         - npm run protractor
