@@ -14,7 +14,7 @@ dependencies:
         - npm install -g bower
         - bower install
         - npm install -g gulp
-        - ENVIRONMENT=prod gulp
+        - gulp
 
 test:
     pre: 
