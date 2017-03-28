@@ -14,35 +14,24 @@ angular.module('NavbarDirective',[
     'openPlanModal', 
     'editColorschemeModal',
     'helpModal',
-    '$auth',
-    function($http, planService, openPlanModal, editColorschemeModal, helpModal, $auth) {
+    'authService',
+    function($http, planService, openPlanModal, editColorschemeModal, helpModal, authService) {
         return {
             replace: true,
             restrict: 'E',
             templateUrl: 'js/directives/navbar/navbar-directive.html',
             link: function(scope) {
-                scope.isAuthenticated = $auth.isAuthenticated;
+                scope.isAuthenticated = authService.isAuthenticated;
 
-                scope.getAuthedUser = function(){
-                    return {};
-                };
+                scope.getAuthedUser = authService.getUser;
 
                 scope.logout = function() {
                     //Clear current plan, log em out, and boot em!
                     planService.makeNew();
-                    $auth.logout();
+                    authService.logout();
                 };
 
-                scope.login = function(provider) {
-                    $auth.authenticate(provider)
-                    .then(function(response){
-                        //Success! Logged in with provider
-                        console.log(response);
-                    }, function(response){
-                        //Failure. Something went wrong
-                        console.log(response);
-                    });
-                };
+                scope.login = authService.authenticate;
 
                 scope.togglePublic = function() {
                     planService.setPublic(!planService.plan.public);

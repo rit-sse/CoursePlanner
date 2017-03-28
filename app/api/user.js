@@ -11,6 +11,7 @@
 
 
     var init = function(router) {
+        router.get('/getCurrentUser', ensureAuthenticated, endpoints.getCurrentUser);
         router.post('/google', endpoints.google);
     };
 
@@ -47,6 +48,20 @@
     }
 
     var endpoints = {
+
+        getCurrentUser: function(req, res) {
+            if(req.user) {
+                User.findById(req.user)
+                .then(function(user){
+                    res.send(user);
+                })
+                .catch(function(error){
+                    res.status(500).send(err);
+                });
+            } else {
+                res.status(500).send('Well there is no user, but thats really weird that you hit this case');
+            }
+        },
 
         //Google login
         google: function(req, res) {
@@ -87,7 +102,7 @@
                                 user.displayName = user.displayName || profile.name;
                                 user.save(function() {
                                     var token = createJWT(user);
-                                    res.send({ token: token });
+                                    res.send({ token: token, user: user });
                                 });
                             });
                         });
@@ -95,7 +110,7 @@
                         // Step 3b. Create a new user account or return an existing one.
                         User.findOne({ google: profile.sub }, function(err, existingUser) {
                             if (existingUser) {
-                                return res.send({ token: createJWT(existingUser) });
+                                return res.send({ token: createJWT(existingUser), user: existingUser });
                             }
                             var user = new User();
                             user.google = profile.sub;
@@ -103,7 +118,7 @@
                             user.displayName = profile.name;
                             user.save(function(err) {
                                 var token = createJWT(user);
-                                res.send({ token: token });
+                                res.send({ token: token, user: user });
                             });
                         });
                     }
