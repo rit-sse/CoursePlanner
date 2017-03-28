@@ -3,10 +3,11 @@ dependencies:
         - npm install
         - bower install
         - npm install -g gulp
-        - gulp
+        - ENVIRONMENT=prod gulp
 
 test:
     pre: 
+        - npm install -g protractor
         - npm start:
             background: true
         - sleep 5
