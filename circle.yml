@@ -17,6 +17,8 @@ test:
         - npm install -g protractor
         - npm start:
             background: true
+        - webdriver-manager start:
+            background: true
         - sleep 5
     override:
         - npm run karma
