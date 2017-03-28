@@ -6,6 +6,7 @@ machine:
 
 dependencies:
     pre:
+        - sudo apt update; sudo apt install default-jre
         - npm install
         - npm install -g bower
         - bower install
@@ -14,7 +15,6 @@ dependencies:
 
 test:
     pre: 
-        - apt install default-jre
         - npm install -g protractor
         - npm start:
             background: true
