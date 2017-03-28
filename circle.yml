@@ -1,10 +1,14 @@
 dependencies:
     pre:
-        - npm install -g karma-cli
+        - npm install
+        - bower install
+        - gulp
 
 test:
-    post:
-        - karma start --reporters junit,dots:
-            environment:
-                JUNIT_REPORT_PATH: $CIRCLE_TEST_REPORTS/junit/
-                JUNIT_REPORT_NAME: test-results.xml
+    pre: 
+        - npm start:
+            background: true
+        - sleep 5
+    override:
+        - npm run karma:
+        - npm run protractor

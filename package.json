@@ -49,6 +49,12 @@
   "scripts": {
     "start": "node dist/server.js -p $PORT",
     "setupSchools": "node dist/app/scripts/schools.js",
-    "prodGulp": "ENVIRONMENT=prod gulp"
+    "prodGulp": "ENVIRONMENT=prod gulp",
+    
+    "karma": "karma start --reporters junit,dots",
+
+    "update-webdriver": "webdriver-manager update",
+    "preprotractor": "npm run update-webdriver",
+    "protractor": "protractor protractor.conf.js"
   }
 }
