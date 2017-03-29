@@ -6,7 +6,8 @@ $text-active: #9E9E9E;
 
 .navbar-default {
   background-color: $background;
-  border-color: $border;
+  border: none;
+  border-radius: 0;
 }
 .navbar-default .navbar-brand {
   color: $text;

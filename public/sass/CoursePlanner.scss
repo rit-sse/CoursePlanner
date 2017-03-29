@@ -2,6 +2,8 @@ $background: #E0E0E0;
 $light-gray: #BDBDBD;
 $gray: #9E9E9E;
 $red: #F44336;
+$card-background: #FAFAFA;
+$shadow: #888888;
 
 @import url("course.css");
 @import url("coursecolors.css");
@@ -63,16 +65,17 @@ body {
 .list {
   list-style: none outside none;
   margin: 10px 0 30px 0;
-  border: 2px solid $gray;
   padding: 5px;
 }
 
 .courseCol {
-  background-color: $light-gray;
-  width:80px;
-  min-height:390px;
-  max-height:800px;
-  text-align:center;
+  background: $card-background;
+  box-shadow: 0 2px 3px $shadow;
+  border-radius: 3px;
+  width: 80px;
+  min-height: 390px;
+  max-height: 800px;
+  text-align: center;
 }
 
 .courses {
@@ -95,8 +98,11 @@ body {
 }
 
 .year-header {
-  background-color: $light-gray;
-  border: 2px solid $gray;
+  padding: 10px;
+  margin: 10px;
+  background: $card-background;
+  box-shadow: 0 2px 3px $shadow;
+  border-radius: 3px;
   cursor: url(cursors/openhand.cur), move;
 
   h3 {
