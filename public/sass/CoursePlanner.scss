@@ -1,8 +1,8 @@
-$background: #E0E0E0;
+$background: #E8E8E8;
 $light-gray: #BDBDBD;
 $gray: #9E9E9E;
 $red: #F44336;
-$card-background: #FAFAFA;
+$card-background: #F5F5F5;
 $shadow: #888888;
 
 @import url("course.css");
@@ -61,12 +61,16 @@ body {
   text-transform: uppercase;
 }
 
-.add-semester {
+.add-semester-btn {
   margin-left: 10px;
 }
 
-.remove-year {
+.delete-year-btn {
   margin-right: 10px;
+}
+
+.add-year-btn {
+  margin-top: 12px;
 }
 
 .list {
@@ -79,7 +83,7 @@ body {
   background: $card-background;
   box-shadow: 0 2px 3px $shadow;
   border-radius: 3px;
-  width: 85px;
+  width: 88px;
   min-height: 390px;
   max-height: 800px;
   text-align: center;
@@ -97,7 +101,8 @@ body {
 
 .add-class-btn {
   margin-top: 5px;
-  width: 65px;
+  //courseCol width - 15
+  width: 73px;
 }
 
 .year-row {
