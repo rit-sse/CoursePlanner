@@ -40,6 +40,17 @@ describe('Plan Edit Tests', function() {
 
         courses = semesters.first().all(by.repeater('c in semester.classes'));
         expect(courses.count()).toEqual(1); //There should be a course now
+    });
 
+    it('should be able to delete a year that it has added', function() {
+        //There should be one year after clicking this button
+        element(by.css('.add-year-btn')).click();
+        var years = element.all(by.repeater('year in plan.years'));
+        expect(years.count()).toEqual(1); 
+
+        //There should be no years after we delete it
+        element(by.css('.delete-year-btn')).click();
+        years = element.all(by.repeater('year in plan.years'));
+        expect(years.count()).toEqual(0); 
     });
 });
