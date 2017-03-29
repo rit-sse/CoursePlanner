@@ -15,12 +15,17 @@
   background: $bg-color;
 }
 
+.as-sortable-item {
+  border: none;
+}
+
 /* button tweaks */
 .btn {
   padding: 10px;
   border-radius: 4px;
   border: none;
   box-shadow: 1px 2px 3px $shadow;
+  color: $text;
 }
 
 .btn-primary {
@@ -31,12 +36,20 @@
   background-color: $dark-blue;
 }
 
+.btn-primary:active {
+  background-color: $darker-blue;
+}
+
 .btn-danger {
   background-color: $red;
 }
 
 .btn-danger:hover {
   background-color: $dark-red;
+}
+
+.btn-danger:active {
+  background-color: $darker-red;
 }
 
 .btn-success {
@@ -47,6 +60,6 @@
   background-color: $dark-green;
 }
 
-.as-sortable-item {
-  border: none;
+.btn-success:active {
+  background-color: $darker-green;
 }

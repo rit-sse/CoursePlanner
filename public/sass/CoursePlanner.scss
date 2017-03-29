@@ -4,8 +4,6 @@ $gray: #9E9E9E;
 $red: #F44336;
 $card-background: #FAFAFA;
 $shadow: #888888;
-$green: #4CAF50;
-$dark-green: #43A047;
 
 @import url("course.css");
 @import url("coursecolors.css");
@@ -64,6 +62,14 @@ body {
   text-transform: uppercase;
 }
 
+.add-semester {
+  margin-left: 10px;
+}
+
+.remove-year {
+  margin-right: 10px;
+}
+
 .list {
   list-style: none outside none;
   margin: 10px 0 30px 0;
@@ -74,7 +80,7 @@ body {
   background: $card-background;
   box-shadow: 0 2px 3px $shadow;
   border-radius: 3px;
-  width: 80px;
+  width: 85px;
   min-height: 390px;
   max-height: 800px;
   text-align: center;
@@ -92,17 +98,7 @@ body {
 
 .add-class-btn {
   margin-top: 5px;
-  width: 65px; //TODO config
-}
-
-.add-class-btn, .add-year-btn {
-  background-color: $green;
-  color: white;
-}
-
-.add-class-btn:hover, .add-year-btn:hover {
-  background-color: $dark-green;
-  color: white;
+  width: 65px;
 }
 
 .year-row {
@@ -111,7 +107,7 @@ body {
 
 .year-header {
   padding: 10px;
-  margin: 10px 0 10px 10px;
+  margin: 10px;
   background: $card-background;
   box-shadow: 0 2px 3px $shadow;
   border-radius: 3px;
