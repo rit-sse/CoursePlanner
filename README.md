@@ -10,7 +10,7 @@ Please refer to the <a href="https://github.com/rit-sse/CoursePlanner-/wiki" tar
 
 # Getting Started (like, from the very very beginning):
 1. Install NodeJS and MongoDB on your computer. This probably means you run sudo apt install nodejs mongodb on ubuntu
-    * The app is currently on version 4.x of node, but you are free to install other versions if you want to. Just be aware that the version on the live server right now is on 4, and compatibility issues are possible. 
+    * The app is currently on version 6.10.1 of node
 2. Open a terminal, go to the project directory
 3. Execute npm install
 4. Next, I think you need to install gulp and bower globally via npm, so run `npm install -g gulp` and `npm install -g bower`
