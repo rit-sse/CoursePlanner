@@ -4,6 +4,8 @@ $gray: #9E9E9E;
 $red: #F44336;
 $card-background: #FAFAFA;
 $shadow: #888888;
+$green: #4CAF50;
+$dark-green: #43A047;
 
 @import url("course.css");
 @import url("coursecolors.css");
@@ -93,13 +95,23 @@ body {
   width: 65px; //TODO config
 }
 
+.add-class-btn, .add-year-btn {
+  background-color: $green;
+  color: white;
+}
+
+.add-class-btn:hover, .add-year-btn:hover {
+  background-color: $dark-green;
+  color: white;
+}
+
 .year-row {
   margin-top:20px;
 }
 
 .year-header {
   padding: 10px;
-  margin: 10px;
+  margin: 10px 0 10px 10px;
   background: $card-background;
   box-shadow: 0 2px 3px $shadow;
   border-radius: 3px;
