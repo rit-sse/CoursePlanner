@@ -92,7 +92,9 @@ body {
 .year-header {
     background-color:#EEE8D5;
     border: 2px solid gray;
-    cursor: url(cursors/openhand.cur), move;
+    cursor: -webkit-grab;
+    cursor: -moz-grab;
+    cursor: grab;
 
     h3 {
         margin: 0;
