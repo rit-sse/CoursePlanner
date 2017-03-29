@@ -25,11 +25,9 @@ $text-active: #9E9E9E;
   color: $text-hover;
   background: $border;
 }
+
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
   color: $text-active;
-}
-.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
-  color: $text-hover;
 }
 .navbar-default .navbar-toggle {
   /* hide border */
