@@ -1,6 +1,7 @@
 angular.module('CoursePlanner', [
     'labeled-inputs',
     'cfp.hotkeys',
+    'satellizer',
     'ui-notification',
     'CoursePlannerRoutes',
     'HomeController',
@@ -11,6 +12,14 @@ angular.module('CoursePlanner', [
     'YearsDirective',
     'CourseDirective'
 ])
+
+//Satellizer config (for authentication)
+.config(['$authProvider', 'GOOGLE_CONFIG', function($authProvider, GOOGLE_CONFIG){
+    $authProvider.google({
+        clientId: GOOGLE_CONFIG.clientId,
+        url: '/api/user/google'
+    });
+}])
 
 .config(['NotificationProvider', function(NotificationProvider){
     NotificationProvider.setOptions({

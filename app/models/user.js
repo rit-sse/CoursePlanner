@@ -7,19 +7,12 @@ var q = require('q');
 //Set up a mongoose model
 
 var UserSchema = new Schema({
-    username: {
-        type: String,
-        unique: true,
-        required: true 
-    },
-    password: {
-        type: String,
-        required: true
-    }, 
+    google: String,
+    picture: String,
+    displayName: String,
     school: { 
         type: Schema.Types.ObjectId, 
         ref: 'School' ,
-        required: true
     },
     lastPlan: {
         type: Schema.Types.ObjectId,

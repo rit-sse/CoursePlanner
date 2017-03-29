@@ -4,87 +4,133 @@
     'use strict';
 
     var jwt       = require('jwt-simple');
-    var UserModel = require('../models/user');
-
+    var User = require('../models/user');
+    var request = require('request');
     var config = require('../../config/config.js');
+    var moment = require('moment');
 
 
     var init = function(router) {
-        router.post('/register', endpoints.register);
-        router.post('/authenticate', endpoints.authenticate);
+        router.get('/getCurrentUser', ensureAuthenticated, endpoints.getCurrentUser);
+        router.post('/google', endpoints.google);
     };
+
+    // Generate JSON web token
+    function createJWT(user) {
+        var payload = {
+            sub: user._id,
+            iat: moment().unix(),
+            exp: moment().add(14, 'days').unix()
+        };
+        return jwt.encode(payload, config.jwt.secret);
+    }
+
+    //Middleware to check that user is authed
+    function ensureAuthenticated(req, res, next) {
+        if (!req.header('Authorization')) {
+            return res.status(401).send({ message: 'Please make sure your request has an Authorization header' });
+        }
+        var token = req.header('Authorization').split(' ')[1];
+
+        var payload = null;
+        try {
+            payload = jwt.decode(token, config.jwt.secret);
+        }
+        catch (err) {
+            return res.status(401).send({ message: err.message });
+        }
+
+        if (payload.exp <= moment().unix()) {
+            return res.status(401).send({ message: 'Token has expired' });
+        }
+        req.user = payload.sub;
+        next();
+    }
 
     var endpoints = {
 
-        register: function(req, res) {
-            if (!req.body.username || !req.body.password) {
-                var msg = 'Please pass username and password.';
-                console.log(msg);
-                return res.json({success: false, msg: msg});
+        getCurrentUser: function(req, res) {
+            if(req.user) {
+                User.findById(req.user)
+                .then(function(user){
+                    res.send(user);
+                })
+                .catch(function(error){
+                    res.status(500).send(err);
+                });
+            } else {
+                res.status(500).send('Well there is no user, but thats really weird that you hit this case');
             }
-
-            UserModel.create({
-                username:req.body.username,
-                password: req.body.password,
-                school: req.body.school
-            }, function(err) {
-                if (err) {
-                    return res.json({success: false, msg: 'Username already exists.'});
-                }
-                res.json({success: true, msg: 'Successful created new user.'});
-            });
-
         },
 
-        authenticate: function(req, res) {
-            UserModel.findOne({
-                username: req.body.username
-            }, function(err, user) {
-                if (err || !user) {
-                    var msg = err || 'Authentication failed. User not found.';
-                    res.send({ 
-                        success: false, 
-                        msg: msg, 
-                        fields: ['username']
-                    });
-                    console.log(msg);
-                    return;
-                }
+        //Google login
+        google: function(req, res) {
+            var accessTokenUrl = 'https://accounts.google.com/o/oauth2/token';
+            var peopleApiUrl = 'https://www.googleapis.com/plus/v1/people/me/openIdConnect';
+            var params = {
+                code: req.body.code,
+                client_id: req.body.clientId,
+                client_secret: config.google.clientSecret,
+                redirect_uri: req.body.redirectUri,
+                grant_type: 'authorization_code'
+            };
 
-                // check if password matches
-                user.comparePassword(req.body.password, 
-                    function (err, isMatch) {
-                        if (isMatch && !err) {
-                            // if user is found and password is right create a token
-                            var token = jwt.encode(user, config.db.secret);
-                            // return the information including token as JSON
-                            // Also include user data, but NOT the sensitive stuff!
-                            var cleanedUser = user.toJSON();
-                            delete cleanedUser.password;
+            // Step 1. Exchange authorization code for access token.
+            request.post(accessTokenUrl, { json: true, form: params }, function(err, response, token) {
+                var accessToken = token.access_token;
+                var headers = { Authorization: 'Bearer ' + accessToken };
 
-                            res.json({
-                                success: true, 
-                                token: 'JWT ' + token,
-                                user: cleanedUser
+                // Step 2. Retrieve profile information about the current user.
+                request.get({ url: peopleApiUrl, headers: headers, json: true }, function(err, response, profile) {
+                    if (profile.error) {
+                        return res.status(500).send({message: profile.error.message});
+                    }
+                    // Step 3a. Link user accounts.
+                    if (req.header('Authorization')) {
+                        User.findOne({ google: profile.sub }, function(err, existingUser) {
+                            if (existingUser) {
+                                return res.status(409).send({ message: 'There is already a Google account that belongs to you' });
+                            }
+                            var token = req.header('Authorization').split(' ')[1];
+                            var payload = jwt.decode(token, config.jwt.secret);
+                            User.findById(payload.sub, function(err, user) {
+                                if (!user) {
+                                    return res.status(400).send({ message: 'User not found' });
+                                }
+                                user.google = profile.sub;
+                                user.picture = user.picture || profile.picture.replace('sz=50', 'sz=200');
+                                user.displayName = user.displayName || profile.name;
+                                user.save(function() {
+                                    var token = createJWT(user);
+                                    res.send({ token: token, user: user });
+                                });
                             });
-                            console.log(req.body.username + ' authenticated');
-                        } else {
-                            var msg = 'Authentication failed. Wrong password.';
-                            res.send({
-                                success: false, 
-                                msg: msg, 
-                                fields: ['password']
+                        });
+                    } else {
+                        // Step 3b. Create a new user account or return an existing one.
+                        User.findOne({ google: profile.sub }, function(err, existingUser) {
+                            if (existingUser) {
+                                return res.send({ token: createJWT(existingUser), user: existingUser });
+                            }
+                            var user = new User();
+                            user.google = profile.sub;
+                            user.picture = profile.picture.replace('sz=50', 'sz=200');
+                            user.displayName = profile.name;
+                            user.save(function(err) {
+                                var token = createJWT(user);
+                                res.send({ token: token, user: user });
                             });
-                            console.log(msg);
-                        }
-                    });
+                        });
+                    }
+                });
             });
         }
 
     };
 
     module.exports = {
-        init: init
+        init: init,
+        ensureAuthenticated: ensureAuthenticated
     };
 
 }());
