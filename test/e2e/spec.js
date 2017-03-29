@@ -1,4 +1,4 @@
-describe('Protractor Demo Test', function() {
+describe('Sanity Test', function() {
     it('should have a title', function() {
         browser.get('http://localhost:8080/');
 

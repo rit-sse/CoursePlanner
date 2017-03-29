@@ -36,6 +36,7 @@ var sources = {
     configDev: 'config/config.dev.js',
     configProd: 'config/config.prod.js',
     env: '.env',
+    favicon: 'public/favicon.ico',
     files: 'public/files/*',
     index: 'public/index.html',
     injectedJs:  ['public/js/**/*.js', '!public/js/app.js'],
@@ -87,6 +88,10 @@ gulp.task('doc', function (cb) {
 
 
 // --- Move Tasks ---
+gulp.task('favicon', function(){
+    return gulp.src(sources.favicon)
+    .pipe(gulp.dest(dest.public));
+});
 
 gulp.task('libs', function(){
     return gulp.src(sources.libs)
@@ -139,7 +144,7 @@ gulp.task('config-passport', function(){
     .pipe(gulp.dest(dest.config));
 });
 
-gulp.task('move', ['libs', 'views', 'server', 'angularFiles', 'node', 'env',
+gulp.task('move', ['favicon', 'libs', 'views', 'server', 'angularFiles', 'node', 'env',
     'config', 'config-passport']);
 
 // ------------------
