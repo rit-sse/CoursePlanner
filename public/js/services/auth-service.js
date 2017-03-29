@@ -3,9 +3,9 @@
 
     //Wrapper for satellizer
     //Basically only exists so we have somewhere to keep the user data
-    angular.module('AuthService', ['satellizer'])
+    angular.module('AuthService', ['satellizer', 'ui-notification'])
 
-        .service('authService', ['$auth', '$http', function($auth, $http) {
+        .service('authService', ['$auth', '$http', 'Notification', function($auth, $http, Notification) {
         
             var user;
 
@@ -16,7 +16,7 @@
                     user = response.data;
                 }, function(response){
                     //Something went wrong
-                    console.log(response);
+                    Notification.error(response.message);
                 });
             }
 
@@ -24,18 +24,19 @@
                 return $auth.authenticate(provider)
                 .then(function(response){
                     //Success! Logged in with provider
-                    console.log(response);
+                    Notification.success('Logged in');
                     user = response.data.user;
                     return user;
                 }, function(response){
                     //Failure. Something went wrong
-                    console.log(response);
+                    Notification.error(response.message);
                 });
             };
 
             var logout = function() {
                 $auth.logout();
                 user = null;
+                Notification.primary('Logged out');
             };
 
             return {

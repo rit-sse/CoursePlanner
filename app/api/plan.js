@@ -16,7 +16,7 @@ var endpoints = {
      */
     getMine: function(req, res) {
         Plan.find({
-            user: req.user._id
+            user: req.user
         }, function(err, plans) {
             if(err) {
                 res.status(500).send(err)
@@ -33,15 +33,18 @@ var endpoints = {
      * @instance
      */
     getPublic: function(req, res) {
-        Plan.find({
-            school: req.user.school,
-            public: true
-        }, function(err, plans) {
-            if(err) {
-                res.status(500).send(err)
-            }
-            
+        User.findById(req.user)
+        .then(function(user){
+            return Plan.find({
+                school: user.school,
+                public: true
+            });
+        })
+        .then(function(plans) {
             res.json(plans);
+        })
+        .catch(function(error) {
+            res.status(500).send(error || 'Unable to load public plans');
         });
     },
 
@@ -60,7 +63,7 @@ var endpoints = {
                 return res.status(500).send(err || 'Plan not found');
             }
 
-            if(plan.user.toString() !== req.user._id.toString()) {
+            if(plan.user.toString() !== req.user.toString()) {
                 return res.status(401).send('Not authorized to load this plan');
             }
             
@@ -68,7 +71,7 @@ var endpoints = {
 
             //Update that the user was editing this plan most recently
             User.update({
-                _id: req.user._id
+                _id: req.user
             }, {
                 lastPlan: plan._id 
             }, {}, function(err, orig){
@@ -87,8 +90,14 @@ var endpoints = {
      * @instance
      */
     loadMostRecentPlan: function(req, res) {
-        req.query.planId = req.user.lastPlan;
-        endpoints.load(req, res);
+        User.findById(req.user)
+        .then(function(user){
+            req.query.planId = user.lastPlan;
+            endpoints.load(req, res);
+        })
+        .catch(function(error){
+            res.status(500).send(error);
+        });
     },
 
     /** 
@@ -107,7 +116,7 @@ var endpoints = {
         if(req.body._id){
             return Plan.findOneAndUpdate({
                 _id: req.body._id,
-                user: req.user._id //can only save it if it is theirs
+                user: req.user //can only save it if it is theirs
             }, {
                 title : req.body.title,
                 years : req.body.years,
@@ -124,19 +133,22 @@ var endpoints = {
             });
         }
 
-        Plan.create({
-            title  : req.body.title,
-            years  : req.body.years,
-            public : req.body.public,
-            school : req.user.school,
-            colorscheme: req.body.colorscheme,
-            user   : req.user._id
-        }, function(err, plan) {
-            if (err) {
-                res.status(500).send(err);
-            }
-
+        User.findById(req.user)
+        .then(function(user){
+            return Plan.create({
+                title  : req.body.title,
+                years  : req.body.years,
+                public : req.body.public,
+                school : user.school,
+                colorscheme: req.body.colorscheme,
+                user   : user._id
+            });
+        })
+        .then(function(plan) {
             res.json(plan);
+        })
+        .catch(function(err) {
+            res.status(500).send(err || 'An error occurred saving the plan');
         });
     },
 
@@ -166,7 +178,7 @@ var helpers = {
         if(req.body._id) {
             return Plan.findOneAndUpdate({
                 _id: req.body._id,
-                user: req.user._id
+                user: req.user
             }, {
                 public: newPublicValue
             }, {
