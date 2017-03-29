@@ -15,5 +15,8 @@
     "angular-hotkeys": "chieffancypants/angular-hotkeys#^1.7.0",
     "satellizer": "^0.15.5",
     "angular-ui-notification": "^0.3.6"
+  },
+  "resolutions": {
+    "angular": "^1.6.3"
   }
 }
