@@ -6,7 +6,6 @@ $card-background: #FAFAFA;
 $shadow: #888888;
 
 @import url("course.css");
-@import url("coursecolors.css");
 @import url("sidebar.css");
 
 html {
@@ -92,7 +91,7 @@ body {
   text-align: center;
 
   .empty-item-holder-hack {
-      visibility: hidden;
+    visibility: hidden;
   }
 }
 
@@ -111,7 +110,9 @@ body {
   background: $card-background;
   box-shadow: 0 2px 3px $shadow;
   border-radius: 3px;
-  cursor: url(cursors/openhand.cur), move;
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+  cursor: grab;
 
   h3 {
       margin: 0;
@@ -298,4 +299,8 @@ li {
       padding: 0 !important;
     }
   }
+}
+
+.profile-pic {
+    height: 20px;
 }

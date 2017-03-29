@@ -6,10 +6,10 @@
             <h3 ng-if="::!readonly" contenteditable ng-model="year.title"></h3>
             <h3 ng-if="::readonly">{{::year.title}}</h3>
         </div>
-        <button class="btn btn-success btn-xs add-semester" ng-click="addSemester(year)" ng-if="::!readonly">
+        <button class="btn btn-success btn-xs add-semester-btn" ng-click="addSemester(year)" ng-if="::!readonly">
             Add Semester
         </button>
-        <button class="btn btn-success btn-xs remove-year" ng-click="removeYear($index)" ng-if="::!readonly">
+        <button class="btn btn-danger btn-xs delete-year-btn" ng-click="removeYear($index)" ng-if="::!readonly">
             Delete Year
         </button>
         <div class="semesters">

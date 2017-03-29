@@ -1,4 +1,4 @@
-FROM node:4
+FROM node:6.10.1
 
 WORKDIR /usr/src/app
 
@@ -9,7 +9,8 @@ RUN npm install -g gulp bower
 COPY ./ /usr/src/app
 
 RUN bower install --allow-root
-RUN gulp
+RUN npm run prodGulp
+RUN npm run setupSchools
 
 EXPOSE 8080
 

@@ -36,8 +36,9 @@
 
             <ul class="nav navbar-nav navbar-right">
 
-                <li ng-switch-when="false"><a href="#" ng-click="login()">Login</a></li>
-                <li ng-switch-when="false"><a href="#" ng-click="register()">Register</a></li>
+                <li ng-switch-when="false">
+                <a href="#" ng-click="login('google')"><i class="fa fa-fw fa-google"></i> Login</a>
+                </li>
                 <li ng-switch-when="true"><a href="#" ng-click="viewPublicPlans()">
                     <i class="fa fa-fw fa-book" aria-hidden="true"></i>Browse
                 </a></li>
@@ -60,7 +61,7 @@
 
                 <li class="dropdown" ng-switch-when="true">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                    <i class="fa fa-fw fa-user"></i>{{getAuthedUser().username}}<span class="caret"></span>
+                    <img class="profile-pic" ng-src="{{getAuthedUser().picture}}" />{{getAuthedUser().displayName}}<span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu" role="menu">
                     <li ng-disabled="true"><a href="#">Edit Info</a></li>
@@ -70,7 +71,7 @@
                     </a></li>
                 </ul>
                 </li>
-                <li><a href="#" ng-click="help()">
+                <li id="open-help-modal"><a href="#" ng-click="help()">
                     <i class="fa fa-fw fa-question-circle"></i>Help
                 </a></li>
             </ul>

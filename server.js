@@ -13,8 +13,6 @@
     var methodOverride = require('method-override');
     var mongoose       = require('mongoose');
     var morgan         = require('morgan');
-    var passport       = require('passport');
-
 
     // Configuration
 
@@ -42,20 +40,15 @@
     // set the static files location /public/img will be /img for users
     app.use(express.static(__dirname + '/public')); 
 
-    //tell express to use passport
-    app.use(passport.initialize());
-
     app.use(morgan('dev'));
 
-
-    require('./config/passport')(passport);
 
     //Set up the api endpoints
     require(__dirname + '/app/api/api').init(express, app); 
 
     //Default route
     app.get('*', function(req, res) {
-        res.sendfile(__dirname + '/public/index.html'); // load our public/index.html file
+        res.sendFile(__dirname + '/public/index.html'); // load our public/index.html file
     });
 
     // Start App 
