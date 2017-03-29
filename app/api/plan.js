@@ -17,12 +17,12 @@ var endpoints = {
     getMine: function(req, res) {
         Plan.find({
             user: req.user
-        }, function(err, plans) {
-            if(err) {
-                res.status(500).send(err)
-            }
-            
-            res.json(plans);
+        })
+        .then(function(plans) {
+            res.send(plans);
+        })
+        .catch(function(err) {
+            res.status(500).send(err);
         });
     },
 
@@ -58,27 +58,27 @@ var endpoints = {
     load: function(req, res) {
         Plan.findOne({
             _id: req.query.planId
-        }, function(err, plan) {
-            if(err || !plan) {
-                return res.status(500).send(err || 'Plan not found');
+        })
+        .then(function(plan) {
+            if(!plan) {
+                return res.status(500).send('Plan not found');
             }
 
             if(plan.user.toString() !== req.user.toString()) {
                 return res.status(401).send('Not authorized to load this plan');
             }
             
-            res.json(plan);
+            res.send(plan);
 
             //Update that the user was editing this plan most recently
-            User.update({
+            return User.update({
                 _id: req.user
             }, {
                 lastPlan: plan._id 
-            }, {}, function(err, orig){
-                if(err) {
-                    console.log(err);
-                }
-            });
+            }, {});
+        })
+        .catch(function(error){
+            res.status(500).send(error);  
         });
     },
 
@@ -124,12 +124,12 @@ var endpoints = {
                 colorscheme: req.body.colorscheme
             }, {
                 new: true //return the updated object
-            }, function(err, plan) {
-                if(err) {
-                    return res.status(500).send(err);
-                }
-
+            })
+            .then(function(plan) {
                 res.send(plan);
+            })
+            .catch(function(err){
+                return res.status(500).send(err);
             });
         }
 
@@ -183,12 +183,12 @@ var helpers = {
                 public: newPublicValue
             }, {
                 new: true //return the updated object
-            }, function(err, plan) {
-                if(err) {
-                    res.status(500).send(err);
-                }
-
+            })
+            .then(function(plan) {
                 res.send(plan);
+            })
+            .catch(function(err){
+                res.status(500).send(err);
             });
         }
 
