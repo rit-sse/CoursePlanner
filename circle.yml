@@ -26,5 +26,10 @@ test:
             background: true
         - sleep 5
     override:
-        - npm run karma
-        - protractor protractor.conf.js
+        - npm run karma:
+            environment:
+                JUNIT_REPORT_PATH: $CIRCLE_TEST_REPORTS/unit-reports/
+                JUNIT_REPORT_NAME: karma-test-results.xml
+        - protractor protractor.conf.js:
+            environment:
+                E2E_REPORT_PATH: $CIRCLE_TEST_REPORTS/e2e-reports/
