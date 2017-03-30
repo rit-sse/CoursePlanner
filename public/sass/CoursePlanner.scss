@@ -1,104 +1,129 @@
+$background: #E8E8E8;
+$light-gray: #BDBDBD;
+$gray: #9E9E9E;
+$red: #F44336;
+$card-background: #F5F5F5;
+$shadow: #888888;
+
 @import url("course.css");
 @import url("sidebar.css");
 
 html {
-    margin:0;
-    padding:0;
-    height:100%;
-    background-color:#DFE2DB;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: $background;
 }
 
 body {
-    margin:0;
-    padding:0;
-    height:100%;
-    background-color:#DFE2DB;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: $background;
 }
 
 .plan-title {
-    margin-left:auto;
-    margin-right:auto;
-    text-align:center;
-    padding-top:2px;
-    margin-top:2px;
+  margin-left:auto;
+  margin-right:auto;
+  text-align:center;
+  padding-top:2px;
+  margin-top:2px;
 }
 
 .year-col {
-    flex: 0 0 auto;
-    padding-left:15px;
+  flex: 0 0 auto;
+  padding-left:15px;
 }
 
 .year-col-placeholder {
-    display:table-cell;
-    padding-left:15px;
-    vertical-align:top;
-    white-space:normal;
-    min-width:150px;
-    background-color:gray;
+  display:table-cell;
+  padding-left:15px;
+  vertical-align:top;
+  white-space:normal;
+  min-width:150px;
+  background-color: $gray;
 }
 
 .semesters {
-    display: flex;
+  display: flex;
 }
 
 .semester {
-    padding-left:10px;
-    vertical-align:top;
+  padding-left: 10px;
+  vertical-align: top;
 }
 
 .addCourseButton {
-    margin:auto;
+  margin:auto;
 }
 
 .cap {
-    text-transform:uppercase;
+  text-transform: uppercase;
+}
+
+.add-semester-btn {
+  margin-left: 10px;
+  padding: 5px 10px !important;
+}
+
+.delete-year-btn {
+  margin-right: 10px;
+  padding: 5px 10px !important;
+}
+
+.add-year-btn {
+  margin-top: 12px;
 }
 
 .list {
-    list-style: none outside none;
-    margin: 10px 0 30px;
-    border: 2px solid gray;
-    margin: 10px 10px 0 0;
-    padding: 5px;
+  list-style: none outside none;
+  margin: 10px 0 30px 0;
+  padding: 5px;
 }
 
 .courseCol {
-    background-color:#EEE8D5;
-    width:80px;
-    min-height:390px;
-    max-height:800px;
-    text-align:center;
+  background: $card-background;
+  box-shadow: 0 2px 3px $shadow;
+  border-radius: 3px;
+  width: 88px;
+  min-height: 390px;
+  max-height: 800px;
+  text-align: center;
 }
 
 .courses {
-    list-style: none outside none;
-    padding: 0;
-    text-align: center;
+  list-style: none outside none;
+  padding: 0;
+  text-align: center;
 
-    .empty-item-holder-hack {
-        visibility: hidden;
-    }
+  .empty-item-holder-hack {
+    visibility: hidden;
+  }
 }
 
 .add-class-btn {
-    margin-top: 5px;
-    width: 65px; //TODO config
+  margin-top: 5px;
+  //courseCol width - 15
+  width: 73px;
 }
 
 .year-row {
-    margin-top:20px;
+  margin-top:20px;
 }
 
 .year-header {
-    background-color:#EEE8D5;
-    border: 2px solid gray;
-    cursor: -webkit-grab;
-    cursor: -moz-grab;
-    cursor: grab;
+  padding: 10px;
+  margin: 10px;
+  background: $card-background;
+  box-shadow: 0 2px 3px $shadow;
+  border-radius: 3px;
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+  cursor: grab;
 
-    h3 {
-        margin: 0;
-    }    
+  h3 {
+      margin: 0;
+  }
 }
 
 //.year-header input {
@@ -109,179 +134,178 @@ body {
 //}
 
 .year-header:active {
-    cursor: grabbing;
-    cursor: -webkit-grabbing;
-    cursor: -moz-grabbing;
-    z-index:10;
+  cursor: grabbing;
+  cursor: -webkit-grabbing;
+  cursor: -moz-grabbing;
+  z-index:10;
 }
 
 .error {
-    color:red;
+  color: $red;
 
-    -moz-animation: cssAnimation 0s ease-in 9s forwards;
-    /* Firefox */
-    -webkit-animation: cssAnimation 0s ease-in 9s forwards;
-    /* Safari and Chrome */
-    -o-animation: cssAnimation 0s ease-in 9s forwards;
-    /* Opera */
-    animation: cssAnimation 0s ease-in 9s forwards;
-    -webkit-animation-fill-mode: forwards;
-    animation-fill-mode: forwards;
+  -moz-animation: cssAnimation 0s ease-in 9s forwards;
+  /* Firefox */
+  -webkit-animation: cssAnimation 0s ease-in 9s forwards;
+  /* Safari and Chrome */
+  -o-animation: cssAnimation 0s ease-in 9s forwards;
+  /* Opera */
+  animation: cssAnimation 0s ease-in 9s forwards;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
 }
 @keyframes cssAnimation {
-    to {
-        width:0;
-        height:0;
-        overflow:hidden;
-    }
+  to {
+    width:0;
+    height:0;
+    overflow:hidden;
+  }
 }
 @-webkit-keyframes cssAnimation {
-    to {
-        width:0;
-        height:0;
-        visibility:hidden;
-    }
+  to {
+    width:0;
+    height:0;
+    visibility:hidden;
+  }
 }
 
 
 .course-edit-modal {
-    .main-course-info {
-        display: flex;
-        flex-wrap: wrap;
+  .main-course-info {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .prereq-form {
+    display: flex;
+    margin-bottom: 5px;
+
+    input {
+      flex: 1;
+      border-radius: 0;
     }
 
-    .prereq-form {
-        display: flex;
-        margin-bottom: 5px;
-
-        input {
-            flex: 1;
-            border-radius: 0;
-        }
-
-        button {
-            flex: 0 0 auto;
-            border-radius: 0;
-        }
-
-        .right-side {
-            border-top-right-radius: 4px;
-            border-bottom-right-radius: 4px;
-        }
-
-        .left-side {
-            border-top-left-radius: 4px;
-            border-bottom-left-radius: 4px;
-        }
-
-        .no-right-border {
-            border-right: 0;
-        }
+    button {
+      flex: 0 0 auto;
+      border-radius: 0;
     }
+
+    .right-side {
+      border-top-right-radius: 4px;
+      border-bottom-right-radius: 4px;
+    }
+
+    .left-side {
+      border-top-left-radius: 4px;
+      border-bottom-left-radius: 4px;
+    }
+
+    .no-right-border {
+      border-right: 0;
+    }
+  }
 }
 
 .home {
+  display: flex;
+  flex-direction: column;
+
+  .navbar {
+    flex: 0 0 auto;
+  }
+
+  .content {
+    flex: 1;
     display: flex;
     flex-direction: column;
+    flex-wrap: nowrap;
+    text-align: center;
+    overflow: auto;
+  }
 
-    .navbar {
-        flex: 0 0 auto;
-    }
+  .years {
+    flex: 1;
+  }
 
-    .content {
-        flex: 1;
-
-        display: flex;
-        flex-direction: column;
-        flex-wrap: nowrap;
-        text-align: center;
-        overflow: auto;
-    }
-
-    .years {
-        flex: 1;
-    }
-
-    years {
-        margin: 0 auto;
-    }
+  years {
+    margin: 0 auto;
+  }
 }
 
 .year-placeholder {
-    float: left;
+  float: left;
 }
 
 .years {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    text-align: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  text-align: center;
 
-    .add-year-btn {
-        max-height: 40px;
-    }
+  .add-year-btn {
+    max-height: 40px;
+  }
 
-    .year-li {
-        float: left;
-    }
+  .year-li {
+    float: left;
+  }
 }
 
 li {
-    &.as-sortable-item {
-        background: none;
-        border: none;
-    }
+  &.as-sortable-item {
+    background: none;
+    border: none;
+  }
 }
 
 .deletable-list-item {
-    display: table;
-    width: 100%;
-    vertical-align: middle;
+  display: table;
+  width: 100%;
+  vertical-align: middle;
 
+  i {
+    display: none;
+    cursor: pointer;
+    vertical-align: inherit;
+  }
+
+  p {
+    margin: 0;
+  }
+
+
+  &:hover {
     i {
-        display: none;
-        cursor: pointer;
-        vertical-align: inherit;
+      display: table-cell;
     }
-
-    p {
-        margin: 0;
-    }
-
-
-    &:hover {
-        i {
-            display: table-cell;
-        }
-    }
+  }
 }
 
 .view-public-plans {
-    .modal-body {
-        display: flex;
-    }
+  .modal-body {
+    display: flex;
+  }
 
-    .plan-list {
-        flex: 0 0 auto;
-    }
+  .plan-list {
+    flex: 0 0 auto;
+  }
 
-    .plan-preview {
-        flex: 1;
-        overflow-x: auto;
-    }
+  .plan-preview {
+    flex: 1;
+    overflow-x: auto;
+  }
 }
 
 .course-edit-modal {
-    color-picker {
-        position: absolute;
-        margin-top: -1px;
-        span {
-            display: inline-block !important;
-            width: 15px !important;
-            height: 15px !important;
-            padding: 0 !important;
-        }
+  color-picker {
+    position: absolute;
+    margin-top: -1px;
+    span {
+      display: inline-block !important;
+      width: 15px !important;
+      height: 15px !important;
+      padding: 0 !important;
     }
+  }
 }
 
 .profile-pic {
