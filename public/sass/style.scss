@@ -66,3 +66,16 @@
 .btn-success:active {
   background-color: $darker-green;
 }
+
+.btn-warning {
+  background-color: $orange;
+  color: $text;
+}
+
+.btn-warning:hover {
+  background-color: $dark-orange;
+}
+
+.btn-warning:active {
+  background-color: $darker-orange;
+}
