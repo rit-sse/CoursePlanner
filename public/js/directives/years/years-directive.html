@@ -9,9 +9,6 @@
                 <i class="fa fa-times fa-2x" aria-hidden="true"></i>
             </div>
         </div>
-        <button class="btn btn-default btn-xs add-semester-btn" ng-click="addSemester(year)" ng-if="::!readonly">
-            Add Semester
-        </button>
         <div class="semesters">
             <div ng-repeat="semester in year.semesters track by $index" class="semester">
                 <div class="courseCol list">
@@ -26,11 +23,16 @@
                         </li>
                         <button ng-if="::!readonly" class="btn btn-default add-class-btn" data-as-sortable-item
                             ng-click="addCourse(semester)">
-                            <i class="fa fa-plus" aria-hidden="true" margin-top="5px"></i>
+                            <i class="fa fa-plus" aria-hidden="true"></i>
                         </button>
                     </ul>
                 </div>
-                <button ng-if="::!readonly" class="btn btn-default btn-xs" ng-click="removeSemester(year,$index)">Delete</button>
+                <button ng-if="::!readonly" class="btn btn-default btn-xs delete-semester-btn" ng-click="removeSemester(year,$index)">Delete</button>
+            </div>
+            <div class="semester">
+                <button class="btn btn-default btn-xs add-semester-btn courseCol list" ng-click="addSemester(year)" ng-if="::!readonly">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                </button>
             </div>
         </div>
         </li>
