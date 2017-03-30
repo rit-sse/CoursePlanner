@@ -61,16 +61,6 @@ body {
   text-transform: uppercase;
 }
 
-.add-semester-btn {
-  margin-left: 10px;
-  padding: 5px 10px !important;
-}
-
-.delete-year-btn {
-  margin-right: 10px;
-  padding: 5px 10px !important;
-}
-
 .add-year-btn {
   margin-top: 12px;
 }
@@ -122,8 +112,25 @@ body {
   cursor: grab;
 
   h3 {
-      margin: 0;
+    margin: 0;
+    display: inline-block;
   }
+}
+
+.delete-year-btn {
+  display: inline-block;
+  color: $gray;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.delete-year-btn:hover {
+  color: $red;
+}
+
+.add-semester-btn {
+  margin-left: 10px;
+  padding: 5px 10px !important;
 }
 
 //.year-header input {

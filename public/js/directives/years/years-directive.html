@@ -5,12 +5,12 @@
         <div class="year-header" data-as-sortable-item-handle>
             <h3 ng-if="::!readonly" contenteditable ng-model="year.title"></h3>
             <h3 ng-if="::readonly">{{::year.title}}</h3>
+            <div ng-click="removeYear($index)" ng-if="::!readonly" class="delete-year-btn">
+                <i class="fa fa-times fa-2x" aria-hidden="true"></i>
+            </div>
         </div>
         <button class="btn btn-default btn-xs add-semester-btn" ng-click="addSemester(year)" ng-if="::!readonly">
             Add Semester
-        </button>
-        <button class="btn btn-default btn-xs delete-year-btn" ng-click="removeYear($index)" ng-if="::!readonly">
-            Delete Year
         </button>
         <div class="semesters">
             <div ng-repeat="semester in year.semesters track by $index" class="semester">
