@@ -1,7 +1,7 @@
-angular.module('PlanService',['NotificationService', 'cfp.hotkeys', 'AuthService'])
+angular.module('PlanService',['NotificationService', 'cfp.hotkeys', 'AuthService', 'UploadPlanModal'])
 
-.service('planService', ['$http', '$q', 'notificationService', 'hotkeys', 'authService',
-function($http, $q, notificationService, hotkeys, authService) {
+.service('planService', ['$http', '$q', 'notificationService', 'hotkeys', 'authService', 'uploadPlanModal',
+function($http, $q, notificationService, hotkeys, authService, uploadPlanModal) {
     var self = this;
 
     self.makeNew = function(){
@@ -107,6 +107,34 @@ function($http, $q, notificationService, hotkeys, authService) {
                     }
                 });
             });
+        });
+    };
+
+    /**
+     *  Lets the user save the json for the plan to their computer
+     */
+    self.downloadPlan = function() {
+        //Strip out any data that might be sensitive or undesirable idfk
+        var cleanedPlan = {
+            years: self.plan.years,
+            title: self.plan.title,
+            public: false,
+            colorscheme: self.plan.colorscheme
+        };
+        var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(cleanedPlan));
+        var a = document.createElement('a');
+        a.setAttribute("href",     dataStr     );
+        a.setAttribute("download", self.plan.title + ".json");
+        a.click();
+        //TODO do we need to delete that 'a' tag here? Probably not a big deal
+    };
+
+    self.uploadPlan = function() {
+        uploadPlanModal.open().result.then(function(plan){
+            if(plan) {
+                self.plan = plan;
+                notificationService.notify('plan-changed');
+            }
         });
     };
 
