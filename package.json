@@ -47,6 +47,7 @@
   "scripts": {
     "start": "node dist/server.js -p $PORT",
     "setupSchools": "node dist/app/scripts/schools.js",
+    "loadSecrets": "./load-secrets.sh",
     "prodGulp": "ENVIRONMENT=prod gulp",
     "karma": "karma start --reporters junit,dots",
     "update-webdriver": "webdriver-manager update",

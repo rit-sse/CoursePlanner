@@ -10,6 +10,7 @@ COPY ./ /usr/src/app
 
 RUN bower install --allow-root
 RUN npm run prodGulp
+RUN npm run loadSecrets
 RUN npm run setupSchools
 
 EXPOSE 8080
