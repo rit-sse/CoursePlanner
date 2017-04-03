@@ -123,6 +123,7 @@ body {
   cursor: pointer;
   margin-left: 10px;
   float: right;
+  visibility: hidden;
 }
 
 .delete-year-btn:hover {
@@ -132,6 +133,8 @@ body {
 .add-semester-btn {
   font-size: 14px;
   padding: 15px;
+  position: relative;
+  top: 180px;
 }
 
 .delete-semester-btn {
@@ -150,6 +153,13 @@ body {
   cursor: -webkit-grabbing;
   cursor: -moz-grabbing;
   z-index:10;
+}
+
+.year-header:hover {
+
+  .delete-year-btn {
+    visibility: visible;
+  }
 }
 
 .error {
