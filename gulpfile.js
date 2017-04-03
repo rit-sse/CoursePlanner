@@ -34,8 +34,6 @@ var sources = {
     appjs: 'public/js/app.js',
     angularFiles:  ['public/js/**/*', '!public/js/config/*'],
     frontEndConfigs: 'public/js/config/',
-    configDev: 'config/config.dev.js',
-    configProd: 'config/config.prod.js',
     env: '.env',
     favicon: 'public/favicon.ico',
     files: 'public/files/*',
@@ -126,16 +124,11 @@ gulp.task('env', function(){
     .pipe(gulp.dest(dest.env));
 });
 
+//Pick config.dev.js or config.prod.js
+//Move and rename to config.js
 gulp.task('config', function(){
-    var src;
-    if(environment === envs.dev){
-        src = sources.configDev;
-    } else if(environment === envs.prod){
-        src = sources.configProd;
-    } else {
-        console.error('Unknown environment');
-    }
-
+    var src = 'config/config.'+environment+'.js';
+    
     return gulp.src(src)
         .pipe(rename(dest.configName))
         .pipe(gulp.dest(dest.config));
