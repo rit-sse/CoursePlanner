@@ -138,7 +138,20 @@ body {
 }
 
 .delete-semester-btn {
-  width: 100%;
+  display: inline-block;
+  color: $gray;
+  cursor: pointer;
+  visibility: hidden;
+}
+
+.delete-semester-btn:hover {
+  color: $red;
+}
+
+.courseCol:hover {
+  .delete-semester-btn {
+    visibility: visible;
+  }
 }
 
 //.year-header input {

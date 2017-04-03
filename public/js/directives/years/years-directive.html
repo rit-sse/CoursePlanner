@@ -25,9 +25,12 @@
                             ng-click="addCourse(semester)">
                             <i class="fa fa-plus" aria-hidden="true"></i>
                         </button>
+                        <div ng-if="::!readonly" class="delete-semester-btn"
+                                ng-click="removeSemester(year,$index)">
+                            <i class="fa fa-times fa-2x" aria-hidden="true"></i>
+                        </div>
                     </ul>
                 </div>
-                <button ng-if="::!readonly" class="btn btn-default btn-xs delete-semester-btn" ng-click="removeSemester(year,$index)">Delete</button>
             </div>
             <div class="semester">
                 <button class="btn btn-default btn-xs add-semester-btn" ng-click="addSemester(year)" ng-if="::!readonly">
