@@ -90,7 +90,9 @@ angular.module('NavbarDirective',[
                     });
                 };
 
-                scope.download = planService.downloadPDF;
+                scope.downloadPlan = planService.downloadPlan;
+
+                scope.uploadPlan = planService.uploadPlan;
 
                 scope.editColorscheme = function() {
                     editColorschemeModal.open(planService.plan.colorscheme);
