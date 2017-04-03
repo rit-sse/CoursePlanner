@@ -67,7 +67,7 @@ body {
 
 .list {
   list-style: none outside none;
-  margin: 10px 0 20px 0;
+  margin-bottom: 20px;
   padding: 5px;
 }
 
@@ -103,7 +103,7 @@ body {
 
 .year-header {
   padding: 10px;
-  margin: 10px 0 0 10px;
+  margin: 10px 0 10px 10px;
   background: $card-background;
   box-shadow: 0 2px 3px $shadow;
   border-radius: 3px;
@@ -122,6 +122,7 @@ body {
   color: $gray;
   cursor: pointer;
   margin-left: 10px;
+  float: right;
 }
 
 .delete-year-btn:hover {
@@ -130,6 +131,7 @@ body {
 
 .add-semester-btn {
   font-size: 14px;
+  padding: 15px;
 }
 
 .delete-semester-btn {
@@ -266,7 +268,6 @@ li {
     border: none;
   }
 }
-
 
 .deletable-list-item {
   display: table;
