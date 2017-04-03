@@ -11,9 +11,9 @@ COPY ./ /usr/src/app
 RUN bower install --allow-root
 RUN npm run prodGulp
 RUN npm run loadSecrets
-RUN npm run setupSchools
+RUN ./scripts/setup-schools.sh
 
 EXPOSE 8080
 
-CMD [ "node", "dist/server.js" ]
+CMD [ "./scripts/run-server.sh" ]
 
