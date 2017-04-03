@@ -1,5 +1,7 @@
 'use strict';
 
+require('dotenv').load();
+
 var gulp = require('gulp');
 var rename = require('gulp-rename');
 var jshint = require('gulp-jshint');
