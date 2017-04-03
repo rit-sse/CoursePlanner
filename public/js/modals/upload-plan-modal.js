@@ -6,14 +6,12 @@ angular.module('UploadPlanModal', ['ui.bootstrap'])
     self.open = function() {
         var modalInstance = $uibModal.open({
             template:
-            `
-            <div id="upload-plan-modal">
-                <div class="modal-header"><h3 class="modal-title">Upload Plan</h3></div>
-                <div class="modal-body">
-                    <input type="file" onchange="angular.element(this).scope().uploadFile(this.files)"/>
-                </div>
-            </div>
-            `,
+            '<div id="upload-plan-modal">'+
+                '<div class="modal-header"><h3 class="modal-title">Upload Plan</h3></div>'+
+                '<div class="modal-body">'+
+                    '<input type="file" onchange="angular.element(this).scope().uploadFile(this.files)"/>'+
+                '</div>'+
+            '</div>',
             animation: false,
             backdrop: false,
             controller: ['$scope', function(modalScope){
