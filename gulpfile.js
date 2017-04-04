@@ -26,7 +26,7 @@ var environment = process.env.ENVIRONMENT || envs.dev;
 var paths = {
 
     config: 'config/*',
-    jshintPaths: ['public/js/**/*.js'],
+    jshintPaths: ['public/js/**/*.js', 'app/**/*.js'],
     jsdocPaths: ['README.md', 'app/**/*.js']
 
 };

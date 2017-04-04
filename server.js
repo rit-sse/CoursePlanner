@@ -51,6 +51,9 @@
         res.sendFile(__dirname + '/public/index.html'); // load our public/index.html file
     });
 
+    //Initialize the school data if necessary
+    require('app/scripts/schools').run();
+
     // Start App 
     app.listen(port);               
 
