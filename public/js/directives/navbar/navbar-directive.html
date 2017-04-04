@@ -65,7 +65,7 @@
                     <img class="profile-pic" ng-src="{{getAuthedUser().picture}}" />{{getAuthedUser().displayName}}<span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu" role="menu">
-                    <li ng-disabled="true"><a href="#">Edit Info</a></li>
+                    <li ng-click="editProfile()"><a href="#">Edit Info</a></li>
                     <li class="divider"></li>
                     <li><a href="#" ng-click="logout()">
                         <i class="fa fa-fw fa-sign-out" aria-hidden="true"></i>Logout
