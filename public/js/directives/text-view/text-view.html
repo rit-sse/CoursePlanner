@@ -1,0 +1,7 @@
+<div class="text-view">
+    <div ng-repeat="year in plan.years">
+        <input type="text" ng-model="year.title" />
+        <semester-text-view semester="s" handled-enter="handledEnter" 
+                            ng-repeat="s in year.semesters"></semester-text-view>
+    </div>
+</div>

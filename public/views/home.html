@@ -5,6 +5,10 @@
         <!-- Display for when there are no years -->
         <div ng-if="plan.years.length === 0" ng-include="'views/empty-view.html'"></div>
 
-        <years plan="plan" id="the-plan"></years>
+        <text-view plan="plan" ng-if="textMode"></text-view>
+        <years plan="plan" id="the-plan" ng-if="!textMode"></years>
+        <button class="btn btn-default switch-mode-btn" ng-click="textMode = !textMode">
+            <i class="fa fa-toggle"></i>
+        </button>
     </div> <!-- content -->
 </div>

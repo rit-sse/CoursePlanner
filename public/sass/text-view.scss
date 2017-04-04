@@ -1,0 +1,32 @@
+.text-view {
+    background: white;
+    max-width: 50%;
+    margin: auto;
+    text-align: left;
+
+    p {
+        margin: 0;
+    }
+
+    input {
+        text-align: left;
+        background: none;
+        border: none;
+    }
+
+    .section {
+        margin-left: 40px;
+    }
+
+    .course-section {
+        margin-bottom: 20px;
+
+        p {
+            display: inline;
+        }
+
+        input {
+            display: inline;
+        }
+    }
+}

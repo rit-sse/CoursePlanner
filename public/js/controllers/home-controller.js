@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module("HomeController", ['PlanService', 'NotificationService']);
+var app = angular.module("HomeController", ['PlanService', 'NotificationService', 'TextView']);
 
 app.controller('homeController', ['$scope','$http', 'planService', 'notificationService',
 function($scope, $http, planService, notificationService) {
@@ -14,5 +14,7 @@ function($scope, $http, planService, notificationService) {
     $scope.setErrorMsg = function(text) {
         $scope.errormsg = text;
     };
+
+    $scope.textMode = false;
 
 }]);

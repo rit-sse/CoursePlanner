@@ -1,0 +1,13 @@
+<div class="section">
+    <p>Semester</p>
+    <div ng-repeat="course in semester.classes" class="section course-section">
+        <p>Name: </p><input type="text" ng-model="course.name" /><br/>
+        <p>Dept: </p><input type="text" ng-model="course.dept" /><br/>
+        <p>Num: </p><input type="text" ng-model="course.num" /><br/>
+        <p>Credits: </p><input type="text" ng-model="course.credits" /><br/>
+        <p>Prereqs: </p><br/>
+        <div ng-repeat="p in course.prereqs" class="section">
+            <input type="text" ng-model="p" /><br/>
+        </div>
+    </div>
+</div>
