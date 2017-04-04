@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * REST endpoints for Plan data
  * @namespace api/plan

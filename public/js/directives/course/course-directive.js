@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('CourseDirective', ['ui.bootstrap', 'labeled-inputs', 'PlanService'])
 
 .directive('course', ['$uibModal', 'planService', function($uibModal, planService) {
@@ -10,7 +12,7 @@ angular.module('CourseDirective', ['ui.bootstrap', 'labeled-inputs', 'PlanServic
             deleteCourse: '=delete',
             readonly: '='
         },
-        link: function(scope, element, attrs) {
+        link: function(scope, element) {
             if(scope.readonly === true) {
                 return; //If readonly, don't allow double click
             }

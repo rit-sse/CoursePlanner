@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('UploadPlanModal', ['ui.bootstrap'])
 
 .service('uploadPlanModal', ['$uibModal', function($uibModal) {
@@ -20,6 +22,9 @@ angular.module('UploadPlanModal', ['ui.bootstrap'])
                 modalScope.uploadFile = function(files) {
                     var reader = new FileReader();
                     reader.onload = function(e) {
+                        if(e) {
+                            console.log(e);
+                        }
                         var text = reader.result;  
                         modalInstance.close(JSON.parse(text));
                     };

@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('NavbarDirective',[
     'ui.bootstrap', 
     'ui-notification',

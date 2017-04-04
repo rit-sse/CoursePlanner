@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('YearsDirective', ['as.sortable'])
 
     .directive('years', [function() {
@@ -8,7 +10,7 @@ angular.module('YearsDirective', ['as.sortable'])
                 plan: '=',
                 readonly: '='
             },
-            link: function(scope, elem, attrs) {
+            link: function(scope) {
                 //Handle readonly version
                 if(scope.readonly === true) {
                     scope.sortableOptions = {
@@ -48,9 +50,9 @@ angular.module('YearsDirective', ['as.sortable'])
 
                         return true;
                     },//override to determine drag is allowed or not. default is true.
-                    itemMoved: function (event) {//Do what you want
+                    itemMoved: function (/*event*/) {//Do what you want
                     },
-                    orderChanged: function(event) {//Do what you want
+                    orderChanged: function(/*event*/) {//Do what you want
                     },
                     additionalPlaceholderClass: 'year-placeholder'
                 };
@@ -111,8 +113,8 @@ angular.module('YearsDirective', ['as.sortable'])
                 scope.deleteCourse = function(course) {
                     scope.plan.years.forEach(function(year) {
                         year.semesters.forEach(function(semester) {
-                            for(i = 0; i < semester.classes.length; ++i) {
-                                if(semester.classes[i] == course) {
+                            for(var i = 0; i < semester.classes.length; ++i) {
+                                if(semester.classes[i] === course) {
                                     semester.classes.splice(i,1);
                                 }
                             }

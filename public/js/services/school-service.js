@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('SchoolService',[])
 
 .service('schoolService', ['$http', function($http) {
