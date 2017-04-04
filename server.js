@@ -52,7 +52,7 @@
     });
 
     //Initialize the school data if necessary
-    require('app/scripts/schools').run();
+    require(__dirname + '/app/scripts/schools');
 
     // Start App 
     app.listen(port);               
