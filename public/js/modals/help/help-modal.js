@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('HelpModal', ['ui.bootstrap', 'cfp.hotkeys'])
 
 .service('helpModal', ['$uibModal', 'hotkeys', function($uibModal, hotkeys) {
