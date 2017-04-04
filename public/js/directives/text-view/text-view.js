@@ -52,6 +52,12 @@ angular.module('TextView', [])
                     scope.$apply();
                 }
             });
+
+            scope.delete = function(course){
+                scope.semester.classes.splice(
+                    scope.semester.classes.indexOf(course), 1
+                );
+            };
         }
     };
 }]);
