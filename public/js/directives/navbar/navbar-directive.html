@@ -39,40 +39,53 @@
                 <li ng-switch-when="false">
                 <a href="#" ng-click="login('google')"><i class="fa fa-fw fa-google"></i> Login</a>
                 </li>
-                <li ng-switch-when="true"><a href="#" ng-click="viewPublicPlans()">
+                <li ng-switch-when="true" ng-if="getAuthedUser().school"><a href="#" ng-click="viewPublicPlans()">
                     <i class="fa fa-fw fa-book" aria-hidden="true"></i>Browse
                 </a></li>
 
                 <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Plan<span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                    <i class="fa fa-fw fa-file-text-o" aria-hidden="true"></i>
+                    Plan
+                    <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                    <li><a href="#" ng-click="downloadPlan()">Download Plan</a></li>
-                    <li><a href="#" ng-click="uploadPlan()">Upload Plan</a></li>
+                    <li><a href="#" ng-click="downloadPlan()">
+                        <i class="fa fa-fw fa-download" aria-hidden="true"></i>
+                        Download Plan
+                    </a></li>
+                    <li><a href="#" ng-click="uploadPlan()">
+                        <i class="fa fa-fw fa-upload" aria-hidden="true"></i>
+                        Upload Plan
+                    </a></li>
                     <li><a href="#" ng-click="editColorscheme()">
-                        <i class="fa fa-fw fa-paint-brush" aria-hidden="true"></i>Edit Colors</a>
-                    </li>
+                        <i class="fa fa-fw fa-paint-brush" aria-hidden="true"></i>
+                        Edit Colors
+                    </a></li>
                     <li class="divider" ng-switch-when="true"></li>
                     <li ng-switch-when="true">
-                        <a href="#" ng-click="togglePublic()">
-                            {{ isPublic() ? 'Make Private' : 'Make Public'; }}
-                        </a>
+                    <a href="#" ng-click="togglePublic()">
+                        <i class="fa fa-fw fa-users" aria-hidden="true"></i>
+                        {{ isPublic() ? 'Make Private' : 'Make Public'; }}
+                    </a>
                     </li>
                 </ul>
                 </li>
 
                 <li class="dropdown user-dropdown" ng-switch-when="true">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"
-                uib-tooltip="Add your school to get access to more features!"
-                tooltip-placement="bottom"
-                tooltip-enable="!getAuthedUser().school">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                     <i class="fa fa-exclamation-triangle fa-fw" ng-if="!getAuthedUser().school"></i>
+                    <i class="fa fa-fw fa-user" ng-if="getAuthedUser().school"></i>
                     <!--<img class="profile-pic" ng-src="{{getAuthedUser().picture}}" /> -->
                     {{getAuthedUser().displayName.split(' ')[0]}}
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu" role="menu">
-                    <li ng-click="editProfile()">
+                    <li ng-click="editProfile()"
+                        uib-tooltip="Add your school to get access to more features!"
+                        tooltip-placement="left"
+                        tooltip-enable="!getAuthedUser().school">
                     <a href="#">
+                        <i class="fa fa-fw fa-pencil-square-o aria-hidden="true"></i>
                         Edit Info
                         <i class="fa fa-exclamation-triangle fa-fw" ng-if="!getAuthedUser().school"></i>
                     </a>
