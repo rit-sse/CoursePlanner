@@ -2,15 +2,22 @@
 
 angular.module('SchoolService',[])
 
-.service('schoolService', ['$http', function($http) {
+.service('schoolService', ['$http', '$q', function($http, $q) {
     var self = this;
+
+    var schools;
+
     self.getSchools = function(){
+        if(schools) {
+            return $q.when(schools);
+        }
+
         return $http.get('/api/school/get-schools')
         .then(function(response){
-            if(response.status !== 200) {
-                throw 'Response status: ' + response.status;
-            }
-            return response.data;
+            schools = response.data;
+            return schools;
+        }, function(response){
+            console.log(response);
         });
     };
 }]);

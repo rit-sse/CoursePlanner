@@ -5,6 +5,7 @@
 
     var jwt       = require('jwt-simple');
     var User = require('../models/user');
+    var School = require('../models/school');
     var request = require('request');
     var config = require('../../config/config.js');
     var moment = require('moment');
@@ -51,6 +52,7 @@
     var endpoints = {
 
         update: function(req, res) {
+            var updatedUser;
             User.findOneAndUpdate({
                 _id: req.user
             }, {
@@ -59,7 +61,12 @@
                 new: true
             })
             .then(function(newUserData){
-                res.send(newUserData);
+                updatedUser = newUserData;
+                return School.findById(newUserData.school);
+            })
+            .then(function(school){
+                updatedUser.school = school;
+                res.send(updatedUser);
             })
             .catch(function(error){
                 console.log(error);
@@ -69,9 +76,15 @@
 
         getCurrentUser: function(req, res) {
             if(req.user) {
+                var currentUser;
                 User.findById(req.user)
                 .then(function(user){
-                    res.send(user);
+                    currentUser = user;
+                    return School.findById(user.school);
+                })
+                .then(function(school){
+                    currentUser.school = school;
+                    res.send(currentUser);
                 })
                 .catch(function(error){
                     res.status(500).send(error);
@@ -105,30 +118,40 @@
                     }
                     // Step 3a. Link user accounts.
                     if (req.header('Authorization')) {
-                        User.findOne({ google: profile.sub }, function(err, existingUser) {
+                        User.findOne({ google: profile.sub })
+                        .then(function(existingUser) {
                             if (existingUser) {
                                 return res.status(409).send({ message: 'There is already a Google account that belongs to you' });
                             }
                             var token = req.header('Authorization').split(' ')[1];
                             var payload = jwt.decode(token, config.jwt.secret);
-                            User.findById(payload.sub, function(err, user) {
-                                if (!user) {
-                                    return res.status(400).send({ message: 'User not found' });
-                                }
-                                user.google = profile.sub;
-                                user.picture = user.picture || profile.picture.replace('sz=50', 'sz=200');
-                                user.displayName = user.displayName || profile.name;
-                                user.save(function() {
-                                    var token = createJWT(user);
-                                    res.send({ token: token, user: user });
-                                });
+                            return User.findById(payload.sub);
+                        })
+                        .then(function(user) {
+                            if (!user) {
+                                return res.status(400).send({ message: 'User not found' });
+                            }
+                            user.google = profile.sub;
+                            user.picture = user.picture || profile.picture.replace('sz=50', 'sz=200');
+                            user.displayName = user.displayName || profile.name;
+                            user.save(function() {
+                                var token = createJWT(user);
+                                res.send({ token: token, user: user });
                             });
+                        })
+                        .catch(function(err){
+                            res.status(500).send(err);
                         });
                     } else {
                         // Step 3b. Create a new user account or return an existing one.
-                        User.findOne({ google: profile.sub }, function(err, existingUser) {
+                        User.findOne({ google: profile.sub })
+                        .then(function(existingUser) {
                             if (existingUser) {
-                                return res.send({ token: createJWT(existingUser), user: existingUser });
+                                return School.findById(existingUser.school)
+                                .then(function(school){
+                                    existingUser.school = school;
+                                    return res.send({ token: createJWT(existingUser), user: existingUser });
+                                });
                             }
                             var user = new User();
                             user.google = profile.sub;
@@ -136,11 +159,15 @@
                             user.displayName = profile.name;
                             user.save(function(err) {
                                 if(err){
-                                    console.log(err);
+                                    console.log('ERROR SAVING USER',err);
                                 }
                                 var token = createJWT(user);
                                 res.send({ token: token, user: user });
                             });
+                        })
+                        .catch(function(error){
+                            console.log('ERROR CREATING NEW OR SENDING EXISTING',error);
+                            res.status(500).send(error);
                         });
                     }
                 });
@@ -153,5 +180,4 @@
         init: init,
         ensureAuthenticated: ensureAuthenticated
     };
-
 }());

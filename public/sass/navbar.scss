@@ -1,8 +1,20 @@
+@import 'colors';
+
 $background: #212121;
 $border: #424242;
 $text: #F5F5F5;
 $text-hover: #BDBDBD;
 $text-active: #9E9E9E;
+
+.user-dropdown {
+    .fa-exclamation-triangle {
+        color: $warning-yellow;
+    }
+}
+
+
+
+//bootstrap stuff
 
 .navbar-default {
   background-color: $background;

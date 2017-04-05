@@ -14,14 +14,11 @@ angular.module('EditProfileModal', ['ui.bootstrap', 'SchoolService'])
             controller: ['$scope', 'schoolService', 'authService',
             function(modalScope, schoolService, authService) {
                 modalScope.title = 'Profile';
-                modalScope.user = authService.getUser();
+                modalScope.user = JSON.parse(JSON.stringify(authService.getUser()));
 
                 schoolService.getSchools()
                 .then(function(schools){
                     modalScope.schools = schools;
-                    modalScope.user.school = _.find(schools, function(school){
-                        return school._id === modalScope.user.school;
-                    });
                 });
 
                 modalScope.save = function() {
