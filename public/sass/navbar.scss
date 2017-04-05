@@ -4,6 +4,10 @@ $text: #F5F5F5;
 $text-hover: #BDBDBD;
 $text-active: #9E9E9E;
 
+.navbar {
+    margin: 0;
+}
+
 .navbar-default {
   background-color: $background;
   border: none;
