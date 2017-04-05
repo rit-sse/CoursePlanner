@@ -17,8 +17,12 @@
     // Configuration
 
     //DB
-    mongoose.connect(config.db.url, function(err) {
-        console.log(err || 'Mongoose Connected Successfully'); //TODO on error, close application
+    mongoose.connect(config.db.url)
+    .then(function(){
+        console.log('Mongoose Connected');
+    })
+    .catch(function(err) {
+        console.log('Error connecting Mongoose up: ', err); //TODO on error, close application
     });//, {authMechanism: 'ScramSHA1'}); 
 
     // Server port
@@ -40,7 +44,12 @@
     // set the static files location /public/img will be /img for users
     app.use(express.static(__dirname + '/public')); 
 
-    app.use(morgan('dev'));
+    //Select morgan log style based on server
+    if(!process.env.ENVIRONMENT || process.env.ENVIRONMENT === 'dev') {
+        app.use(morgan('dev'));
+    } else {
+        app.use(morgan('common'));
+    }
 
 
     //Set up the api endpoints
@@ -50,6 +59,9 @@
     app.get('*', function(req, res) {
         res.sendFile(__dirname + '/public/index.html'); // load our public/index.html file
     });
+
+    //Initialize the school data if necessary
+    require(__dirname + '/app/scripts/schools');
 
     // Start App 
     app.listen(port);               

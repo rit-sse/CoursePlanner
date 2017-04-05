@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('RegisterDirective', ['ui.bootstrap', 'labeled-inputs', 'AuthService', 'SchoolService'])
 
 .directive('register', [function() {

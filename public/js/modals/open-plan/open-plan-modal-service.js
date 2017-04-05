@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('OpenPlanModalService', ['ui.bootstrap'])
 
 .service('openPlanModal', ['$uibModal', function($uibModal) {

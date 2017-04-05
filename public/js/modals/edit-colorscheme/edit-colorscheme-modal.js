@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('EditColorschemeModal', ['ui.bootstrap', 'color.picker'])
 
 .service('editColorschemeModal', ['$uibModal', function($uibModal) {

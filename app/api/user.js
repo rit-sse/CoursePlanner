@@ -56,7 +56,7 @@
                     res.send(user);
                 })
                 .catch(function(error){
-                    res.status(500).send(err);
+                    res.status(500).send(error);
                 });
             } else {
                 res.status(500).send('Well there is no user, but thats really weird that you hit this case');
@@ -117,6 +117,9 @@
                             user.picture = profile.picture.replace('sz=50', 'sz=200');
                             user.displayName = profile.name;
                             user.save(function(err) {
+                                if(err){
+                                    console.log(err);
+                                }
                                 var token = createJWT(user);
                                 res.send({ token: token, user: user });
                             });

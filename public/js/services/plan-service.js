@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('PlanService',['NotificationService', 'cfp.hotkeys', 'AuthService', 'UploadPlanModal'])
 
 .service('planService', ['$http', '$q', 'notificationService', 'hotkeys', 'authService', 'uploadPlanModal',
@@ -73,7 +75,7 @@ function($http, $q, notificationService, hotkeys, authService, uploadPlanModal) 
         return $q.when();//return empty promise that is instantly resolved
     };
 
-    self.save = function(title, years, public) {
+    self.save = function() {
         self.updateColors();
         return $http.post('/api/plan/save', self.plan)
         .then(function(response){
@@ -134,24 +136,6 @@ function($http, $q, notificationService, hotkeys, authService, uploadPlanModal) 
             if(plan) {
                 self.plan = plan;
                 notificationService.notify('plan-changed');
-            }
-        });
-    };
-
-    self.downloadPDF = function() {
-        var tag = document.getElementById('the-plan');
-        //TODO we need to not crop this when we make the image
-        html2canvas(tag, {
-            onrendered: function(canvas) {
-                var image = new Image();
-                image.src = canvas.toDataURL("image/png");
-
-                var doc = new jsPDF({
-                    orientation: 'landscape'
-                });
-
-                doc.addImage(image, 'PNG', 0, 0, 296, 210);
-                doc.save(self.plan.title + '.pdf');
             }
         });
     };

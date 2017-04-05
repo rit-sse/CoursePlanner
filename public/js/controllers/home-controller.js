@@ -1,3 +1,5 @@
+'use strict';
+
 var app = angular.module("HomeController", ['PlanService', 'NotificationService']);
 
 app.controller('homeController', ['$scope','$http', 'planService', 'notificationService',

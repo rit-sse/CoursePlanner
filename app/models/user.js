@@ -2,7 +2,6 @@
 var mongoose    = require('mongoose');
 var Schema  = mongoose.Schema;
 var bcrypt  = require('bcrypt-nodejs');
-var q = require('q');
 
 //Set up a mongoose model
 

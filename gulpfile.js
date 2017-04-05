@@ -1,5 +1,7 @@
 'use strict';
 
+require('dotenv').load();
+
 var gulp = require('gulp');
 var rename = require('gulp-rename');
 var jshint = require('gulp-jshint');
@@ -24,7 +26,7 @@ var environment = process.env.ENVIRONMENT || envs.dev;
 var paths = {
 
     config: 'config/*',
-    jshintPaths: ['public/js/**/*.js'],
+    jshintPaths: ['public/js/**/*.js', 'app/**/*.js'],
     jsdocPaths: ['README.md', 'app/**/*.js']
 
 };
