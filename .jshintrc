@@ -89,6 +89,7 @@
     // Custom Globals
     "globals"       : {
         "angular": false,
+        "_": false,
         "randomColor": false
     }        // additional predefined global variables
 }

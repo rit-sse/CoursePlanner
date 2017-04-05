@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('EditProfileModal', ['ui.bootstrap'])
+angular.module('EditProfileModal', ['ui.bootstrap', 'SchoolService'])
 
 .service('editProfileModal', ['$uibModal', function($uibModal) {
     var self = this;
@@ -11,12 +11,24 @@ angular.module('EditProfileModal', ['ui.bootstrap'])
             animation: false,
             backdrop: false,
             size: 'sm',
-            controller: ['$scope', function(modalScope) {
+            controller: ['$scope', 'schoolService', 'authService',
+            function(modalScope, schoolService, authService) {
                 modalScope.title = 'Profile';
+                modalScope.user = authService.getUser();
+
+                schoolService.getSchools()
+                .then(function(schools){
+                    modalScope.schools = schools;
+                    modalScope.user.school = _.find(schools, function(school){
+                        return school._id === modalScope.user.school;
+                    });
+                });
 
                 modalScope.save = function() {
-                    //TODO
-                    modalInstance.close();
+                    authService.updateData(modalScope.user)
+                    .then(function(){
+                        modalInstance.close();
+                    });
                 };
 
                 modalScope.cancel = function(){

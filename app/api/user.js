@@ -13,6 +13,7 @@
     var init = function(router) {
         router.get('/getCurrentUser', ensureAuthenticated, endpoints.getCurrentUser);
         router.post('/google', endpoints.google);
+        router.post('/update', ensureAuthenticated, endpoints.update);
     };
 
     // Generate JSON web token
@@ -48,6 +49,23 @@
     }
 
     var endpoints = {
+
+        update: function(req, res) {
+            User.findOneAndUpdate({
+                _id: req.user
+            }, {
+                school: req.body.school
+            }, {
+                new: true
+            })
+            .then(function(newUserData){
+                res.send(newUserData);
+            })
+            .catch(function(error){
+                console.log(error);
+                res.status(500).send(error);
+            });
+        },
 
         getCurrentUser: function(req, res) {
             if(req.user) {
