@@ -5,9 +5,9 @@
         <div class="year-header" data-as-sortable-item-handle>
             <h3 ng-if="::!readonly" contenteditable ng-model="year.title"></h3>
             <h3 ng-if="::readonly">{{::year.title}}</h3>
-            <div class="dropdown">
-                <i class="fa fa-ellipsis-h year-more" data-toggle="dropdown" aria-hidden="true"></i>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <div class="dropdown year-more">
+                <i class="fa fa-ellipsis-h" data-toggle="dropdown" aria-hidden="true"></i>
+                <ul class="dropdown-menu">
                     <li ng-click="removeYear($index)" ng-if="::!readonly">
                         <a><i class="fa fa-times" aria-hidden="true"></i>&nbsp;&nbsp;Delete Year</a>
                     </li>
