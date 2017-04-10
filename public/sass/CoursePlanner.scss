@@ -117,30 +117,11 @@ body {
   }
 }
 
-.delete-year-btn {
-  display: inline-block;
-  color: $gray;
-  cursor: pointer;
-  margin-left: 10px;
-  float: right;
-}
-
-.delete-year-btn:hover {
-  color: $red;
-}
-
 .year-more {
     color: $gray;
     cursor: pointer;
     display: inline-block;
     float: right;
-}
-
-.add-semester-btn {
-  font-size: 14px;
-  padding: 15px;
-  position: relative;
-  top: 180px;
 }
 
 .delete-semester-btn {
