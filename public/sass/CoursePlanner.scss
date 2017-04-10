@@ -123,11 +123,17 @@ body {
   cursor: pointer;
   margin-left: 10px;
   float: right;
-  visibility: hidden;
 }
 
 .delete-year-btn:hover {
   color: $red;
+}
+
+.year-more {
+    color: $gray;
+    cursor: pointer;
+    display: inline-block;
+    float: right;
 }
 
 .add-semester-btn {
@@ -160,13 +166,6 @@ body {
     cursor: -webkit-grabbing;
     cursor: -moz-grabbing;
     z-index:10;
-}
-
-.year-header:hover {
-
-  .delete-year-btn {
-    visibility: visible;
-  }
 }
 
 .error {
