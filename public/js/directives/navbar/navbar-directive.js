@@ -8,6 +8,7 @@ angular.module('NavbarDirective',[
     'SchoolService', 
     'OpenPlanModalService',
     'EditColorschemeModal',
+    'EditProfileModal',
     'HelpModal'
 ])
 
@@ -16,10 +17,11 @@ angular.module('NavbarDirective',[
     'planService', 
     'openPlanModal', 
     'editColorschemeModal',
+    'editProfileModal',
     'helpModal',
     'authService',
     'Notification',
-    function($http, planService, openPlanModal, editColorschemeModal, helpModal, authService, Notification) {
+    function($http, planService, openPlanModal, editColorschemeModal, editProfileModal, helpModal, authService, Notification) {
         return {
             replace: true,
             restrict: 'E',
@@ -99,6 +101,8 @@ angular.module('NavbarDirective',[
                 scope.editColorscheme = function() {
                     editColorschemeModal.open(planService.plan.colorscheme);
                 };
+
+                scope.editProfile = editProfileModal.open;
             }
         };
     }]);

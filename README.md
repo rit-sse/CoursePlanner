@@ -1,4 +1,4 @@
-Course Planner
+Course Planner [![CircleCI](https://circleci.com/gh/rit-sse/CoursePlanner/tree/master.svg?style=svg)](https://circleci.com/gh/rit-sse/CoursePlanner/tree/master)
 =============
 
 A webapp for planning which courses to take and which year to take them in.
