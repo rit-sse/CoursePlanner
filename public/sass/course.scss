@@ -21,6 +21,7 @@ $white: #F5F5F5;
     flex-flow: column;
     overflow: hidden;
     height: 100%;
+    background: inherit;
 }
 
 .course-warning {
@@ -35,16 +36,30 @@ $white: #F5F5F5;
     cursor: -moz-grabbing;
 }
 
-.course-header {
-    background-color: rgba(50,50,50,0.6);
+.course-header-text {
     font-weight: bolder;
     font-size: x-small;
     padding: 1px;
+    margin: 0;
+    z-index: 2;
+}
+
+.course-header-background {
+    background: inherit;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1em;
+    filter: brightness(.8);
+    z-index: 1;
 }
 
 .course-details {
     flex: 1;
-    padding-top: 5px;
+    padding-top:   5px;
+    padding-left:  1px;
+    padding-right: 1px;
     p {
         margin: 0;
         font-size: x-small;
