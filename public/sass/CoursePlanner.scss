@@ -4,6 +4,7 @@ $gray: #9E9E9E;
 $red: #F44336;
 $card-background: #F5F5F5;
 $shadow: #888888;
+$black: #212121;
 
 @import url("course.css");
 @import url("sidebar.css");
@@ -121,6 +122,10 @@ body {
     color: $gray;
     cursor: pointer;
     float: right;
+}
+
+.year-more:hover {
+    color: $black;
 }
 
 .delete-semester-btn {
