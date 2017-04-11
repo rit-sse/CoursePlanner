@@ -8,7 +8,8 @@ $white: #F5F5F5;
     height: 80px;
     margin-left: auto;
     margin-right: auto;
-    border: 1px solid lightgrey;
+    //border: 1px solid lightgrey;
+    box-shadow: 1px 2px 3px #888888;
     cursor: -webkit-grab;
     cursor: -moz-grab;
     cursor: grab;
@@ -22,6 +23,7 @@ $white: #F5F5F5;
     overflow: hidden;
     height: 100%;
     background: inherit;
+    padding: 0 5px 5px 5px;
 }
 
 .course-warning {
@@ -73,7 +75,7 @@ $white: #F5F5F5;
 
 .course-credits {
     position: absolute;
-    bottom: 3px;
+    bottom: 5px;
     left: 0;
     right: 0;
 }
@@ -83,7 +85,7 @@ $white: #F5F5F5;
     max-height: 0;
     border-top: 2px solid $black;
     position: absolute;
-    top: 0px;
+    top: 0;
     left: -38px;
     -webkit-transform: rotate(-51deg);
     -moz-transform: rotate(-51deg);
@@ -91,12 +93,13 @@ $white: #F5F5F5;
     -o-transform: rotate(-51deg);
     transform: rotate(-51deg);
 }
+
 .topleft-bottomright-line {
     width: 200px;
     max-height:0;
     border-top: 2px solid $black;
     position: absolute;
-    top: 0px;
+    top: 0;
     right: -38px;
     -webkit-transform: rotate(51deg);
     -moz-transform: rotate(51deg);
@@ -104,7 +107,6 @@ $white: #F5F5F5;
     -o-transform: rotate(51deg);
     transform: rotate(51deg);
 }
-
 
 .prereq-warning-badge {
     display: none;
