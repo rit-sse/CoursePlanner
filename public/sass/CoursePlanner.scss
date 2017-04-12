@@ -114,6 +114,7 @@ body {
   cursor: -webkit-grab;
   cursor: -moz-grab;
   cursor: grab;
+  position: relative;
 
   h3 {
     margin: 0;
@@ -125,6 +126,19 @@ body {
     color: $gray;
     cursor: pointer;
     float: right;
+    height: 47px;
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    >i {
+        padding: 10px;
+        line-height: 27px;
+    }
+}
+
+.year-more:active, .year-more.open {
+  background: $light-gray;
 }
 
 .year-more:hover {
