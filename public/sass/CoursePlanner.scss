@@ -79,6 +79,7 @@ body {
     min-height: 390px;
     max-height: 800px;
     text-align: center;
+    position: relative;
 }
 
 .courses {
@@ -93,6 +94,7 @@ body {
 
 .add-class-btn {
     margin-top: 5px;
+    margin-bottom: 50px;
     //courseCol width - 15
     width: 73px;
 }
@@ -123,23 +125,23 @@ body {
     float: right;
 }
 
+.semester-spacer {
+    flex-grow: 1;
+}
+
 .delete-semester-btn {
   display: inline-block;
   color: $gray;
   cursor: pointer;
-  margin-top: 20px;
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
 }
 
 .delete-semester-btn:hover {
   color: $red;
 }
-
-//.year-header input {
-//    text-align:center;
-//    background:#EEE8D5;
-//    display:block;
-//    margin:0 auto;
-//}
 
 .year-header:active {
     cursor: grabbing;
