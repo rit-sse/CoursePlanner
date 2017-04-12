@@ -14,6 +14,9 @@ $white: #F5F5F5;
     cursor: grab;
     overflow: visible;
     color: white;
+    @media (max-width:480px)  {
+        height: auto;
+    }
 }
 
 .course-wrapper {
@@ -22,6 +25,10 @@ $white: #F5F5F5;
     overflow: hidden;
     height: 100%;
     background: inherit;
+    @media (max-width:480px)  {
+        text-align: left;
+        flex-flow: row;
+    }
 }
 
 .course-warning {
@@ -42,6 +49,10 @@ $white: #F5F5F5;
     padding: 1px;
     margin: 0;
     z-index: 2;
+    @media (max-width:480px)  {
+        font-size: small;
+        padding: 4px;
+    }
 }
 
 .course-header-background {
@@ -53,6 +64,9 @@ $white: #F5F5F5;
     height: 1em;
     filter: brightness(.8);
     z-index: 1;
+    @media (max-width:480px)  {
+        display: none;
+    }
 }
 
 .course-details {
@@ -76,6 +90,11 @@ $white: #F5F5F5;
     bottom: 3px;
     left: 0;
     right: 0;
+    @media (max-width:480px)  {
+        left: initial;
+        right: 5px;
+        bottom: 5px;
+    }
 }
 
 .bottomleft-topright-line {

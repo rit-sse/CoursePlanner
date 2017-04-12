@@ -1,12 +1,4 @@
-$background: #E8E8E8;
-$light-gray: #BDBDBD;
-$gray: #9E9E9E;
-$red: #F44336;
-$card-background: #F5F5F5;
-$shadow: #888888;
-
-@import url("course.css");
-@import url("sidebar.css");
+@import 'colors';
 
 html {
     margin: 0;
@@ -25,6 +17,9 @@ body {
 .plan-title {
     margin-right: auto;
     margin-left: 15px;
+    @media (max-width:480px)  {
+        margin-left: auto; /* Centered on mobile */
+    }
     margin-bottom: 5px;
     margin-top: 15px;
     font-weight: bold;
@@ -32,7 +27,12 @@ body {
 
 .year-col {
     flex: 0 0 auto;
-    padding-left:15px;
+    padding-left: 15px;
+
+    @media (max-width:480px) {
+        width: 100%;
+        padding-right: 15px;
+    }
 }
 
 .year-col-placeholder {
@@ -46,11 +46,17 @@ body {
 
 .semesters {
     display: flex;
+    @media (max-width:480px)  {
+        display: block;
+    }
 }
 
 .semester {
     padding-left: 10px;
     vertical-align: top;
+    @media (max-width:480px)  {
+        padding: 0;
+    }
 }
 
 .addCourseButton {
@@ -64,15 +70,24 @@ body {
 .add-semester-btn {
     margin-left: 10px;
     padding: 5px 10px !important;
+    @media (max-width:480px)  {
+        display: none;
+    }
 }
 
 .delete-year-btn {
     margin-right: 10px;
     padding: 5px 10px !important;
+    @media (max-width:480px)  {
+        display: none;
+    }
 }
 
 .add-year-btn {
     margin-top: 12px;
+    @media (max-width:480px)  {
+        display: none;
+    }
 }
 
 .list {
@@ -89,6 +104,11 @@ body {
     min-height: 390px;
     max-height: 800px;
     text-align: center;
+    @media (max-width:480px)  {
+        width: 100%;
+        min-height: auto;
+        max-height: auto;
+    }
 }
 
 .courses {
@@ -105,6 +125,15 @@ body {
     margin-top: 5px;
     //courseCol width - 15
     width: 73px;
+    @media (max-width:480px)  {
+        display: none;
+    }
+}
+
+.delete-semester-btn {
+    @media (max-width:480px)  {
+        display: none;
+    }
 }
 
 .year-row {
@@ -123,6 +152,14 @@ body {
 
     h3 {
         margin: 0;
+        @media (max-width:480px)  {
+            font-size: medium;
+        }
+    }
+
+    @media (max-width:480px)  {
+        margin: 0;
+        text-align: left;
     }
 }
 
@@ -228,6 +265,10 @@ body {
 
     years {
         margin: 0 auto;
+        @media (max-width:480px)  {
+            width: 100%;
+
+        }
     }
 }
 
@@ -247,6 +288,9 @@ body {
 
     .year-li {
         float: left;
+        @media (max-width:480px)  {
+            float: none;
+        }
     }
 }
 
