@@ -63,7 +63,8 @@ body {
 }
 
 .add-year-btn {
-  margin-top: 12px;
+  margin-top: 11px;
+  height: 46px;
 }
 
 .list {
@@ -267,10 +268,6 @@ body {
     flex-direction: row;
     flex-wrap: nowrap;
     text-align: center;
-
-    .add-year-btn {
-        max-height: 40px;
-    }
 
     .year-li {
         float: left;
