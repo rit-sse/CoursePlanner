@@ -4,6 +4,8 @@ $gray: #9E9E9E;
 $red: #F44336;
 $card-background: #F5F5F5;
 $shadow: #888888;
+$black: #212121;
+$courseColWidth: 88px;
 
 @import url("course.css");
 @import url("sidebar.css");
@@ -61,34 +63,26 @@ body {
     text-transform: uppercase;
 }
 
-.add-semester-btn {
-    margin-left: 10px;
-    padding: 5px 10px !important;
-}
-
-.delete-year-btn {
-    margin-right: 10px;
-    padding: 5px 10px !important;
-}
-
 .add-year-btn {
-    margin-top: 12px;
+  margin-top: 11px;
+  height: 46px;
 }
 
 .list {
-    list-style: none outside none;
-    margin: 10px 0 30px 0;
-    padding: 5px;
+  list-style: none outside none;
+  margin-bottom: 20px;
+  padding: 5px;
 }
 
 .courseCol {
     background: $card-background;
     box-shadow: 0 2px 3px $shadow;
     border-radius: 3px;
-    width: 88px;
+    width: $courseColWidth;
     min-height: 390px;
     max-height: 800px;
     text-align: center;
+    position: relative;
 }
 
 .courses {
@@ -102,9 +96,10 @@ body {
 }
 
 .add-class-btn {
+    padding: 5px !important;
     margin-top: 5px;
-    //courseCol width - 15
-    width: 73px;
+    margin-bottom: 50px;
+    width: $courseColWidth - 13;
 }
 
 .year-row {
@@ -112,26 +107,59 @@ body {
 }
 
 .year-header {
-    padding: 10px;
-    margin: 10px;
-    background: $card-background;
-    box-shadow: 0 2px 3px $shadow;
-    border-radius: 3px;
-    cursor: -webkit-grab;
-    cursor: -moz-grab;
-    cursor: grab;
+  padding: 10px;
+  margin: 10px 0 10px 10px;
+  background: $card-background;
+  box-shadow: 0 2px 3px $shadow;
+  border-radius: 3px;
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+  cursor: grab;
+  position: relative;
 
-    h3 {
-        margin: 0;
+  h3 {
+    margin: 0;
+    display: inline-block;
+  }
+}
+
+.year-more {
+    color: $gray;
+    cursor: pointer;
+    float: right;
+    height: 47px;
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    >i {
+        padding: 10px;
+        line-height: 27px;
     }
 }
 
-//.year-header input {
-//    text-align:center;
-//    background:#EEE8D5;
-//    display:block;
-//    margin:0 auto;
-//}
+.year-more:active, .year-more.open {
+  background: $light-gray;
+}
+
+.year-more:hover {
+    color: $black;
+}
+
+.delete-semester-btn {
+  display: inline-block;
+  color: $light-gray;
+  font-size: 1.5em;
+  cursor: pointer;
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+}
+
+.delete-semester-btn:hover {
+  color: $red;
+}
 
 .year-header:active {
     cursor: grabbing;
@@ -240,10 +268,6 @@ body {
     flex-direction: row;
     flex-wrap: nowrap;
     text-align: center;
-
-    .add-year-btn {
-        max-height: 40px;
-    }
 
     .year-li {
         float: left;

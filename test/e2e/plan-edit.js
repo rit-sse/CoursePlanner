@@ -49,6 +49,7 @@ describe('Plan Edit Tests', function() {
         expect(years.count()).toEqual(1); 
 
         //There should be no years after we delete it
+        element(by.css('.year-more')).click();
         element(by.css('.delete-year-btn')).click();
         years = element.all(by.repeater('year in plan.years'));
         expect(years.count()).toEqual(0); 
