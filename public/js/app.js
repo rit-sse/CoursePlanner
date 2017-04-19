@@ -5,6 +5,8 @@ angular.module('CoursePlanner', [
     'cfp.hotkeys',
     'satellizer',
     'ui-notification',
+    'ngTagsInput',
+
     'CoursePlannerRoutes',
     'HomeController',
     'BrowseController',

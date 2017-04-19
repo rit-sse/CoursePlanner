@@ -10,7 +10,7 @@ module.exports = mongoose.model('Plan', {
         type: String
     },
     tags : {
-        type: [String]
+        type: [Object]
     },
     years  : {
         type: Object,
