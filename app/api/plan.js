@@ -40,7 +40,8 @@ var endpoints = {
             return Plan.find({
                 school: user.school,
                 public: true
-            });
+            })
+            .populate('school');
         })
         .then(function(plans) {
             res.json(plans);
@@ -61,6 +62,7 @@ var endpoints = {
         Plan.findOne({
             _id: req.query.planId
         })
+        .populate('school')
         .then(function(plan) {
             if(!plan) {
                 return res.status(500).send('Plan not found');
@@ -130,6 +132,7 @@ var endpoints = {
             }, {
                 new: true //return the updated object
             })
+            .populate('school')
             .then(function(plan) {
                 res.send(plan);
             })
@@ -147,7 +150,8 @@ var endpoints = {
                 school : user.school,
                 colorscheme: req.body.colorscheme,
                 user   : user._id
-            });
+            })
+            .populate('school');
         })
         .then(function(plan) {
             res.json(plan);
@@ -189,6 +193,7 @@ var helpers = {
             }, {
                 new: true //return the updated object
             })
+            .populate('school')
             .then(function(plan) {
                 res.send(plan);
             })
