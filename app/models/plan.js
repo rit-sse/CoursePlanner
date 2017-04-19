@@ -6,6 +6,12 @@ module.exports = mongoose.model('Plan', {
         type: String,
         required: true
     },
+    details : {
+        type: String
+    },
+    tags : {
+        type: [String]
+    },
     years  : {
         type: Object,
     },

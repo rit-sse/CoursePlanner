@@ -123,6 +123,9 @@ var endpoints = {
                 title : req.body.title,
                 years : req.body.years,
                 public: req.body.public,
+                details: req.body.details,
+                tags: req.body.tags,
+                school: req.body.school,
                 colorscheme: req.body.colorscheme
             }, {
                 new: true //return the updated object
