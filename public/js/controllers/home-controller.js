@@ -2,8 +2,12 @@
 
 var app = angular.module("HomeController", ['PlanService', 'NotificationService']);
 
-app.controller('homeController', ['$scope','$http', 'planService', 'notificationService',
-function($scope, $http, planService, notificationService) {
+app.controller('homeController', ['$scope','$http', 'planService', 'notificationService', 'user',
+function($scope, $http, planService, notificationService, user) {
+    $scope.user = user;
+    notificationService.on('user-changed', function(user){
+        $scope.user = user;
+    });
     
     $scope.plan = planService.plan;
     notificationService.on('plan-changed', function(){

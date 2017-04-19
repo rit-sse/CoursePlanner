@@ -7,6 +7,7 @@ angular.module('CoursePlanner', [
     'ui-notification',
     'CoursePlannerRoutes',
     'HomeController',
+    'BrowseController',
     'AuthService',
 
     'NavbarDirective',
