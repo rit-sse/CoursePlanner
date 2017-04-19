@@ -20,22 +20,24 @@ function($http, $q, notificationService, hotkeys, authService, uploadPlanModal) 
     self.makeNew(); //Start with a clean plan
 
     //auto load the most recently edited plan
-    $http.get('/api/plan/loadMostRecentPlan')
-    .then(function(response){
-        if(response.status !== 200) {
-            throw 'Response status: ' + response.status;
-        }
+    if(authService.isAuthenticated()){
+        $http.get('/api/plan/loadMostRecentPlan')
+        .then(function(response){
+            if(response.status !== 200) {
+                throw 'Response status: ' + response.status;
+            }
 
-        if(!response.data || !response.data._id) {
-            console.log('Response data for trying to load the most recent plan might be crap');
-            console.log(response.data);
-        }
+            if(!response.data || !response.data._id) {
+                console.log('Response data for trying to load the most recent plan might be crap');
+                console.log(response.data);
+            }
 
-        self.plan = response.data;
-        notificationService.notify('plan-changed');
-    }, function(err){
-        console.log('This is probably fine, it just means they havent opened a plan yet. but heres the error anyways:', err);
-    });
+            self.plan = response.data;
+            notificationService.notify('plan-changed');
+        }, function(err){
+            console.log('This is probably fine, it just means they havent opened a plan yet. but heres the error anyways:', err);
+        });
+    }
 
     self.getMine = function(){
         return $http.get('/api/plan/getMine')

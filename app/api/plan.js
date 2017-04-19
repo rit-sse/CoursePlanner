@@ -35,6 +35,8 @@ var endpoints = {
      * @instance
      */
     getPublic: function(req, res) {
+Plan.find({}).then(function(plans){ console.log(plans) });
+
         User.findById(req.user)
         .then(function(user){
             return Plan.find({
