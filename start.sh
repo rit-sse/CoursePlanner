@@ -5,6 +5,7 @@ do
     echo "Retrying installs"
 done
 
+gulp
 npm prodGulp
 npm setupSchools
 gulp devrun
