@@ -17,7 +17,7 @@
     // Configuration
 
     //DB
-    mongoose.connect(config.db.url)
+    mongoose.connect('mongodb://mongo/course-planner')
     .then(function(){
         console.log('Mongoose Connected');
     })
