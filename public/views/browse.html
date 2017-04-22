@@ -15,11 +15,14 @@
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default" ng-repeat="plan in plans"
                 ng-class="{ 'panel-primary': $parent.selectedPlan === plan }">
-                <div class="panel-heading" ng-bind="::plan.title"
+                <div class="panel-heading" 
                 ng-click="$parent.selectedPlan === plan ? $parent.selectedPlan = null : $parent.selectedPlan = plan">
+                    <p ng-bind="::plan.title"></p>
+                    <button class="btn btn-default btn-sm load-btn" ng-click="load(plan)"
+                        ng-if="selectedPlan === plan">Load</button>
                 </div>
                 <div class="panel-body" ng-if="selectedPlan === plan">
-                    <years plan="selectedPlan" readonly="true"></years>
+                    <years plan="::selectedPlan" readonly="true"></years>
                 </div>
             </div>
         </div>

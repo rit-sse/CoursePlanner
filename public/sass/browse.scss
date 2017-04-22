@@ -5,6 +5,9 @@
 
     .panel-heading {
         cursor: pointer;
+        p {
+            display: inline;
+        }
     }
     .form-group {
         display: inline-block;
@@ -14,5 +17,12 @@
     .filters {
         border-bottom: 1px solid gray;
         margin-bottom: 15px;
+    }
+    .btn {
+        padding: 2px 5px;
+        box-shadow: none;
+    }
+    .load-btn {
+        float: right;
     }
 }
