@@ -25,10 +25,10 @@ angular.module('UploadPlanModal', ['ui.bootstrap'])
                         if(e) {
                             console.log(e);
                         }
-                        var text = reader.result;  
+                        var text = reader.result;
                         modalInstance.close(JSON.parse(text));
                     };
-                    
+
                     reader.readAsText(files[0]);
                 };
             }]
@@ -36,4 +36,3 @@ angular.module('UploadPlanModal', ['ui.bootstrap'])
         return modalInstance;
     };
 }]);
-
