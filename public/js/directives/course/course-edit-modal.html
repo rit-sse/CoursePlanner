@@ -8,7 +8,7 @@
             <div class="form-group" style="flex:1">
                 <label for="deptInput">Department</label>
                 <color-picker ng-model="deptColor" options="{ name: 'dept-color', swatchOnly: true }"></color-picker>
-                <input type="text" class="form-control" id="deptInput" 
+                <input type="text" class="form-control" id="deptInput"
                        placeholder="Department" ng-model="c.dept" />
             </div>
 
@@ -32,12 +32,11 @@
                 <i class="fa fa-fw fa-lg fa-times text-danger" ng-click="removePrereq(prereq)"></i>
             </li>
         </ul>
-        
+
     </div>
     <div class="modal-footer">
+        <button class="btn btn-danger pull-left" ng-click="delete()">Delete</button>
+        <button class="btn btn-default" ng-click="cancel()">Cancel</button>
         <button class="btn btn-primary" ng-click="save()">Save</button>
-        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-        <button class="btn btn-danger" ng-click="delete()">Delete</button>
     </div>
 </div>
-
