@@ -41,6 +41,14 @@ angular.module('CoursePlannerRoutes', ['ui.router', 'AuthService'])
                     },
                     plans: function(planService){
                         return planService.getPublic();
+                    },
+                    user: function(authService){
+                        return authService.getUser()
+                        .then(function(user){
+                            return user;
+                        }, function(){
+                            return null;
+                        });
                     }
                 }
             });
