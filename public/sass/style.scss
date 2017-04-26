@@ -79,3 +79,9 @@
 .btn-warning:active {
   background-color: $darker-orange;
 }
+
+.modal-header .close {
+  margin-top: -5px;
+  margin-right: -5px;
+  padding: 5px;
+}

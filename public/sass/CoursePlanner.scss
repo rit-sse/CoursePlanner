@@ -287,8 +287,10 @@ li {
   width: 100%;
   vertical-align: middle;
 
-  i {
-    display: none;
+  // x button
+  i.text-danger {
+    display: table-cell;
+    color: $light-gray;
     cursor: pointer;
     vertical-align: inherit;
   }
@@ -298,8 +300,8 @@ li {
   }
 
   &:hover {
-    i {
-      display: table-cell;
+    i.text-danger {
+      color: $red;
     }
   }
 }
