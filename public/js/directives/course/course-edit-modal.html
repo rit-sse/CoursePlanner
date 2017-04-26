@@ -20,7 +20,7 @@
         <label>Prerequisites</label>
         <div class="prereq-form">
             <input type="text" class="form-control left-side no-right-border" ng-model="prereq.dept" placeholder="Department"/>
-            <input type="text" class="form-control" ng-model="prereq.num" placeholder="Number"/>
+            <input type="text" class="form-control right-side" ng-model="prereq.num" placeholder="Number"/>
             <button class="btn btn-default right-side add-prereq" ng-click="addPrereq()"
                 ng-disabled="!prereq.dept || !prereq.num">
                 <i class="fa fa-plus"></i>
@@ -33,6 +33,8 @@
                 <i class="fa fa-fw fa-lg fa-times text-danger" ng-click="removePrereq(prereq)"></i>
             </li>
         </ul>
+
+        <textarea ng-model="c.notes" placeholder="Notes" class="course-notes"></textarea>
 
     </div>
     <div class="modal-footer">
