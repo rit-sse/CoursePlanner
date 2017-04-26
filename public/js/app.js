@@ -21,6 +21,9 @@ angular.module('CoursePlanner', [
         clientId: GOOGLE_CONFIG.clientId,
         url: '/api/user/google'
     });
+
+    $authProvider.loginUrl = '/api/user/login';
+    $authProvider.signupUrl = '/api/user/signup';
 }])
 
 .config(['NotificationProvider', function(NotificationProvider){

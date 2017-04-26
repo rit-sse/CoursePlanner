@@ -3,6 +3,7 @@
         <h3 class="modal-title">{{title}}</h3>
     </div>
     <div class="modal-body">
+        <labeled-text name="'Display Name'" model="user.displayName"></labeled-text>
         <label for="school">School</label>
         <input type="text" id="school" ng-model="user.school" class="form-control"
         placeholder="School" typeahead-editable="false"
