@@ -125,6 +125,22 @@ $shadow: #888888;
 }
 
 .course-edit-modal {
+  #deptInput {
+    border-right: none;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  #labeledInputNumber {
+    border-right: none;
+    border-radius: 0;
+  }
+
+  #labeledInputCredits {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+  }
+
   .add-prereq {
     margin-left: 5px;
     box-shadow: none;
