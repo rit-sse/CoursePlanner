@@ -7,17 +7,20 @@ function($http, $q, notificationService, hotkeys, authService, uploadPlanModal) 
     var self = this;
 
     self.makeNew = function(){
-        self.plan = {
-            years: [],
-            title: 'New Plan',
-            public: false,
-            colorscheme: {}
-        };
+        return authService.getUser()
+        .then(function(user){
+            self.plan = {
+                years: [],
+                title: 'New Plan',
+                public: false,
+                colorscheme: {},
+                school: user.school
+            };
 
-        notificationService.notify('plan-changed');
+            notificationService.notify('plan-changed');
+            return self.plan;
+        });
     };
-
-    self.makeNew(); //Start with a clean plan
 
     //auto load the most recently edited plan
     if(authService.isAuthenticated()){
@@ -37,6 +40,9 @@ function($http, $q, notificationService, hotkeys, authService, uploadPlanModal) 
         }, function(err){
             console.log('This is probably fine, it just means they havent opened a plan yet. but heres the error anyways:', err);
         });
+    } else {
+        //If not authed, start with empty plan
+        self.makeNew(); //Start with a clean plan
     }
 
     self.getMine = function(){
@@ -70,11 +76,12 @@ function($http, $q, notificationService, hotkeys, authService, uploadPlanModal) 
     self.copyPublicPlan = function(planToCopy) {
         //TODO probably want to check if their plan wasn't saved
         //before we erase their work here
-        self.makeNew();
-        self.plan.years = planToCopy.years;
-        self.plan.title = 'Copy of ' + planToCopy.title;
-        notificationService.notify('plan-changed');
-        return $q.when();//return empty promise that is instantly resolved
+        return self.makeNew()
+        .then(function(){
+            self.plan.years = planToCopy.years;
+            self.plan.title = 'Copy of ' + planToCopy.title;
+            notificationService.notify('plan-changed');
+        });
     };
 
     self.save = function() {
@@ -88,6 +95,9 @@ function($http, $q, notificationService, hotkeys, authService, uploadPlanModal) 
 
     self.setPublic = function(newPublicValue) {
         var url = newPublicValue ? '/api/plan/makePublic' : '/api/plan/makePrivate';
+
+        //TODO check if the plan has an id - if it doesnt, this won't work...
+        //how do we handle that? should we save it for them if they set it public?
 
         return $http.post(url, self.plan)
         .then(function(response){

@@ -147,11 +147,10 @@ var endpoints = {
                 title  : req.body.title,
                 years  : req.body.years,
                 public : req.body.public,
-                school : user.school,
+                school : req.body.school,
                 colorscheme: req.body.colorscheme,
                 user   : user._id
-            })
-            .populate('school');
+            });
         })
         .then(function(plan) {
             res.json(plan);
