@@ -299,10 +299,8 @@ li {
     margin: 0;
   }
 
-  &:hover {
-    i.text-danger {
-      color: $red;
-    }
+  i.text-danger:hover {
+    color: $red;
   }
 }
 
