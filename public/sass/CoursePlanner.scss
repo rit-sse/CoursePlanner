@@ -334,6 +334,14 @@ li {
   }
 }
 
+.modal-footer .flex-container {
+  display: flex;
+
+  button {
+    flex: 1;
+  }
+}
+
 .profile-pic {
   height: 20px;
 }
