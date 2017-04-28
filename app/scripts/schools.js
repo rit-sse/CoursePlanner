@@ -6,6 +6,8 @@ var School = require(__dirname + '/../models/school');
 
 var fs = require('fs');
 
+
+
 School.findOne({})
 .then(function(school){
     if(!school){

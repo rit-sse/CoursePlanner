@@ -13,10 +13,13 @@
     var methodOverride = require('method-override');
     var mongoose       = require('mongoose');
     var morgan         = require('morgan');
+	
+    // DB Promise Library
+	  mongoose.Promise = require('q').Promise;
 
     // Configuration
-
-    //DB
+  
+    // DB
     mongoose.connect(config.db.url)
     .then(function(){
         console.log('Mongoose Connected');
