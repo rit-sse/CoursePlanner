@@ -25,7 +25,7 @@ function($auth, $http, $q, Notification, localStorageService, notificationServic
     //Create an account using email and password
     var signup = function(email, password){
         return $auth.signup({ email: email, password: password })
-        .then(function(response){
+        .then(function(){
             //Success! Registered with email/password
             // TODO Redirect user here to login page or perhaps some other intermediate page
             // that requires email address verification before any other part of the site

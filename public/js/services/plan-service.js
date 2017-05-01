@@ -6,17 +6,25 @@ angular.module('PlanService',['NotificationService', 'cfp.hotkeys', 'AuthService
 function($http, $q, notificationService, hotkeys, authService, uploadPlanModal) {
     var self = this;
 
+    //Function that replaces whatever is in the workspace
+    //with a new plan with default values
     self.makeNew = function(){
+        //NOTE that we do NOT set the school yet. 
+        //Thus the basic plan info will be defined synchronously,
+        //but the school for the plan will be defined asynchronously
+        //
+        //I say this because it is a bit tricky and someday might lead to an
+        //issue if not addressed properly
+        self.plan = {
+            years: [],
+            title: 'New Plan',
+            public: false,
+            colorscheme: {}
+        };
+
         return authService.getUser()
         .then(function(user){
-            self.plan = {
-                years: [],
-                title: 'New Plan',
-                public: false,
-                colorscheme: {},
-                school: user.school
-            };
-
+            self.plan.school = user.school;
             notificationService.notify('plan-changed');
             return self.plan;
         });
