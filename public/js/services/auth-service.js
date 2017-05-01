@@ -32,6 +32,36 @@ angular.module('AuthService', ['satellizer', 'ui-notification'])
             });
     };
 
+    //Create an account using email and password
+    var signup = function(email, password){
+        return $auth.signup({ email: email, password: password })
+        .then(function(response){
+            //Success! Registered with email/password
+            // TODO Redirect user here to login page or perhaps some other intermediate page
+            // that requires email address verification before any other part of the site
+            // can be accessed.
+            Notification.success('Register success');
+            return login(email, password);
+        }, function(response){
+            //Failure. Something went wrong
+            Notification.error(response.data.message);
+        });
+    };
+
+    //For login via email aka local login
+    var login = function(email, password){
+        return $auth.login({ email: email, password: password })
+        .then(function(response){
+            //Success! Logged in with email/password
+            Notification.success('Logged in');
+            user = response.data.user;
+            return user;
+        }, function(response){
+            //Failure. Something went wrong
+            Notification.error(response.data.message);
+        });
+    };
+
     var logout = function() {
         $auth.logout();
         user = null;
@@ -51,6 +81,8 @@ angular.module('AuthService', ['satellizer', 'ui-notification'])
 
     return {
         authenticate: authenticate,
+        login: login,
+        signup: signup,
         logout: logout,
         isAuthenticated: $auth.isAuthenticated,
         getUser: function () { return user; },
