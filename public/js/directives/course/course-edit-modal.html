@@ -1,5 +1,6 @@
 <div class="course-edit-modal">
     <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h3 class="modal-title">Edit Course</h3>
     </div>
     <div class="modal-body">
@@ -8,7 +9,7 @@
             <div class="form-group" style="flex:1">
                 <label for="deptInput">Department</label>
                 <color-picker ng-model="deptColor" options="{ name: 'dept-color', swatchOnly: true }"></color-picker>
-                <input type="text" class="form-control" id="deptInput" 
+                <input type="text" class="form-control" id="deptInput"
                        placeholder="Department" ng-model="c.dept" />
             </div>
 
@@ -16,11 +17,11 @@
             <labeled-text name="'Credits'" model="c.credits" style="flex:0 0 50px"></labeled-text>
         </div>
 
-        <label for="prereq-dept">Prerequisites</label>
+        <label>Prerequisites</label>
         <div class="prereq-form">
-            <input type="text" class="form-control left-side no-right-border" ng-model="prereq.dept" />
-            <input type="text" class="form-control no-right-border" ng-model="prereq.num" />
-            <button class="btn btn-default right-side" ng-click="addPrereq()"
+            <input type="text" class="form-control left-side no-right-border" ng-model="prereq.dept" placeholder="Department"/>
+            <input type="text" class="form-control right-side" ng-model="prereq.num" placeholder="Number"/>
+            <button class="btn btn-default right-side add-prereq" ng-click="addPrereq()"
                 ng-disabled="!prereq.dept || !prereq.num">
                 <i class="fa fa-plus"></i>
             </button>
@@ -32,12 +33,15 @@
                 <i class="fa fa-fw fa-lg fa-times text-danger" ng-click="removePrereq(prereq)"></i>
             </li>
         </ul>
-        
+
+        <label>Notes</label>
+        <textarea ng-model="c.notes" placeholder="Notes" class="course-notes"></textarea>
+
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary" ng-click="save()">Save</button>
-        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-        <button class="btn btn-danger" ng-click="delete()">Delete</button>
+        <div class="flex-container">
+            <button class="btn btn-danger pull-left" ng-click="delete()">Delete</button>
+            <button class="btn btn-primary" ng-click="save()">Save</button>
+        </div>
     </div>
 </div>
-

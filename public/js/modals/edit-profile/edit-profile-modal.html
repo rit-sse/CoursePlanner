@@ -4,13 +4,12 @@
     </div>
     <div class="modal-body">
         <label for="school">School</label>
-        <input type="text" id="school" ng-model="user.school" class="form-control" 
+        <input type="text" id="school" ng-model="user.school" class="form-control"
         placeholder="School" typeahead-editable="false"
-        uib-typeahead="school as school.name for school in schools | filter:$viewValue | limitTo:3" />
+        uib-typeahead="school as school.name for school in schools | filter:$viewValue | limitTo:10" />
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary" ng-click="save()">Save</button>
         <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+        <button class="btn btn-primary" ng-click="save()">Save</button>
     </div>
 </div>
-

@@ -5,13 +5,18 @@
         <div class="year-header" data-as-sortable-item-handle>
             <h3 ng-if="::!readonly" contenteditable ng-model="year.title"></h3>
             <h3 ng-if="::readonly">{{::year.title}}</h3>
+            <div class="dropdown year-more">
+                <i class="fa fa-ellipsis-h" data-toggle="dropdown" aria-hidden="true"></i>
+                <ul class="dropdown-menu">
+                    <li ng-click="removeYear($index)" ng-if="::!readonly">
+                        <a><i class="fa fa-times delete-year-btn" aria-hidden="true"></i>&nbsp;&nbsp;Delete Year</a>
+                    </li>
+                    <li ng-click="addSemester(year)" ng-if="::!readonly">
+                        <a><i class="fa fa-plus add-semester-btn" aria-hidden="true"></i>&nbsp;&nbsp;Add Term</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-        <button class="btn btn-default btn-xs add-semester-btn" ng-click="addSemester(year)" ng-if="::!readonly">
-            Add Semester
-        </button>
-        <button class="btn btn-default btn-xs delete-year-btn" ng-click="removeYear($index)" ng-if="::!readonly">
-            Delete Year
-        </button>
         <div class="semesters">
             <div ng-repeat="semester in year.semesters track by $index" class="semester">
                 <div class="courseCol list">
@@ -26,16 +31,19 @@
                         </li>
                         <button ng-if="::!readonly" class="btn btn-default add-class-btn" data-as-sortable-item
                             ng-click="addCourse(semester)">
-                            <i class="fa fa-plus" aria-hidden="true" margin-top="5px"></i>
+                            <i class="fa fa-plus" aria-hidden="true"></i>
                         </button>
+                        <div ng-if="::!readonly" class="delete-semester-btn"
+                                ng-click="removeSemester(year,$index)">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </div>
                     </ul>
                 </div>
-                <button ng-if="::!readonly" class="btn btn-default btn-xs" ng-click="removeSemester(year,$index)">Delete</button>
             </div>
         </div>
         </li>
     </ol>
 
     <button ng-if="::!readonly" class="btn btn-default add-year-btn"
-        ng-click="addYear()" style="margin-left:15px">Add Year</button>
+        ng-click="addYear()" style="margin-left:15px"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;Add Year</button>
 </div>

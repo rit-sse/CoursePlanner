@@ -1,7 +1,7 @@
 Course Planner [![CircleCI](https://circleci.com/gh/rit-sse/CoursePlanner/tree/master.svg?style=svg)](https://circleci.com/gh/rit-sse/CoursePlanner/tree/master)
 =============
 
-A webapp for planning which courses to take and which year to take them in.
+An application for planning which courses to take and which year to take them in.
 
 Please refer to the <a href="https://github.com/rit-sse/CoursePlanner-/wiki" target="_blank">github wiki</a> for more information on dev environment setup and other info
 
