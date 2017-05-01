@@ -9,7 +9,8 @@ angular.module('NavbarDirective',[
     'OpenPlanModalService',
     'EditColorschemeModal',
     'EditProfileModal',
-    'HelpModal'
+    'HelpModal',
+    'LoginModal'
 ])
 
 .directive('navbar', [
@@ -21,7 +22,8 @@ angular.module('NavbarDirective',[
     'helpModal',
     'authService',
     'Notification',
-    function($http, planService, openPlanModal, editColorschemeModal, editProfileModal, helpModal, authService, Notification) {
+    'loginModal',
+    function($http, planService, openPlanModal, editColorschemeModal, editProfileModal, helpModal, authService, Notification, loginModal) {
         return {
             replace: true,
             restrict: 'E',
@@ -38,7 +40,7 @@ angular.module('NavbarDirective',[
                     authService.logout();
                 };
 
-                scope.login = authService.authenticate;
+                scope.login = loginModal.open;
 
                 scope.togglePublic = function() {
                     planService.setPublic(!planService.plan.public)

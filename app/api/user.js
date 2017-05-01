@@ -14,6 +14,8 @@
     var init = function(router) {
         router.get('/getCurrentUser', ensureAuthenticated, endpoints.getCurrentUser);
         router.post('/google', endpoints.google);
+        router.post('/signup', endpoints.signup);
+        router.post('/login', endpoints.login);
         router.post('/update', ensureAuthenticated, endpoints.update);
     };
 
@@ -55,7 +57,8 @@
             User.findOneAndUpdate({
                 _id: req.user
             }, {
-                school: req.body.school
+                school: req.body.school,
+                displayName: req.body.displayName
             }, {
                 new: true
             })
@@ -84,6 +87,45 @@
             }
         },
 
+        //Local signup
+        signup: function(req, res) {
+            User.findOne({ email: req.body.email }, function(err, existingUser) {
+                if (existingUser) {
+                    return res.status(409).send({ message: 'Email is already taken' });
+                }
+                var user = new User({
+                    displayName: req.body.displayName,
+                    email: req.body.email,
+                    password: req.body.password
+                });
+                user.save(function(err, result) {
+                    if (err) {
+                        console.log(err);
+                        res.status(500).send({ message: err.message });
+                        return;
+                    }
+                    res.send({ token: createJWT(result) });
+                });
+            });
+        },
+
+        //Local login
+        login: function(req, res) {
+            User.findOne({ email: req.body.email }, '+password', function(err, user) {
+                if (!user) {
+                    return res.status(401).send({ message: 'Invalid email and/or password' });
+                }
+                user.comparePassword(req.body.password, function(err, isMatch) {
+                    if (!isMatch) {
+                        return res.status(401).send({ message: 'Invalid email and/or password' });
+                    }
+                    var sanitizedUser = JSON.parse(JSON.stringify(user));
+                    delete sanitizedUser.password;
+                    res.send({ token: createJWT(user), user: sanitizedUser });
+                });
+            });
+        },
+
         //Google login
         google: function(req, res) {
             var accessTokenUrl = 'https://accounts.google.com/o/oauth2/token';
@@ -109,56 +151,56 @@
                     // Step 3a. Link user accounts.
                     if (req.header('Authorization')) {
                         User.findOne({ google: profile.sub })
-                        .then(function(existingUser) {
-                            if (existingUser) {
-                                return res.status(409).send({ message: 'There is already a Google account that belongs to you' });
-                            }
-                            var token = req.header('Authorization').split(' ')[1];
-                            var payload = jwt.decode(token, config.jwt.secret);
-                            return User.findById(payload.sub);
-                        })
-                        .then(function(user) {
-                            if (!user) {
-                                return res.status(400).send({ message: 'User not found' });
-                            }
-                            user.google = profile.sub;
-                            user.picture = user.picture || profile.picture.replace('sz=50', 'sz=200');
-                            user.displayName = user.displayName || profile.name;
-                            user.save(function() {
-                                var token = createJWT(user);
-                                res.send({ token: token, user: user });
+                            .then(function(existingUser) {
+                                if (existingUser) {
+                                    return res.status(409).send({ message: 'There is already a Google account that belongs to you' });
+                                }
+                                var token = req.header('Authorization').split(' ')[1];
+                                var payload = jwt.decode(token, config.jwt.secret);
+                                return User.findById(payload.sub);
+                            })
+                            .then(function(user) {
+                                if (!user) {
+                                    return res.status(400).send({ message: 'User not found' });
+                                }
+                                user.google = profile.sub;
+                                user.picture = user.picture || profile.picture.replace('sz=50', 'sz=200');
+                                user.displayName = user.displayName || profile.name;
+                                user.save(function() {
+                                    var token = createJWT(user);
+                                    res.send({ token: token, user: user });
+                                });
+                            })
+                            .catch(function(err){
+                                res.status(500).send(err);
                             });
-                        })
-                        .catch(function(err){
-                            res.status(500).send(err);
-                        });
                     } else {
                         // Step 3b. Create a new user account or return an existing one.
                         User.findOne({ google: profile.sub })
-                        .then(function(existingUser) {
-                            if (existingUser) {
-                                return School.findById(existingUser.school)
-                                .then(function(school){
-                                    existingUser.school = school;
-                                    return res.send({ token: createJWT(existingUser), user: existingUser });
-                                });
-                            }
-                            var user = new User();
-                            user.google = profile.sub;
-                            user.picture = profile.picture.replace('sz=50', 'sz=200');
-                            user.displayName = profile.name;
-                            user.save(function(err) {
-                                if(err){
-                                    console.log('ERROR SAVING USER',err);
+                            .then(function(existingUser) {
+                                if (existingUser) {
+                                    return School.findById(existingUser.school)
+                                        .then(function(school){
+                                            existingUser.school = school;
+                                            return res.send({ token: createJWT(existingUser), user: existingUser });
+                                        });
                                 }
-                                var token = createJWT(user);
-                                res.send({ token: token, user: user });
+                                var user = new User();
+                                user.google = profile.sub;
+                                user.picture = profile.picture.replace('sz=50', 'sz=200');
+                                user.displayName = profile.name;
+                                user.save(function(err) {
+                                    if(err){
+                                        console.log('ERROR SAVING USER',err);
+                                    }
+                                    var token = createJWT(user);
+                                    res.send({ token: token, user: user });
+                                });
+                            })
+                            .catch(function(error){
+                                console.log('ERROR CREATING NEW OR SENDING EXISTING',error);
+                                res.status(500).send(error);
                             });
-                        })
-                        .catch(function(error){
-                            console.log('ERROR CREATING NEW OR SENDING EXISTING',error);
-                            res.status(500).send(error);
-                        });
                     }
                 });
             });

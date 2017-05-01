@@ -11,56 +11,56 @@ $courseColWidth: 88px;
 @import url("sidebar.css");
 
 html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    background-color: $background;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: $background;
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    background-color: $background;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: $background;
 }
 
 .plan-title {
-    margin-right: auto;
-    margin-left: 15px;
-    margin-bottom: 5px;
-    margin-top: 15px;
-    font-weight: bold;
+  margin-right: auto;
+  margin-left: 15px;
+  margin-bottom: 5px;
+  margin-top: 15px;
+  font-weight: bold;
 }
 
 .year-col {
-    flex: 0 0 auto;
-    padding-left:15px;
+  flex: 0 0 auto;
+  padding-left: 15px;
 }
 
 .year-col-placeholder {
-    display:table-cell;
-    padding-left:15px;
-    vertical-align:top;
-    white-space:normal;
-    min-width:150px;
-    background-color: $gray;
+  display: table-cell;
+  padding-left: 15px;
+  vertical-align: top;
+  white-space: normal;
+  min-width: 150px;
+  background-color: $gray;
 }
 
 .semesters {
-    display: flex;
+  display: flex;
 }
 
 .semester {
-    padding-left: 10px;
-    vertical-align: top;
+  padding-left: 10px;
+  vertical-align: top;
 }
 
 .addCourseButton {
-    margin:auto;
+  margin: auto;
 }
 
 .cap {
-    text-transform: uppercase;
+  text-transform: uppercase;
 }
 
 .add-year-btn {
@@ -75,35 +75,35 @@ body {
 }
 
 .courseCol {
-    background: $card-background;
-    box-shadow: 0 2px 3px $shadow;
-    border-radius: 3px;
-    width: $courseColWidth;
-    min-height: 390px;
-    max-height: 800px;
-    text-align: center;
-    position: relative;
+  background: $card-background;
+  box-shadow: 0 2px 3px $shadow;
+  border-radius: 3px;
+  width: $courseColWidth;
+  min-height: 390px;
+  max-height: 800px;
+  text-align: center;
+  position: relative;
 }
 
 .courses {
-    list-style: none outside none;
-    padding: 0;
-    text-align: center;
+  list-style: none outside none;
+  padding: 0;
+  text-align: center;
 
-    .empty-item-holder-hack {
-        visibility: hidden;
-    }
+  .empty-item-holder-hack {
+    visibility: hidden;
+  }
 }
 
 .add-class-btn {
-    padding: 5px !important;
-    margin-top: 5px;
-    margin-bottom: 50px;
-    width: $courseColWidth - 13;
+  padding: 5px !important;
+  margin-top: 5px;
+  margin-bottom: 50px;
+  width: $courseColWidth - 13;
 }
 
 .year-row {
-    margin-top:20px;
+  margin-top: 20px;
 }
 
 .year-header {
@@ -124,18 +124,18 @@ body {
 }
 
 .year-more {
-    color: $gray;
-    cursor: pointer;
-    float: right;
-    height: 47px;
-    position: absolute;
-    right: 0;
-    top: 0;
+  color: $gray;
+  cursor: pointer;
+  float: right;
+  height: 47px;
+  position: absolute;
+  right: 0;
+  top: 0;
 
-    >i {
-        padding: 10px;
-        line-height: 27px;
-    }
+  > i {
+    padding: 10px;
+    line-height: 27px;
+  }
 }
 
 .year-more:active, .year-more.open {
@@ -143,7 +143,7 @@ body {
 }
 
 .year-more:hover {
-    color: $black;
+  color: $black;
 }
 
 .delete-semester-btn {
@@ -162,176 +162,188 @@ body {
 }
 
 .year-header:active {
-    cursor: grabbing;
-    cursor: -webkit-grabbing;
-    cursor: -moz-grabbing;
-    z-index:10;
+  cursor: grabbing;
+  cursor: -webkit-grabbing;
+  cursor: -moz-grabbing;
+  z-index: 10;
 }
 
 .error {
-    color: $red;
+  color: $red;
 
-    -moz-animation: cssAnimation 0s ease-in 9s forwards;
-    /* Firefox */
-    -webkit-animation: cssAnimation 0s ease-in 9s forwards;
-    /* Safari and Chrome */
-    -o-animation: cssAnimation 0s ease-in 9s forwards;
-    /* Opera */
-    animation: cssAnimation 0s ease-in 9s forwards;
-    -webkit-animation-fill-mode: forwards;
-    animation-fill-mode: forwards;
+  -moz-animation: cssAnimation 0s ease-in 9s forwards;
+  /* Firefox */
+  -webkit-animation: cssAnimation 0s ease-in 9s forwards;
+  /* Safari and Chrome */
+  -o-animation: cssAnimation 0s ease-in 9s forwards;
+  /* Opera */
+  animation: cssAnimation 0s ease-in 9s forwards;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
 }
+
 @keyframes cssAnimation {
-    to {
-        width:0;
-        height:0;
-        overflow:hidden;
-    }
-}
-@-webkit-keyframes cssAnimation {
-    to {
-        width:0;
-        height:0;
-        visibility:hidden;
-    }
+  to {
+    width: 0;
+    height: 0;
+    overflow: hidden;
+  }
 }
 
+@-webkit-keyframes cssAnimation {
+  to {
+    width: 0;
+    height: 0;
+    visibility: hidden;
+  }
+}
 
 .course-edit-modal {
-    .main-course-info {
-        display: flex;
-        flex-wrap: wrap;
+  .main-course-info {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .prereq-form {
+    display: flex;
+    margin-bottom: 5px;
+
+    input {
+      flex: 1;
+      border-radius: 0;
     }
 
-    .prereq-form {
-        display: flex;
-        margin-bottom: 5px;
-
-        input {
-            flex: 1;
-            border-radius: 0;
-        }
-
-        button {
-            flex: 0 0 auto;
-            border-radius: 0;
-        }
-
-        .right-side {
-            border-top-right-radius: 4px;
-            border-bottom-right-radius: 4px;
-        }
-
-        .left-side {
-            border-top-left-radius: 4px;
-            border-bottom-left-radius: 4px;
-        }
-
-        .no-right-border {
-            border-right: 0;
-        }
+    button {
+      flex: 0 0 auto;
+      border-radius: 0;
     }
+
+    .right-side {
+      border-top-right-radius: 4px;
+      border-bottom-right-radius: 4px;
+    }
+
+    .left-side {
+      border-top-left-radius: 4px;
+      border-bottom-left-radius: 4px;
+    }
+
+    .no-right-border {
+      border-right: 0;
+    }
+  }
 }
 
 .home {
+  display: flex;
+  flex-direction: column;
+
+  .navbar {
+    flex: 0 0 auto;
+  }
+
+  .content {
+    flex: 1;
     display: flex;
     flex-direction: column;
+    flex-wrap: nowrap;
+    text-align: center;
+    overflow: auto;
+  }
 
-    .navbar {
-        flex: 0 0 auto;
-    }
+  .years {
+    flex: 1;
+  }
 
-    .content {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        flex-wrap: nowrap;
-        text-align: center;
-        overflow: auto;
-    }
-
-    .years {
-        flex: 1;
-    }
-
-    years {
-        margin: 0 auto;
-    }
+  years {
+    margin: 0 auto;
+  }
 }
 
 .year-placeholder {
-    float: left;
+  float: left;
 }
 
 .years {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    text-align: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  text-align: center;
 
-    .year-li {
-        float: left;
-    }
+  .year-li {
+    float: left;
+  }
 }
 
 li {
-    &.as-sortable-item {
-        background: none;
-        border: none;
-    }
+  &.as-sortable-item {
+    background: none;
+    border: none;
+  }
 }
 
 .deletable-list-item {
-    display: table;
-    width: 100%;
-    vertical-align: middle;
+  display: table;
+  width: 100%;
+  vertical-align: middle;
 
-    i {
-        display: none;
-        cursor: pointer;
-        vertical-align: inherit;
-    }
+  // x button
+  i.text-danger {
+    display: table-cell;
+    color: $light-gray;
+    cursor: pointer;
+    vertical-align: inherit;
+  }
 
-    p {
-        margin: 0;
-    }
+  p {
+    margin: 0;
+  }
 
-
-    &:hover {
-        i {
-            display: table-cell;
-        }
-    }
+  i.text-danger:hover {
+    color: $red;
+  }
 }
 
 .view-public-plans {
-    .modal-body {
-        display: flex;
-    }
+  .modal-body {
+    display: flex;
+  }
 
-    .plan-list {
-        flex: 0 0 auto;
-    }
+  .plan-list {
+    flex: 0 0 auto;
+  }
 
-    .plan-preview {
-        flex: 1;
-        overflow-x: auto;
-    }
+  .plan-preview {
+    flex: 1;
+    overflow-x: auto;
+  }
 }
 
 .course-edit-modal {
-    color-picker {
-        position: absolute;
-        margin-top: -1px;
-        span {
-            display: inline-block !important;
-            width: 15px !important;
-            height: 15px !important;
-            padding: 0 !important;
-        }
+  color-picker {
+    position: absolute;
+    margin-top: -1px;
+    span {
+      display: inline-block !important;
+      width: 15px !important;
+      height: 15px !important;
+      padding: 0 !important;
     }
+  }
+}
+
+.modal-footer .flex-container {
+  display: flex;
+
+  button {
+    flex: 1;
+  }
+
+  :first-child {
+    margin-right: 10px;
+  }
 }
 
 .profile-pic {
-    height: 20px;
+  height: 20px;
 }
