@@ -29,6 +29,7 @@ function($http, $q, notificationService, hotkeys, authService, uploadPlanModal) 
             return self.plan;
         });
     };
+    self.makeNew(); //Start with a clean plan no matter what
 
     //auto load the most recently edited plan
     if(authService.isAuthenticated()){
@@ -48,9 +49,6 @@ function($http, $q, notificationService, hotkeys, authService, uploadPlanModal) 
         }, function(err){
             console.log('This is probably fine, it just means they havent opened a plan yet. but heres the error anyways:', err);
         });
-    } else {
-        //If not authed, start with empty plan
-        self.makeNew(); //Start with a clean plan
     }
 
     self.getMine = function(){
