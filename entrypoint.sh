@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 # usage: file_env VAR [DEFAULT]
