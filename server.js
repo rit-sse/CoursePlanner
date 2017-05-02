@@ -21,11 +21,12 @@
     .then(function(){
         console.log('Mongoose Connected');
         if(process.env.TEST) {
-            console.log('***************************************************');
-            console.log('**********************WARNING**********************');
-            console.log('***************************************************');
-            console.log('This is a test, I am now WIPING THE ENTIRE DATABASE');
-            console.log('***************************************************');
+            console.log('***********************************************************');
+            console.log('***************************WARNING*************************');
+            console.log('***********************************************************');
+            console.log('You are running a test, I am now WIPING THE ENTIRE DATABASE');
+            console.log('so that you start clean');
+            console.log('***********************************************************');
             //If this is a test and we connected to the test db,
             //wipe everything so we start clean
             mongoose.connection.db.dropDatabase();
