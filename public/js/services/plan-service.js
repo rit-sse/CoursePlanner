@@ -24,8 +24,10 @@ function($http, $q, notificationService, hotkeys, authService, uploadPlanModal) 
 
         return authService.getUser()
         .then(function(user){
-            self.plan.school = user.school;
-            notificationService.notify('plan-changed');
+            if(user){
+                self.plan.school = user.school;
+                notificationService.notify('plan-changed');
+            }
             return self.plan;
         });
     };

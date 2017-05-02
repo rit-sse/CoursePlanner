@@ -83,10 +83,6 @@ angular.module('NavbarDirective',[
                     helpModal.open();
                 };
 
-                //Open a modal that lets users browse and open public plans
-                scope.viewPublicPlans = function() {
-                };
-
                 scope.downloadPlan = planService.downloadPlan;
 
                 scope.uploadPlan = planService.uploadPlan;
