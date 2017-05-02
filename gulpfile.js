@@ -156,6 +156,10 @@ gulp.task('move', ['favicon', 'libs', 'views', 'server', 'angularFiles', 'node',
 
 //Set up index.html, injecting required js files
 gulp.task('index', function(){
+    var root = '/';
+    if (environment == 'prod'){
+        root = '/courseplanner';
+    }
     return gulp.src(sources.index)
     .pipe(inject(
         series(
@@ -163,6 +167,7 @@ gulp.task('index', function(){
             gulp.src(sources.appjs, {read:false})
         ),
         {relative:true}))
+        .pipe(inject_string.replace('ROOT_URL', root))
         .pipe(gulp.dest(dest.public));
 });
 
