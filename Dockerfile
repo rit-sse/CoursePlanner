@@ -12,6 +12,8 @@ RUN chmod +x /usr/src/app/entrypoint.sh
 RUN bower install --allow-root
 RUN npm run prodGulp
 
+ENV ENVIRONMENT=prod
+
 EXPOSE 8080
 
 ENTRYPOINT ["./entrypoint.sh"]
