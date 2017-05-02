@@ -19,7 +19,7 @@ dependencies:
 test:
     pre: 
         - npm install -g protractor
-        - npm start:
+        - TEST=true npm start:
             background: true
         - webdriver-manager update
         - webdriver-manager start:
