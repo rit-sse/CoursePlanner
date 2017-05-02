@@ -1,7 +1,7 @@
 /**
  * Compile api files and initialize endpoints
  * @namespace api/api
- */ 
+ */
 (function(){
     'use strict';
 
