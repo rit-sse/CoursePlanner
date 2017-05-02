@@ -27,4 +27,7 @@ file_env "GOOGLE_CLIENT_SECRET"
 file_env "DB_USER"
 file_env "DB_PASS"
 
-node dist/server.js
+npm run prodGulp
+npm run setupSchools
+gulp
+npm start
