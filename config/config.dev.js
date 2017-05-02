@@ -1,6 +1,6 @@
 module.exports = {
     db: {
-        url: 'mongodb://localhost/course-planner'
+        url: 'mongodb://localhost/' + (process.env.TEST ? 'test' : 'course-planner')
     },
 
     jwt: {
