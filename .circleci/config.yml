@@ -3,7 +3,7 @@ jobs:
     build:
         working_directory: ~/CoursePlanner
         docker:
-            - image: phusion/baseimage:0.9.21
+            - image: ubuntu:16.04
         steps:
             - checkout
             - setup_remote_docker
