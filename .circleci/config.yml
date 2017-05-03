@@ -35,6 +35,7 @@ jobs:
             - run: 
                 name: Run selenium
                 command: |
+                    apt-get install default-jre
                     webdriver-manager update
                     webdriver-manager start &
                     sleep 2 #wait for it to start
