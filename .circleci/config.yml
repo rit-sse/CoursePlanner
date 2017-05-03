@@ -6,7 +6,7 @@ jobs:
             - image: node:6.10.1
         steps:
             - checkout
-            - run: echo "hello world"
+            - run: docker-compose up
 
 #machine:
 #    pre:
