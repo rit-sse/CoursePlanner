@@ -1,6 +1,4 @@
 module.exports = {
-    baseUrl: '',
-
     db: {
         url: 'mongodb://mongo/course-planner'
     },

@@ -15,28 +15,6 @@ angular.module('CoursePlanner', [
     'CourseDirective'
 ])
 
-//Configure the base url if necessary
-.config(['$httpProvider', 'URL_BASE', function($httpProvider, URL_BASE) {
-    $httpProvider.interceptors.push(function(){
-        return {
-            request: function(config){
-                //Check if this is a call to our api
-                if(config.url.indexOf('/api') === 0) {
-                    //If it is, put the url base in front of any api calls
-                    //i.e. in our prod server right now our app is mounted on
-                    //sseprod.se.rit.edu/courseplanner
-                    //so if the config.url is only /api/plan/getMine
-                    //we need to change it to /courseplanner/api/plan/getMine
-                    //If it is a dev environment, URL_BASE can be the empty string
-                    config.url = URL_BASE + config.url;
-                }
-                return config;
-            }
-        };
-    });
-}])
-
-
 //Satellizer config (for authentication)
 .config(['$authProvider', 'GOOGLE_CONFIG', function($authProvider, GOOGLE_CONFIG){
     $authProvider.google({
