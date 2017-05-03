@@ -10,6 +10,7 @@ jobs:
             - run:
                 name: Setup Machine
                 command: |
+                    apt-get update
                     apt-get install -y software-properties-common python-software-properties
             - run: 
                 name: Install Docker
