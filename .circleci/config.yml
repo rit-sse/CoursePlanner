@@ -23,7 +23,7 @@ jobs:
                 name: Install npm shit
                 command: |
                     apt-get install -y python-software-properties
-                    curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
+                    curl -sL https://deb.nodesource.com/setup_7.x | bash -
                     apt-get install -y nodejs
                     npm install
             - run: 
