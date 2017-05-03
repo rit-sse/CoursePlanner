@@ -7,6 +7,10 @@ jobs:
         steps:
             - checkout
             - setup_remote_docker
+            - run:
+                name: Setup Machine
+                command: |
+                    apt-get install -y software-properties-common python-software-properties
             - run: 
                 name: Install Docker
                 command: |
