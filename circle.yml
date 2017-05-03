@@ -1,6 +1,9 @@
 machine:
     services:
         - docker
+    node:
+        version:
+            6.10.1
 
 
 dependencies:
