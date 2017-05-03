@@ -29,7 +29,8 @@ jobs:
             - run: 
                 name: Run Server+Mongo
                 command: |
-                    docker-compose -f docker-compose.test.yml -d up
+                    docker-compose -f docker-compose.test.yml up &
+                    sleep 10 #wait a little
             - run: 
                 name: Run selenium
                 command: |
