@@ -157,9 +157,6 @@ gulp.task('move', ['favicon', 'libs', 'views', 'server', 'angularFiles', 'node',
 //Set up index.html, injecting required js files
 gulp.task('index', function(){
     var root = '/';
-    if (environment == 'prod'){
-        root = '/courseplanner/';
-    }
     return gulp.src(sources.index)
     .pipe(inject(
         series(
