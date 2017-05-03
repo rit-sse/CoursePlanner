@@ -12,13 +12,11 @@ services:
     web:
         build:
             context: .
-            dockerfile: Dockerfile
+            dockerfile: Dockerfile.test
         ports:
             - "8080:8080"
         networks:
             - devnetwork
-        volumes:
-            - .:/usr/src/app
 
 networks:
     devnetwork:
