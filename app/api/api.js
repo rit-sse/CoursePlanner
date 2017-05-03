@@ -7,6 +7,7 @@
 
     var fs = require('fs');
     var path = require('path');
+    var config = require(__dirname + '/../../config/config');
 
 
     /**
@@ -29,7 +30,7 @@
                 var router = express.Router();      //Create a new Router object
                 var newEndpoint = require(path.join(__dirname, file));
                 newEndpoint.init(router);           //Initialize the endpoints
-                app.use('/api/' + path.basename(file, '.js'), router); //Mount sub-api
+                app.use(config.baseUrl + '/api/' + path.basename(file, '.js'), router); //Mount sub-api
             });
     };
 
