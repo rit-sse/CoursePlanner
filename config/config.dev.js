@@ -1,6 +1,8 @@
 module.exports = {
+    baseUrl: '',
+
     db: {
-        url: 'mongodb://localhost/course-planner'
+        url: 'mongodb://mongo/course-planner'
     },
 
     jwt: {

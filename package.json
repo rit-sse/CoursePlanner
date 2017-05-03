@@ -20,6 +20,7 @@
     "gulp": "^3.9.0",
     "gulp-clean": "^0.3.2",
     "gulp-inject": "^4.1.0",
+    "gulp-inject-string": "^1.1.0",
     "gulp-jsdoc3": "^1.0.1",
     "gulp-jshint": "^2.0.4",
     "gulp-nodemon": "^2.1.0",

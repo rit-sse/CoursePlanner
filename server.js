@@ -5,7 +5,7 @@
     //Load environment variables
     require('dotenv').load();
 
-    // Modules 
+    // Modules
     var config         = require(__dirname + '/config/config');
     var express        = require('express');
     var app            = express();
@@ -23,26 +23,30 @@
     })
     .catch(function(err) {
         console.log('Error connecting Mongoose up: ', err); //TODO on error, close application
-    });//, {authMechanism: 'ScramSHA1'}); 
+    });//, {authMechanism: 'ScramSHA1'});
 
     // Server port
-    var port = process.env.PORT || 8080; 
+    var port = process.env.PORT || 8080;
 
     // get all data/stuff of the body (POST) parameters
-    // parse application/json 
-    app.use(bodyParser.json()); 
+    // parse application/json
+    app.use(bodyParser.json());
 
     // parse application/vnd.api+json as json
-    app.use(bodyParser.json({ type: 'application/vnd.api+json' })); 
+    app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 
     // parse application/x-www-form-urlencoded
-    app.use(bodyParser.urlencoded({ extended: true })); 
+    app.use(bodyParser.urlencoded({ extended: true }));
 
     // override with the X-HTTP-Method-Override header in the request. simulate DELETE/PUT
-    app.use(methodOverride('X-HTTP-Method-Override')); 
+    app.use(methodOverride('X-HTTP-Method-Override'));
 
     // set the static files location /public/img will be /img for users
-    app.use(express.static(__dirname + '/public')); 
+    var root_url = '/';
+    if(process.env.ENVIRONMENT === 'prod') {
+        root_url = '/courseplanner';
+    }
+    app.use(root_url, express.static(__dirname + '/public'));
 
     //Select morgan log style based on server
     if(!process.env.ENVIRONMENT || process.env.ENVIRONMENT === 'dev') {
@@ -53,7 +57,7 @@
 
 
     //Set up the api endpoints
-    require(__dirname + '/app/api/api').init(express, app); 
+    require(__dirname + '/app/api/api').init(express, app);
 
     //Default route
     app.get('*', function(req, res) {
@@ -63,8 +67,8 @@
     //Initialize the school data if necessary
     require(__dirname + '/app/scripts/schools');
 
-    // Start App 
-    app.listen(port);               
+    // Start App
+    app.listen(port);
 
     console.log('Server running on ' + port);
 }());

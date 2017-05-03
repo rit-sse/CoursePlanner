@@ -1,0 +1,24 @@
+version: '3.1'
+
+services:
+    mongo:
+        image: mongo
+        volumes:
+            - ./data:/data/db
+        ports:
+            - "27017:27017"
+        networks:
+            - devnetwork
+    web:
+        build:
+            context: .
+            dockerfile: Dockerfile.dev
+        ports:
+            - "8080:8080"
+        networks:
+            - devnetwork
+        volumes:
+            - .:/usr/src/app
+
+networks:
+    devnetwork:

@@ -11,6 +11,7 @@ var series = require('stream-series');
 var sass = require('gulp-sass');
 var nodemon = require('gulp-nodemon');
 var jsdoc = require('gulp-jsdoc3');
+var inject_string = require('gulp-inject-string');
 
 // --- Environment ---
 var envs = {
@@ -130,7 +131,7 @@ gulp.task('env', function(){
 //Move and rename to config.js
 gulp.task('config', function(){
     var src = 'config/config.'+environment+'.js';
-    
+
     return gulp.src(src)
         .pipe(rename(dest.configName))
         .pipe(gulp.dest(dest.config));
@@ -146,6 +147,7 @@ gulp.task('frontEndConfig', function(){
 gulp.task('move', ['favicon', 'libs', 'views', 'server', 'angularFiles', 'node', 'env',
     'config', 'frontEndConfig']);
 
+
 // ------------------
 
 
@@ -154,13 +156,18 @@ gulp.task('move', ['favicon', 'libs', 'views', 'server', 'angularFiles', 'node',
 
 //Set up index.html, injecting required js files
 gulp.task('index', function(){
+    var root = '/';
+    if (environment == 'prod'){
+        root = '/courseplanner/';
+    }
     return gulp.src(sources.index)
     .pipe(inject(
         series(
-            gulp.src(sources.injectedJs, {read:false}), 
-            gulp.src(sources.appjs, {read:false}) 
+            gulp.src(sources.injectedJs, {read:false}),
+            gulp.src(sources.appjs, {read:false})
         ),
         {relative:true}))
+        .pipe(inject_string.replace('ROOT_URL', root))
         .pipe(gulp.dest(dest.public));
 });
 
@@ -194,8 +201,8 @@ gulp.task('watch', function() {
     gulp.watch(sources.libs, ['libs']);
     gulp.watch(sources.node, ['node']);
     gulp.watch(sources.sass, ['sass']);
-    gulp.watch(sources.server, ['server']); 
-    gulp.watch(sources.views, ['views']); 
+    gulp.watch(sources.server, ['server']);
+    gulp.watch(sources.views, ['views']);
 });
 
 gulp.task('nodemon', function(){
@@ -205,4 +212,3 @@ gulp.task('nodemon', function(){
 });
 
 gulp.task('devrun', ['watch', 'nodemon']);
-
