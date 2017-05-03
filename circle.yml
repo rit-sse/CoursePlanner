@@ -12,6 +12,7 @@ dependencies:
 
 test:
     pre: 
+        - npm install
         - npm install -g protractor
         - docker-compose up:
             background: true
