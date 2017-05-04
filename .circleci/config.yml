@@ -10,6 +10,9 @@ jobs:
             - run: 
                 name: Install Docker
                 command: |
+                    apt install wget
+                    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+                    sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
                     apt-get update
                     apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
                     apt-add-repository 'deb https://apt.dockerproject.org/repo ubuntu-xenial main'
@@ -36,9 +39,9 @@ jobs:
             - run: 
                 name: Run selenium
                 command: |
-                    apt-get install -y default-jre chromium-browser
+                    apt-get install -y default-jre google-chrome-stable
                     webdriver-manager update
-                    webdriver-manager start &
+                    webdriver-manager start --standalone &
                     sleep 10 #wait for it to start
             - run: 
                 name: Run Protractor
