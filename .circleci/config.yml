@@ -41,10 +41,4 @@ jobs:
                     apt-get install -y default-jre google-chrome-stable
                     webdriver-manager update
                     webdriver-manager start --standalone &
-                    sleep 10 #wait for it to start
-            - run: 
-                name: Run Protractor
-                command: |
-                    npm run protractor
-
-                    
+                    sleep 10 #wait for it to start                    
