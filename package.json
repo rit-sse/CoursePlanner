@@ -54,6 +54,8 @@
     "karma": "karma start --reporters junit,dots",
     "update-webdriver": "webdriver-manager update",
     "preprotractor": "npm run update-webdriver",
-    "protractor": "protractor protractor.conf.js"
+    "protractor": "protractor protractor.conf.js",
+    "pretest": "gulp",
+    "test": "bash ./test/e2e/run.sh"
   }
 }

@@ -1,0 +1,27 @@
+<div class="edit-plan-details-modal">
+    <div class="modal-header">
+        <h3 class="modal-title">Edit Plan Details</h3>
+    </div>
+    <div class="modal-body">
+        <labeled-text name="'Title'" model="plan.title"></labeled-text>
+
+        <div class="form-group">
+            <label for="planDetails">Details</label>
+            <textarea class="form-control" ng-model="plan.details"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="school">School</label> <a ng-click="plan.school = user.school">Change to my School</a>
+            <input type="text" id="school" ng-model="plan.school" class="form-control" 
+            placeholder="School" typeahead-editable="false"
+            uib-typeahead="school as school.name for school in schools | filter:$viewValue | limitTo:10" />
+        </div>
+
+        <tags-input ng-model="plan.tags"></tags-input>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="save()">Save</button>
+        <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+    </div>
+</div>
+

@@ -1,6 +1,7 @@
 describe('Plan Edit Tests', function() {
     beforeEach(function() {
         browser.get('http://localhost:8080/');
+        browser.waitForAngular();
     });
     
     it('should add a year when you click the add year button', function() {

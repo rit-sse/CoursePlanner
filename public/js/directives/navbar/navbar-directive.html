@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Course Planner</a>
+            <a class="navbar-brand" ui-sref="home">Course Planner</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -39,7 +39,7 @@
                 <li ng-switch-when="false">
                 <a href="#" ng-click="login()"><i class="fa fa-fw fa-key"></i> Login</a>
                 </li>
-                <li ng-switch-when="true" ng-if="getAuthedUser().school"><a href="#" ng-click="viewPublicPlans()">
+                <li ng-switch-when="true"><a href="#" ui-sref="browse">
                     <i class="fa fa-fw fa-book" aria-hidden="true"></i>Browse
                 </a></li>
 
@@ -73,21 +73,21 @@
 
                 <li class="dropdown user-dropdown" ng-switch-when="true">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                    <i class="fa fa-exclamation-triangle fa-fw" ng-if="!getAuthedUser().school"></i>
-                    <i class="fa fa-fw fa-user" ng-if="getAuthedUser().school"></i>
-                    <!--<img class="profile-pic" ng-src="{{getAuthedUser().picture}}" /> -->
-                    {{getAuthedUser().displayName.split(' ')[0]}}
+                    <i class="fa fa-exclamation-triangle fa-fw" ng-if="!user.school"></i>
+                    <i class="fa fa-fw fa-user" ng-if="user.school"></i>
+                    <!--<img class="profile-pic" ng-src="{{user.picture}}" /> -->
+                    {{user.displayName.split(' ')[0]}}
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu" role="menu">
                     <li ng-click="editProfile()"
                         uib-tooltip="Add your school to get access to more features!"
                         tooltip-placement="left"
-                        tooltip-enable="!getAuthedUser().school">
+                        tooltip-enable="!user.school">
                     <a href="#">
-                        <i class="fa fa-fw fa-pencil-square-o aria-hidden="true"></i>
+                        <i class="fa fa-fw fa-pencil-square-o" aria-hidden="true"></i>
                         Edit Info
-                        <i class="fa fa-exclamation-triangle fa-fw" ng-if="!getAuthedUser().school"></i>
+                        <i class="fa fa-exclamation-triangle fa-fw" ng-if="!user.school"></i>
                     </a>
                     </li>
                     <li class="divider"></li>
@@ -96,6 +96,11 @@
                     </a></li>
                 </ul>
                 </li>
+
+                <li ng-switch-when="false">
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfF_vFzl44JjW0F6SlGVE7yZp7XvUvNZOImBvOAInZMDa3sQQ/viewform?usp=sf_link" target="_blank"><i class="fa fa-fw fa-comments"></i> Feedback</a>
+                </li>
+
                 <li id="open-help-modal"><a href="#" ng-click="help()">
                     <i class="fa fa-fw fa-question-circle"></i>Help
                 </a></li>

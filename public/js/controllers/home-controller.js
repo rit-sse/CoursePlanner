@@ -1,9 +1,13 @@
 'use strict';
 
-var app = angular.module("HomeController", ['PlanService', 'NotificationService']);
+var app = angular.module("HomeController", ['PlanService', 'NotificationService', 'EditPlanDetailsModal']);
 
-app.controller('homeController', ['$scope','$http', 'planService', 'notificationService',
-function($scope, $http, planService, notificationService) {
+app.controller('homeController', ['$scope','$http', 'planService', 'notificationService', 'user', 'editPlanDetailsModal',
+function($scope, $http, planService, notificationService, user, editPlanDetailsModal) {
+    $scope.user = user;
+    notificationService.on('user-changed', function(user){
+        $scope.user = user;
+    });
     
     $scope.plan = planService.plan;
     notificationService.on('plan-changed', function(){
@@ -13,6 +17,10 @@ function($scope, $http, planService, notificationService) {
     $scope.errormsg = "";
     $scope.setErrorMsg = function(text) {
         $scope.errormsg = text;
+    };
+
+    $scope.editPlanDetails = function() {
+        editPlanDetailsModal.open($scope.plan);
     };
 
 }]);

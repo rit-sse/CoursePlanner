@@ -2,40 +2,30 @@
 
 //Wrapper for satellizer
 //Basically only exists so we have somewhere to keep the user data
-angular.module('AuthService', ['satellizer', 'ui-notification'])
+angular.module('AuthService', ['satellizer', 'ui-notification', 'LocalStorageModule', 'NotificationService'])
 
-.service('authService', ['$auth', '$http', 'Notification', function($auth, $http, Notification) {
+.service('authService', ['$auth', '$http', '$q', 'Notification', 'localStorageService', 'notificationService',
+function($auth, $http, $q, Notification, localStorageService, notificationService) {
 
     var user;
 
-    // On startup, if authed, get the user data
-    if($auth.isAuthenticated()){
-        $http.get('/api/user/getCurrentUser')
-            .then(function(response){
-                user = response.data;
-            }, function(response){
-                //Something went wrong
-                Notification.error(response.message);
-            });
-    }
-
     var authenticate = function(provider){
         return $auth.authenticate(provider)
-            .then(function(response){
-                //Success! Logged in with provider
-                Notification.success('Logged in');
-                user = response.data.user;
-                return user;
-            }, function(response){
-                //Failure. Something went wrong
-                Notification.error(response.message);
-            });
+        .then(function(response){
+            //Success! Logged in with provider
+            Notification.success('Logged in');
+            setUser(response.data.user);
+            return user;
+        }, function(response){
+            //Failure. Something went wrong
+            Notification.error(response.message);
+        });
     };
 
     //Create an account using email and password
     var signup = function(email, password){
         return $auth.signup({ email: email, password: password })
-        .then(function(response){
+        .then(function(){
             //Success! Registered with email/password
             // TODO Redirect user here to login page or perhaps some other intermediate page
             // that requires email address verification before any other part of the site
@@ -64,7 +54,7 @@ angular.module('AuthService', ['satellizer', 'ui-notification'])
 
     var logout = function() {
         $auth.logout();
-        user = null;
+        delUser();
         Notification.primary('Logged out');
     };
 
@@ -72,12 +62,52 @@ angular.module('AuthService', ['satellizer', 'ui-notification'])
         return $http.post('/api/user/update', userData)
         .then(function(response){
             Notification.success('Update Completed');
-            user = response.data;
+            setUser(response.data);
             return user;
         }, function(response){
             Notification.error(response.message);
         });
     };
+
+
+    function setUser(user){
+        user = user;
+        localStorageService.set('user', user);
+        notificationService.notify('user-changed', user);
+    }
+
+    function getUser(){
+        //If not authed, reject 
+        if(!$auth.isAuthenticated()){
+            return $q.reject();
+        }
+
+        //If authed and user not set, get out of local storage
+        if(!user){
+            user = localStorageService.get('user', user);
+
+            //If we tried to get it out of local storage and it is still null,
+            //  get data from server
+            if(!user){
+                return $http.get('/api/user/getCurrentUser')
+                .then(function(response){
+                    setUser(response.data);
+                    return user;
+                }, function(response){
+                    //Something went wrong
+                    Notification.error(response.message);
+                });
+            }
+        }
+        
+        return $q.when(user);
+    }
+
+    function delUser(){
+        user = null;
+        localStorageService.remove('user');
+        notificationService.notify('user-changed', null);
+    }
 
     return {
         authenticate: authenticate,
@@ -85,7 +115,7 @@ angular.module('AuthService', ['satellizer', 'ui-notification'])
         signup: signup,
         logout: logout,
         isAuthenticated: $auth.isAuthenticated,
-        getUser: function () { return user; },
+        getUser: getUser,
         updateData: updateData
     };
 }]);
