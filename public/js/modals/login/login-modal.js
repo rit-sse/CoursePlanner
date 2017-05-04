@@ -30,7 +30,9 @@ angular.module('LoginModal', ['ui.bootstrap', 'AuthService'])
                         modalInstance.close();
                     });
                 };
-
+                modalScope.close = function () {
+                    modalInstance.close();
+                };
                 modalScope.invalidForm = function() {
                     return !modalScope.email || !modalScope.password;
                 };
