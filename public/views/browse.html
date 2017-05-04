@@ -1,0 +1,47 @@
+<div class="browse">
+    <navbar user="user"></navbar>
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <h1>Public Plans</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="filters">
+                <labeled-text name="'Title'" model="filters.title"></labeled-text>
+                <div class="form-group">
+                    <label for="tagsInputFilter">Tags</label>
+                    <tags-input id="tagsInputFilter" ng-model="filters.tags"></tags-input>
+                </div>
+                <div class="form-group">
+                    <label for="school">School</label>
+                    <input type="text" id="school" ng-model="filters.school" class="form-control" 
+                    placeholder="School" typeahead-editable="false"
+                    uib-typeahead="school as school.name for school in schools | filter:$viewValue | limitTo:10" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-default" ng-repeat="plan in plans | planFilter:filters"
+                ng-class="{ 'panel-primary': $parent.selectedPlan === plan }">
+                <div class="panel-heading" 
+                ng-click="$parent.selectedPlan === plan ? $parent.selectedPlan = null : $parent.selectedPlan = plan">
+                    <p ng-bind="::plan.title"></p>
+                    <span class="badge" ng-repeat="tag in plan.tags" ng-bind="::tag.text"></span>
+                    <button class="btn btn-default btn-sm load-btn" ng-click="load(plan)"
+                        ng-if="selectedPlan === plan">Load</button>
+                </div>
+                <div class="panel-body" ng-if="selectedPlan === plan">
+                    <years plan="::selectedPlan" readonly="true"></years>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <a class="return" ui-sref="home"><i class="fa fa-fw fa-arrow-circle-o-left"></i>Back</a>
+        </div>
+    </div>
+</div>

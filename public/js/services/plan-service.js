@@ -6,7 +6,15 @@ angular.module('PlanService',['NotificationService', 'cfp.hotkeys', 'AuthService
 function($http, $q, notificationService, hotkeys, authService, uploadPlanModal) {
     var self = this;
 
+    //Function that replaces whatever is in the workspace
+    //with a new plan with default values
     self.makeNew = function(){
+        //NOTE that we do NOT set the school yet. 
+        //Thus the basic plan info will be defined synchronously,
+        //but the school for the plan will be defined asynchronously
+        //
+        //I say this because it is a bit tricky and someday might lead to an
+        //issue if not addressed properly
         self.plan = {
             years: [],
             title: 'New Plan',
@@ -14,28 +22,36 @@ function($http, $q, notificationService, hotkeys, authService, uploadPlanModal) 
             colorscheme: {}
         };
 
-        notificationService.notify('plan-changed');
+        return authService.getUser()
+        .then(function(user){
+            if(user){
+                self.plan.school = user.school;
+                notificationService.notify('plan-changed');
+            }
+            return self.plan;
+        });
     };
-
-    self.makeNew(); //Start with a clean plan
+    self.makeNew(); //Start with a clean plan no matter what
 
     //auto load the most recently edited plan
-    $http.get('/api/plan/loadMostRecentPlan')
-    .then(function(response){
-        if(response.status !== 200) {
-            throw 'Response status: ' + response.status;
-        }
+    if(authService.isAuthenticated()){
+        $http.get('/api/plan/loadMostRecentPlan')
+        .then(function(response){
+            if(response.status !== 200) {
+                throw 'Response status: ' + response.status;
+            }
 
-        if(!response.data || !response.data._id) {
-            console.log('Response data for trying to load the most recent plan might be crap');
-            console.log(response.data);
-        }
+            if(!response.data || !response.data._id) {
+                console.log('Response data for trying to load the most recent plan might be crap');
+                console.log(response.data);
+            }
 
-        self.plan = response.data;
-        notificationService.notify('plan-changed');
-    }, function(err){
-        console.log('This is probably fine, it just means they havent opened a plan yet. but heres the error anyways:', err);
-    });
+            self.plan = response.data;
+            notificationService.notify('plan-changed');
+        }, function(err){
+            console.log('This is probably fine, it just means they havent opened a plan yet. but heres the error anyways:', err);
+        });
+    }
 
     self.getMine = function(){
         return $http.get('/api/plan/getMine')
@@ -68,11 +84,12 @@ function($http, $q, notificationService, hotkeys, authService, uploadPlanModal) 
     self.copyPublicPlan = function(planToCopy) {
         //TODO probably want to check if their plan wasn't saved
         //before we erase their work here
-        self.makeNew();
-        self.plan.years = planToCopy.years;
-        self.plan.title = 'Copy of ' + planToCopy.title;
-        notificationService.notify('plan-changed');
-        return $q.when();//return empty promise that is instantly resolved
+        return self.makeNew()
+        .then(function(){
+            self.plan.years = planToCopy.years;
+            self.plan.title = 'Copy of ' + planToCopy.title;
+            notificationService.notify('plan-changed');
+        });
     };
 
     self.save = function() {
@@ -86,6 +103,9 @@ function($http, $q, notificationService, hotkeys, authService, uploadPlanModal) 
 
     self.setPublic = function(newPublicValue) {
         var url = newPublicValue ? '/api/plan/makePublic' : '/api/plan/makePrivate';
+
+        //TODO check if the plan has an id - if it doesnt, this won't work...
+        //how do we handle that? should we save it for them if they set it public?
 
         return $http.post(url, self.plan)
         .then(function(response){

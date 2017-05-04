@@ -28,10 +28,11 @@ angular.module('NavbarDirective',[
             replace: true,
             restrict: 'E',
             templateUrl: 'js/directives/navbar/navbar-directive.html',
+            scope: {
+                user: '='
+            },
             link: function(scope) {
                 scope.isAuthenticated = authService.isAuthenticated;
-
-                scope.getAuthedUser = authService.getUser;
 
                 scope.logout = function() {
                     //Clear current plan, log em out, and boot em!
@@ -80,20 +81,6 @@ angular.module('NavbarDirective',[
 
                 scope.help = function() {
                     helpModal.open();
-                };
-
-                //Open a modal that lets users browse and open public plans
-                scope.viewPublicPlans = function() {
-                    planService.getPublic()
-                    .then(function(plans) {
-                        openPlanModal.open('Browse Public Plans', plans, function(plan) {
-                            if(!plan) {
-                                return console.log('No plan given to load');
-                            }
-
-                            return planService.copyPublicPlan(plan);
-                        });
-                    });
                 };
 
                 scope.downloadPlan = planService.downloadPlan;

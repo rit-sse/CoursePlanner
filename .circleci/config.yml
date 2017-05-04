@@ -1,0 +1,44 @@
+version: 2
+jobs:
+    build:
+        working_directory: ~/CoursePlanner
+        docker:
+            - image: phusion/baseimage:0.9.21
+        steps:
+            - checkout
+            - setup_remote_docker
+            - run: 
+                name: Install Docker
+                command: |
+                    curl -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+                    sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+                    apt-get update
+                    apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+                    apt-add-repository 'deb https://apt.dockerproject.org/repo ubuntu-xenial main'
+                    apt-get update
+                    apt-get install -y docker-engine
+            - run:
+                name: Install Docker Compose
+                command: |
+                    curl -o /usr/local/bin/docker-compose -L "https://github.com/docker/compose/releases/download/1.13.0/docker-compose-$(uname -s)-$(uname -m)"
+                    chmod +x /usr/local/bin/docker-compose
+            - run: 
+                name: Install npm shit
+                command: |
+                    apt-get install -y python-software-properties
+                    curl -sL https://deb.nodesource.com/setup_7.x | bash -
+                    apt-get install -y nodejs
+                    npm install
+                    npm install -g protractor
+            - run: 
+                name: Run Server+Mongo
+                command: |
+                    docker-compose -f docker-compose.test.yml up &
+                    sleep 10 #wait a little
+            - run: 
+                name: Run selenium
+                command: |
+                    apt-get install -y default-jre google-chrome-stable
+                    webdriver-manager update
+                    webdriver-manager start --standalone &
+                    sleep 10 #wait for it to start                    

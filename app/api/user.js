@@ -54,7 +54,6 @@
     var endpoints = {
 
         update: function(req, res) {
-            var updatedUser;
             User.findOneAndUpdate({
                 _id: req.user
             }, {
@@ -63,13 +62,9 @@
             }, {
                 new: true
             })
-            .then(function(newUserData){
-                updatedUser = newUserData;
-                return School.findById(newUserData.school);
-            })
-            .then(function(school){
-                updatedUser.school = school;
-                res.send(updatedUser);
+            .populate('school')
+            .then(function(user){
+                res.send(user);
             })
             .catch(function(error){
                 console.log(error);
@@ -79,19 +74,14 @@
 
         getCurrentUser: function(req, res) {
             if(req.user) {
-                var currentUser;
                 User.findById(req.user)
-                    .then(function(user){
-                        currentUser = user;
-                        return School.findById(user.school);
-                    })
-                    .then(function(school){
-                        currentUser.school = school;
-                        res.send(currentUser);
-                    })
-                    .catch(function(error){
-                        res.status(500).send(error);
-                    });
+                .populate('school')
+                .then(function(user){
+                    res.send(user);
+                })
+                .catch(function(error){
+                    res.status(500).send(error);
+                });
             } else {
                 res.status(500).send('Well there is no user, but thats really weird that you hit this case');
             }

@@ -14,8 +14,10 @@ angular.module('EditProfileModal', ['ui.bootstrap', 'SchoolService'])
             controller: ['$scope', 'schoolService', 'authService',
             function(modalScope, schoolService, authService) {
                 modalScope.title = 'Profile';
-                var origUser = authService.getUser();
-                modalScope.user = JSON.parse(JSON.stringify(origUser));
+                authService.getUser()
+                .then(function(user){
+                    modalScope.user = JSON.parse(JSON.stringify(user));
+                });
 
                 schoolService.getSchools()
                 .then(function(schools){
