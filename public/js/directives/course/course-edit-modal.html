@@ -9,32 +9,37 @@
             <labeled-text name="'Name'" model="c.name" style="flex:1 0 100%"></labeled-text>
             <!-- /1st row -->
 
-            <br/>
-
             <!-- 2nd row -->
-            <div class="form-group" style="flex:1">
-                <label for="deptInput">Department</label>
-                <color-picker ng-model="deptColor" options="{ name: 'dept-color', swatchOnly: true }"></color-picker>
-                <input type="text" class="form-control" id="deptInput"
-                       placeholder="Department" ng-model="c.dept" />
-            </div>
+            <div style="display: flex;">
+                <div class="form-group" style="flex:1">
+                    <label for="deptInput">Department</label>
+                    <color-picker ng-model="deptColor" options="{ name: 'dept-color', swatchOnly: true }"></color-picker>
+                    <input type="text" class="form-control" id="deptInput"
+                           placeholder="Department" ng-model="c.dept" />
+                </div>
 
-            <labeled-text name="'Number'" model="c.num" style="flex:1"></labeled-text>
-            <labeled-text name="'Credits'" model="c.credits" style="flex:0 0 50px"></labeled-text>
+                <labeled-text name="'Number'" model="c.num" style="flex:1"></labeled-text>
+                <labeled-text name="'Credits'" model="c.credits" style="flex:0 0 50px"></labeled-text>
+            </div>
             <!-- /2nd row -->
         </div>
 
         <!-- 3rd row -->
-        <div class="form-group" style="flex:1">
-        <label>Prerequisites</label>
-        <div class="prereq-form">
-            <input type="text" class="form-control left-side no-right-border" ng-model="prereq.dept" placeholder="Department"/>
-            <input type="text" class="form-control right-side" ng-model="prereq.num" placeholder="Number"/>
-            <button class="btn btn-default right-side add-prereq" ng-click="addPrereq()"
+        <div style="display: flex; ">
+            <div class="form-group" style="flex:1">
+                <label>Prerequisites</label>
+                <input type="text" class="form-control left-side no-right-border prereq-dept" ng-model="prereq.dept" placeholder="Department"/>
+            </div>
+
+            <div class="form-group" style="flex:1">
+                <label>&nbsp;</label>
+                <input type="text" class="form-control right-side prereq-num" ng-model="prereq.num" placeholder="Number"/>
+            </div>
+
+            <button class="btn btn-default right-side add-prereq" style="flex:0 0 30px;" ng-click="addPrereq()"
                 ng-disabled="!prereq.dept || !prereq.num">
                 <i class="fa fa-plus"></i>
             </button>
-        </div>
         </div>
         <!-- /3rd row -->
 

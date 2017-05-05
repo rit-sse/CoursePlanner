@@ -83,6 +83,17 @@ $shadow: #888888;
   right: 0;
 }
 
+.prereq-dept {
+  border-right: none;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.prereq-num {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
 .bottomleft-topright-line {
   width: 200px;
   max-height: 0;
@@ -144,7 +155,8 @@ $shadow: #888888;
   }
 
   .add-prereq {
-    margin-left: 5px;
+    //TODO: should try to fix this to align properly, not with margins
+    margin: 25px 0 14px 5px;
     box-shadow: none;
     padding: 5px;
   }
