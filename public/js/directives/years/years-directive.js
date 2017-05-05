@@ -127,6 +127,9 @@ angular.module('YearsDirective', ['as.sortable'])
                           for(var i = 0; i < semester.classes.length; ++i) {
                               credits += parseInt(semester.classes[i].credits);
                           }
+                          if(isNaN(credits)){
+                            return 0;
+                          }
                           return credits;
                 };
 
