@@ -15,7 +15,6 @@ RUN bower install --allow-root
 ENV ENVIRONMENT=prod
 RUN npm run prodGulp
 
-
 EXPOSE 8080
 
 ENTRYPOINT ["./entrypoint.sh"]
