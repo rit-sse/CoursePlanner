@@ -24,7 +24,7 @@
                         data-is-disabled="::readonly">
                         <li data-ng-repeat="c in semester.classes" data-as-sortable-item>
                         <div data-as-sortable-item-handle>
-                            <course course="c" delete="deleteCourse" readonly="readonly" 
+                            <course course="c" delete="deleteCourse" readonly="readonly"
                                     colorscheme="plan.colorscheme"
                                     ng-class="{ 'course-warning': !hasPrereqs(c) }"></course>
                         </div>
@@ -39,6 +39,7 @@
                         </div>
                     </ul>
                 </div>
+                <p>{{getCredits(semester)}}</p>
             </div>
         </div>
         </li>
