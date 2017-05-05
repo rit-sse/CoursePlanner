@@ -5,7 +5,7 @@ angular.module('LoginModal', ['ui.bootstrap', 'AuthService'])
 .service('loginModal', ['$uibModal', 'authService', function($uibModal, authService) {
     var self = this;
 
-    self.open = function(colorscheme) {
+    self.open = function() {
         var modalInstance = $uibModal.open({
             templateUrl: 'js/modals/login/login-modal.html',
             animation: false,

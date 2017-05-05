@@ -1,0 +1,32 @@
+.browse {
+    .panel {
+        margin: 0;
+    }
+
+    .panel-body {
+        padding: 15px 0;
+    }
+
+    .panel-heading {
+        cursor: pointer;
+        p {
+            display: inline;
+        }
+    }
+    .form-group {
+        display: inline-block;
+        vertical-align: top;
+        min-width: 200px;
+    }
+    .filters {
+        border-bottom: 1px solid gray;
+        margin-bottom: 15px;
+    }
+    .btn {
+        padding: 2px 5px;
+        box-shadow: none;
+    }
+    .load-btn {
+        float: right;
+    }
+}

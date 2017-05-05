@@ -1,6 +1,7 @@
 describe('Help Modal Tests', function() {
     beforeEach(function() {
         browser.get('http://localhost:8080/');
+        browser.waitForAngular();
     });
     
     it('should open and close the help modal', function() {
