@@ -5,7 +5,13 @@
     </div>
     <div class="modal-body">
         <div class="main-course-info">
+            <!-- 1st row -->
             <labeled-text name="'Name'" model="c.name" style="flex:1 0 100%"></labeled-text>
+            <!-- /1st row -->
+
+            <br/>
+
+            <!-- 2nd row -->
             <div class="form-group" style="flex:1">
                 <label for="deptInput">Department</label>
                 <color-picker ng-model="deptColor" options="{ name: 'dept-color', swatchOnly: true }"></color-picker>
@@ -15,8 +21,11 @@
 
             <labeled-text name="'Number'" model="c.num" style="flex:1"></labeled-text>
             <labeled-text name="'Credits'" model="c.credits" style="flex:0 0 50px"></labeled-text>
+            <!-- /2nd row -->
         </div>
 
+        <!-- 3rd row -->
+        <div class="form-group" style="flex:1">
         <label>Prerequisites</label>
         <div class="prereq-form">
             <input type="text" class="form-control left-side no-right-border" ng-model="prereq.dept" placeholder="Department"/>
@@ -26,6 +35,8 @@
                 <i class="fa fa-plus"></i>
             </button>
         </div>
+        </div>
+        <!-- /3rd row -->
 
         <ul class="list-group">
             <li class="list-group-item deletable-list-item" ng-repeat="prereq in c.prereqs">

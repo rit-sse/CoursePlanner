@@ -25,10 +25,7 @@ body {
 }
 
 .plan-title {
-  margin-right: auto;
-  margin-left: 15px;
-  margin-bottom: 5px;
-  margin-top: 15px;
+  margin: 15px auto 5px 15px;
   font-weight: bold;
 }
 
@@ -255,6 +252,7 @@ body {
     flex: 1;
   }
 
+  // not an error - this centers plans
   years {
     margin: 0 auto;
   }
