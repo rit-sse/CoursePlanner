@@ -64,6 +64,7 @@ $shadow: #888888;
   padding-top: 5px;
   padding-left: 1px;
   padding-right: 1px;
+
   p {
     margin: 0;
     font-size: x-small;
@@ -80,6 +81,17 @@ $shadow: #888888;
   bottom: 5px;
   left: 0;
   right: 0;
+}
+
+.prereq-dept {
+  border-right: none;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.prereq-num {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
 .bottomleft-topright-line {
@@ -117,9 +129,10 @@ $shadow: #888888;
   right: -5px;
   float: right;
   background: $red;
+  padding-top: 1.5px;
   border-radius: 6px;
   height: 14px;
-  color: $black;
+  color: $white;
   z-index: 3;
   width: 14px;
 }
@@ -142,7 +155,8 @@ $shadow: #888888;
   }
 
   .add-prereq {
-    margin-left: 5px;
+    //TODO: should try to fix this to align properly, not with margins
+    margin: 25px 0 14px 5px;
     box-shadow: none;
     padding: 5px;
   }
