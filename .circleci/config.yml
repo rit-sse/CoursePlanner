@@ -7,7 +7,7 @@ jobs:
         steps:
             - checkout
             - setup_remote_docker
-            - run: 
+            - run:
                 name: Install Docker
                 command: |
                     curl -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
@@ -22,7 +22,7 @@ jobs:
                 command: |
                     curl -o /usr/local/bin/docker-compose -L "https://github.com/docker/compose/releases/download/1.13.0/docker-compose-$(uname -s)-$(uname -m)"
                     chmod +x /usr/local/bin/docker-compose
-            - run: 
+            - run:
                 name: Install npm shit
                 command: |
                     apt-get install -y python-software-properties
@@ -30,15 +30,15 @@ jobs:
                     apt-get install -y nodejs
                     npm install
                     npm install -g protractor
-            - run: 
+            - run:
                 name: Run Server+Mongo
                 command: |
-                    docker-compose -f docker-compose.test.yml up &
+                    docker-compose -f docker-compose.circle.yml up &
                     sleep 10 #wait a little
-            - run: 
+            - run:
                 name: Run selenium
                 command: |
                     apt-get install -y default-jre google-chrome-stable
                     webdriver-manager update
                     webdriver-manager start --standalone &
-                    sleep 10 #wait for it to start                    
+                    sleep 10 #wait for it to start

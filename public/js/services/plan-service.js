@@ -88,6 +88,7 @@ function($http, $q, notificationService, hotkeys, authService, uploadPlanModal) 
         .then(function(){
             self.plan.years = planToCopy.years;
             self.plan.title = 'Copy of ' + planToCopy.title;
+            self.plan.colorscheme = planToCopy.colorscheme;
             notificationService.notify('plan-changed');
         });
     };

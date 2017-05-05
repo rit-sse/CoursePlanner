@@ -52,6 +52,12 @@ body {
   vertical-align: top;
 }
 
+.credits {
+  color: $gray;
+  font-weight: bold;
+  font: inherit;  
+}
+
 .addCourseButton {
   margin: auto;
 }

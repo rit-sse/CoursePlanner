@@ -122,6 +122,17 @@ angular.module('YearsDirective', ['as.sortable'])
                     });
                 };
 
+                scope.getCredits = function(semester){
+                        var credits = 0;
+                          for(var i = 0; i < semester.classes.length; ++i) {
+                              credits += parseInt(semester.classes[i].credits);
+                          }
+                          if(isNaN(credits)){
+                            return 0;
+                          }
+                          return credits;
+                };
+
                 scope.hasPrereqs = function(course) {
 
                     //This is ugly
@@ -146,7 +157,7 @@ angular.module('YearsDirective', ['as.sortable'])
                                     courseYear = yearIndex;
                                     courseSemester = semesterIndex;
 
-                                    //This next line 
+                                    //This next line
                                     //is an inline function that is immediately called
                                     //Ew, right?
                                 } else if(function(prereqs, searchingFor){
