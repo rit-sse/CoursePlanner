@@ -1,4 +1,7 @@
-<div class="container" id="empty-view">
+<div class="container" id="empty-view" ng-switch="isAuthenticated()">
     <h3>To get started, click "Add Year" below.</h3>
-    <h3>If you log in, you can <a href="/browse"><b>Browse</b></a> and select someone else's shared plan.</h3>
+    <h3>If you log in, you can
+        <a ng-switch-when="true" href="/browse"><b>Browse</b></a>
+        <span ng-switch-default>browse</span>
+        and select someone else's shared plan.</h3>
 </div>

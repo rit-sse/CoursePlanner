@@ -1,9 +1,9 @@
 'use strict';
 
-var app = angular.module("HomeController", ['PlanService', 'NotificationService', 'EditPlanDetailsModal']);
+var app = angular.module("HomeController", ['PlanService', 'NotificationService', 'AuthService', 'EditPlanDetailsModal']);
 
-app.controller('homeController', ['$scope','$http', 'planService', 'notificationService', 'user', 'editPlanDetailsModal',
-function($scope, $http, planService, notificationService, user, editPlanDetailsModal) {
+app.controller('homeController', ['$scope','$http', 'planService', 'notificationService', 'user', 'authService', 'editPlanDetailsModal',
+function($scope, $http, planService, notificationService, user, authService, editPlanDetailsModal) {
     $scope.user = user;
     notificationService.on('user-changed', function(user){
         $scope.user = user;
@@ -22,5 +22,7 @@ function($scope, $http, planService, notificationService, user, editPlanDetailsM
     $scope.editPlanDetails = function() {
         editPlanDetailsModal.open($scope.plan);
     };
+
+    scope.isAuthenticated = authService.isAuthenticated;
 
 }]);
