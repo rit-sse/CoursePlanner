@@ -33,7 +33,7 @@
                     <button class="btn btn-default btn-sm load-btn" ng-click="load(plan)"
                         ng-if="selectedPlan === plan">Load</button>
                 </div>
-                <div class="panel-body" ng-if="selectedPlan === plan">
+                <div class="panel-body open-plan-preview" ng-if="selectedPlan === plan">
                     <years plan="::selectedPlan" readonly="true"></years>
                 </div>
             </div>
