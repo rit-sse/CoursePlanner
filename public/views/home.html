@@ -1,7 +1,8 @@
 <div class="home">
     <navbar user="user"></navbar>
     <div class="content">
-        <h3 class="plan-title" ng-click="editPlanDetails()">{{plan.title}}</h3>
+        <h3 class="plan-title" ng-click="editPlanDetails()" style="cursor:pointer;">
+            {{plan.title}}<i class="fa fa-pencil fa-fw" aria-hidden="true"></i></h3>
         <!-- Display for when there are no years -->
         <div ng-if="plan.years.length === 0" ng-include="'views/empty-view.html'"></div>
 
