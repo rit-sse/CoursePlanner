@@ -23,6 +23,6 @@ function($scope, $http, planService, notificationService, user, authService, edi
         editPlanDetailsModal.open($scope.plan);
     };
 
-    scope.isAuthenticated = authService.isAuthenticated;
+    $scope.isAuthenticated = authService.isAuthenticated;
 
 }]);
