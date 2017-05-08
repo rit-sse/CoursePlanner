@@ -1,0 +1,29 @@
+machine:
+    services:
+        - docker
+
+
+dependencies:
+    pre:
+        - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+        - sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+        - sudo apt-get update
+        - sudo apt-get install google-chrome-stable default-jre libpango1.0-0 firefox
+
+test:
+    pre: 
+        - npm install -g protractor
+        - docker-compose --file docker-compose.circle.yml up:
+            background: true
+        - webdriver-manager update
+        - webdriver-manager start:
+            background: true
+        - sleep 15
+    override:
+        - npm run karma:
+            environment:
+                JUNIT_REPORT_PATH: $CIRCLE_TEST_REPORTS/unit-reports/
+                JUNIT_REPORT_NAME: karma-test-results.xml
+        - protractor protractor.conf.js:
+            environment:
+                E2E_REPORT_PATH: $CIRCLE_TEST_REPORTS/e2e-reports/
