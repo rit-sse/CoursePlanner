@@ -17,8 +17,8 @@ dependencies:
         - sudo apt-get update
         - sudo apt-get install google-chrome-stable default-jre libpango1.0-0 firefox
         #update docker-compose
-       - sudo curl -o /usr/local/bin/docker-compose -L "https://github.com/docker/compose/releases/download/1.11.2/docker-compose-$(uname -s)-$(uname -m)" 
-       - sudo chmod +x /usr/local/bin/docker-compose
+        - sudo curl -o /usr/local/bin/docker-compose -L "https://github.com/docker/compose/releases/download/1.11.2/docker-compose-$(uname -s)-$(uname -m)" 
+        - sudo chmod +x /usr/local/bin/docker-compose
 
 test:
     pre: 
