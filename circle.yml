@@ -23,12 +23,13 @@ dependencies:
 test:
     pre: 
         - npm install -g protractor
-        - docker-compose --file docker-compose.circle.yml up:
+        - docker-compose --file docker-compose.circle.yml up &> $CIRCLE_TEST_REPORTS/server-output.txt:
             background: true
         - webdriver-manager update
         - webdriver-manager start:
             background: true
         - ./wait-for-server.sh
+        - sleep 1m
     override:
         - npm run karma:
             environment:
