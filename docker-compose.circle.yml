@@ -8,6 +8,9 @@ services:
         networks:
             - devnetwork
     web:
+        environment:
+            - TEST=true
+            - JWT_SECRET
         build:
             context: .
             dockerfile: Dockerfile.test
