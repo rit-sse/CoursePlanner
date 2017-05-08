@@ -1,0 +1,42 @@
+machine:
+    pre:
+        - curl -sSL https://s3.amazonaws.com/circle-downloads/install-circleci-docker.sh | bash -s -- 1.10.0
+
+    node:
+        version:
+            6.10.1
+
+    services:
+        - docker
+
+
+dependencies:
+    pre:
+        - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+        - sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+        - sudo apt-get update
+        - sudo apt-get install google-chrome-stable default-jre libpango1.0-0 firefox
+        #update docker-compose
+        - sudo curl -o /usr/local/bin/docker-compose -L "https://github.com/docker/compose/releases/download/1.11.2/docker-compose-$(uname -s)-$(uname -m)" 
+        - sudo chmod +x /usr/local/bin/docker-compose
+        #Stop existing mongo processes
+        - sudo service mongod stop
+
+test:
+    pre: 
+        - npm install -g protractor
+        - docker-compose --file docker-compose.circle.yml up &> $CIRCLE_TEST_REPORTS/server-output.txt:
+            background: true
+        - webdriver-manager update
+        - webdriver-manager start:
+            background: true
+        - ./wait-for-server.sh
+        - sleep 1m
+    override:
+        - npm run karma:
+            environment:
+                JUNIT_REPORT_PATH: $CIRCLE_TEST_REPORTS/unit-reports/
+                JUNIT_REPORT_NAME: karma-test-results.xml
+        - protractor protractor.conf.js:
+            environment:
+                E2E_REPORT_PATH: $CIRCLE_TEST_REPORTS/e2e-reports/
