@@ -17,24 +17,28 @@
     // Configuration
 
     //DB
-    mongoose.connect(config.db.url)
-    .then(function(){
-        console.log('Mongoose Connected');
-        if(process.env.TEST) {
-            console.log('***********************************************************');
-            console.log('***************************WARNING*************************');
-            console.log('***********************************************************');
-            console.log('You are running a test, I am now WIPING THE ENTIRE DATABASE');
-            console.log('so that you start clean');
-            console.log('***********************************************************');
-            //If this is a test and we connected to the test db,
-            //wipe everything so we start clean
-            mongoose.connection.db.dropDatabase();
-        }
-    })
-    .catch(function(err) {
-        console.log('Error connecting Mongoose up: ', err); //TODO on error, close application
-    });//, {authMechanism: 'ScramSHA1'});
+    function connectDB(){
+        mongoose.connect(config.db.url)
+        .then(function(){
+            console.log('Mongoose Connected');
+            if(process.env.TEST) {
+                console.log('***********************************************************');
+                console.log('***************************WARNING*************************');
+                console.log('***********************************************************');
+                console.log('You are running a test, I am now WIPING THE ENTIRE DATABASE');
+                console.log('so that you start clean');
+                console.log('***********************************************************');
+                //If this is a test and we connected to the test db,
+                //wipe everything so we start clean
+                mongoose.connection.db.dropDatabase();
+            }
+        })
+        .catch(function(err) {
+            console.log('Error connecting Mongoose up: ', err); 
+            setTimeout(connectDB, 5000); //Try again in 5 seconds
+        });
+    };
+    connectDB();
 
     // Server port
     var port = process.env.PORT || 8080;
