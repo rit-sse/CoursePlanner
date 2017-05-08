@@ -28,7 +28,7 @@ test:
         - webdriver-manager update
         - webdriver-manager start:
             background: true
-        - sleep 15
+        - ./wait-for-server.sh
     override:
         - npm run karma:
             environment:
