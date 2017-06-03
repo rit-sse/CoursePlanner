@@ -21,7 +21,8 @@
         mongoose.connect(config.db.url)
         .then(function(){
             console.log('Mongoose Connected');
-            if(process.env.TEST) {
+            console.log('Testing?', process.env.TEST);
+            if(process.env.TEST === true) {
                 console.log('***********************************************************');
                 console.log('***************************WARNING*************************');
                 console.log('***********************************************************');

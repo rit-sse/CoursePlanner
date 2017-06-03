@@ -10,7 +10,8 @@ angular.module('NavbarDirective',[
     'EditColorschemeModal',
     'EditProfileModal',
     'HelpModal',
-    'LoginModal'
+    'LoginModal',
+    'NotificationService'
 ])
 
 .directive('navbar', [
@@ -23,7 +24,8 @@ angular.module('NavbarDirective',[
     'authService',
     'Notification',
     'loginModal',
-    function($http, planService, openPlanModal, editColorschemeModal, editProfileModal, helpModal, authService, Notification, loginModal) {
+    'notificationService',
+    function($http, planService, openPlanModal, editColorschemeModal, editProfileModal, helpModal, authService, Notification, loginModal, notificationService) {
         return {
             replace: true,
             restrict: 'E',
@@ -92,6 +94,34 @@ angular.module('NavbarDirective',[
                 };
 
                 scope.editProfile = editProfileModal.open;
+
+                //Handle an icon indicator of if the plan has been changed
+                var originalPlan = JSON.parse(JSON.stringify(planService.plan));
+                scope.planSaved = function() {
+                    //If there's nothing, nothing to save!
+                    if(!originalPlan){
+                        return true;
+                    }
+
+                    //If it has no id, plan not saved
+                    if(!originalPlan._id){
+                        return false;
+                    }
+
+                    //If they're not equal, a change was made
+                    if(!angular.equals(originalPlan, planService.plan)){
+                        return false;
+                    }
+
+                    //If nothing else said no, guess we saved it!
+                    return true;
+                };
+
+                //When the plan is changed - specifically if it is saved, loaded, etc
+                //update our original plan
+                notificationService.on('plan-changed', function(){
+                    originalPlan = JSON.parse(JSON.stringify(planService.plan));
+                });
             }
         };
     }]);
