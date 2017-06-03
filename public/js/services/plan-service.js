@@ -17,7 +17,7 @@ function($http, $q, notificationService, hotkeys, authService, uploadPlanModal) 
         //issue if not addressed properly
         self.plan = {
             years: [],
-            title: 'New Plan',
+            title: 'Untitled Plan',
             public: false,
             colorscheme: {}
         };
