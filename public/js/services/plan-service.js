@@ -22,14 +22,16 @@ function($http, $q, notificationService, hotkeys, authService, uploadPlanModal) 
             colorscheme: {}
         };
 
-        return authService.getUser()
-        .then(function(user){
-            if(user){
-                self.plan.school = user.school;
-                notificationService.notify('plan-changed');
-            }
-            return self.plan;
-        });
+        if(authService.isAuthenticated()){
+            return authService.getUser()
+            .then(function(user){
+                if(user){
+                    self.plan.school = user.school;
+                    notificationService.notify('plan-changed');
+                }
+                return self.plan;
+            });
+        }
     };
     self.makeNew(); //Start with a clean plan no matter what
 
@@ -170,7 +172,6 @@ function($http, $q, notificationService, hotkeys, authService, uploadPlanModal) 
             }
         }
     });
-
 
     function errorHandler(response){
         if(response.status === -1) {

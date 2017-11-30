@@ -10,6 +10,8 @@ services:
         networks:
             - devnetwork
     web:
+        environment:
+            - TEST=false
         build:
             context: .
             dockerfile: Dockerfile.dev
